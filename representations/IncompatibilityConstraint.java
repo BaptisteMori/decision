@@ -1,5 +1,5 @@
 package representations;
 
-public class IncompatibilityConstraint {
+public class IncompatibilityConstraint implements Constraint {
 
 }

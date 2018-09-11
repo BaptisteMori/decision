@@ -1,5 +1,5 @@
 package representations;
 
-public class Disjunction {
+public class Disjunction implements Constraint {
 
 }

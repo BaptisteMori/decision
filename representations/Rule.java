@@ -1,5 +1,5 @@
 package representations;
 
-public class Rule {
-  
+public class Rule implements Constraint {
+
 }
