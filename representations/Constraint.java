@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface Constraint {
 
-  public void getScope();
+  public Set<Variable> getScope();
 
   public boolean isSatisfiedBy(Map<Variable,String> map);
 }
