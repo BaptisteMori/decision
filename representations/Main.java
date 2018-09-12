@@ -44,24 +44,30 @@ public class Main {
     Map<Variable, String> v2 = new HashMap<>();
     v2.put(ct, "noir");
     v2.put(cc, "noir");
-    v2.put(ch, "noir");
+    v2.put(ch, "blanc");
     v2.put(cg, "blanc");
     v2.put(cd, "rouge");
     v2.put(sono, "True");
     v2.put(to, "True");
 
     Map<Variable, String> v3 = new HashMap<>();
-    v2.put(ct, "noir");
-    v2.put(cc, "noir");
-    v2.put(ch, "noir");
-    v2.put(cg, "noir");
-    v2.put(cd, "noir");
-    v2.put(sono, "True");
-    v2.put(to, "False");
+    v3.put(ct, "noir");
+    v3.put(cc, "noir");
+    v3.put(ch, "noir");
+    v3.put(cg, "noir");
+    v3.put(cd, "noir");
+    v3.put(sono, "True");
+    v3.put(to, "False");
 
-    Constraint equal1 = new AllEqualConstraint();
-    Constraint disj1 = new Disjunction();
-    Constraint incomp1 = new IncompatibilityConstraint();
+		Set<Variable> c = new HashSet<Variable>();
+		c.add(ct);
+		c.add(ch);
+		c.add(cc);
+
+		Constraint equal1 = new AllEqualConstraint(c);
+		System.out.println(equal1.isSatisfiedBy(v2));
+    //Constraint disj1 = new Disjunction();
+    //Constraint incomp1 = new IncompatibilityConstraint();
 
     /*
     r1 = ct = "noir" -> cc = b || ch = r

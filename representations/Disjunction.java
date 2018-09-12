@@ -2,17 +2,10 @@ package representations;
 
 import java.util.*;
 
-public class Disjunction extends Rule implements Constraint  {
+public class Disjunction extends Rule {
 
-  private Set<Variable> scope;
-
-  public Disjunction() {
-
-  }
-
-	@Override
-  public Set<Variable> getScope() {
-		return this.scope;
+  public Disjunction(Map<Variable,String> premisse, Map<Variable,String> conclusion) {
+		super(premisse,conclusion);
   }
 
   @Override

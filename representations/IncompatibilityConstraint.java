@@ -2,18 +2,12 @@ package representations;
 
 import java.util.*;
 
-public class IncompatibilityConstraint extends Rule implements Constraint  {
+public class IncompatibilityConstraint extends Rule {
 
-  private Set<Variable> scope;
-
-  public IncompatibilityConstraint() {
-
+  public IncompatibilityConstraint(Map<Variable,String> premisse, Map<Variable,String> conclusion) {
+		super(premisse,conclusion);
   }
 
-	@Override
-  public Set<Variable> getScope() {
-		return this.scope;
-  }
 
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
