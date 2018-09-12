@@ -13,20 +13,14 @@ public class AllEqualConstraint implements Constraint {
   /*test si la constrainte est respectée (toutes les variables égales entre elles)*/
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> voiture) {
-    for (Map.Entry<Variable,String> criterion : voiture.entrySet()) {
-      if (this.scope.contains(criterion.getKey())) {
-				try {
-					final String test_value = criterion.getValue();
-				} catch(Exception e) {
-					System.out.println(e);
-				}
-
-        if (!(criterion.getValue().equals(test_value))) {
-          return false;
-        }
-      }
-    }
-    return true;
+		Variable[] scope_array = this.scope.toArray();
+		String test_value = voiture.get(scope_array[0]);
+		for (int i = 1; i < this.scope.size() ; i++) {
+			if(!(voiture.get(scope_array[i]).equals(test_value))) {
+				return false;
+			}
+		}
+		return true;
   }
 
   @Override
