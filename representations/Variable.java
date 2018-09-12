@@ -11,4 +11,8 @@ public class Variable {
     this.nom = nom;
     this.domaine = domaine;
   }
+
+	public String getNom() {
+		return this.nom;
+	}
 }
