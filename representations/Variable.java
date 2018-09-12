@@ -12,6 +12,25 @@ public class Variable {
     this.domaine = domaine;
   }
 
+	@Override
+	public int hashCode() {
+		int code=7;
+		code+=47*code+this.nom.length();
+		return code;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o==this) {
+			return true;
+		}
+		if (!(o instanceof Variable)) {
+			return false;
+		}
+		Variable n = (Variable)o;
+		return this.nom==n.nom;
+	}
+
 	public String getNom() {
 		return this.nom;
 	}
