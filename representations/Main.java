@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-  public static void Main(String[] args) {
+  public static void main(String[] args) {
 
     Set<String> domaine = new HashSet<>();
     domaine.add("blanc");
