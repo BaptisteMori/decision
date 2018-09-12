@@ -32,32 +32,32 @@ public class Main {
     /*Création des voitures*/
 
     Map<Variable, String> v1 = new HashMap<>();
-    v1.add(ct, "rouge");
-    v1.add(cc, "rouge");
-    v1.add(ch, "rouge");
-    v1.add(cg, "noir");
-    v1.add(cd, "rouge");
-    v1.add(sono, "True");
-    v1.add(to, "False");
+    v1.put(ct, "rouge");
+    v1.put(cc, "rouge");
+    v1.put(ch, "rouge");
+    v1.put(cg, "noir");
+    v1.put(cd, "rouge");
+    v1.put(sono, "True");
+    v1.put(to, "False");
 
 
     Map<Variable, String> v2 = new HashMap<>();
-    v2.add(ct, "noir");
-    v2.add(cc, "noir");
-    v2.add(ch, "noir");
-    v2.add(cg, "blanc");
-    v2.add(cd, "rouge");
-    v2.add(sono, "True");
-    v2.add(to, "True");
+    v2.put(ct, "noir");
+    v2.put(cc, "noir");
+    v2.put(ch, "noir");
+    v2.put(cg, "blanc");
+    v2.put(cd, "rouge");
+    v2.put(sono, "True");
+    v2.put(to, "True");
 
     Map<Variable, String> v3 = new HashMap<>();
-    v2.add(ct, "noir");
-    v2.add(cc, "noir");
-    v2.add(ch, "noir");
-    v2.add(cg, "noir");
-    v2.add(cd, "noir");
-    v2.add(sono, "True");
-    v2.add(to, "False");
+    v2.put(ct, "noir");
+    v2.put(cc, "noir");
+    v2.put(ch, "noir");
+    v2.put(cg, "noir");
+    v2.put(cd, "noir");
+    v2.put(sono, "True");
+    v2.put(to, "False");
 
     Constraint equal1 = new AllEqualConstraint();
     Constraint disj1 = new Disjunction();

@@ -2,7 +2,7 @@ package representations;
 
 import java.util.*;
 
-public class Disjunction implements Constraint extends Rule {
+public class Disjunction extends Rule implements Constraint  {
 
   private Set<Variable> scope;
 
