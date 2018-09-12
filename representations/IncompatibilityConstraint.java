@@ -2,7 +2,7 @@ package representations;
 
 import java.util.*;
 
-public class IncompatibilityConstraint implements Constraint {
+public class IncompatibilityConstraint implements Constraint extends Rule {
 
   private Set<Variable> scope;
 
