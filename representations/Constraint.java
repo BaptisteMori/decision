@@ -1,6 +1,6 @@
 package representations;
 
-import java.util.Map;
+import java.util.*;
 
 public interface Constraint {
 

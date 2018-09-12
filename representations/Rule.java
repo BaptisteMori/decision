@@ -10,9 +10,9 @@ public class Rule implements Constraint {
 
   }
 
-  @Override
-  public void getScope() {
-
+	@Override
+  public Set<Variable> getScope() {
+		return this.scope;
   }
 
   @Override
