@@ -20,18 +20,15 @@ public class Rule implements Constraint {
 
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
-    ArrayList<Variable> p = this.premisse.getKeys();
-    ArrayList<Variable> c = this.conclusion.getKeys();
-    ArrayList<Variable> t = test.getKeys();
-
-
-    for (Variable v : p) {
-        if (!(t.get(v).equals(p.get(v)))) {
+    // premisse
+    for (Variable v : test.keySet()) {
+        if (!(v.equals(this.premisse.get(v)))) {
             return true;
-          }
+        }
     }
-    for (Variable v: c) {
-      if (t.get(v).equals(c.get(v))) {
+    // conclusion
+    for (Variable v: test.keySet()) {
+      if (v.equals(this.conclusion.get(v))) {
         return true;
       }
     }
