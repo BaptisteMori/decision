@@ -1,10 +1,13 @@
 package representations;
 
 import java.util.*;
+import examples.Example;
 
 public class Main {
 
   public static void main(String[] args) {
+
+    Example ex = new Example();
 
     /*Domaine couleur*/
 
@@ -31,40 +34,15 @@ public class Main {
 
     /*Création des voitures*/
 
-    Map<Variable, String> v1 = new HashMap<>();
-    v1.put(ct, "rouge");
-    v1.put(cc, "rouge");
-    v1.put(ch, "rouge");
-    v1.put(cg, "noir");
-    v1.put(cd, "rouge");
-    v1.put(sono, "True");
-    v1.put(to, "False");
+    Map<Variable, String> v1 = ex.getVoiture1();
 
+    Map<Variable, String> v2 = ex.getVoiture2();
 
-    Map<Variable, String> v2 = new HashMap<>();
-    v2.put(ct, "noir");
-    v2.put(cc, "noir");
-    v2.put(ch, "blanc");
-    v2.put(cg, "blanc");
-    v2.put(cd, "rouge");
-    v2.put(sono, "True");
-    v2.put(to, "True");
+    Map<Variable, String> v3 = ex.getVoiture3();
 
-    Map<Variable, String> v3 = new HashMap<>();
-    v3.put(ct, "noir");
-    v3.put(cc, "noir");
-    v3.put(ch, "noir");
-    v3.put(cg, "noir");
-    v3.put(cd, "noir");
-    v3.put(sono, "True");
-    v3.put(to, "False");
+		//Set<Variable> c = ex.getExample();
 
-		Set<Variable> c = new HashSet<Variable>();
-		c.add(ct);
-		c.add(ch);
-		c.add(cc);
-
-		Constraint equal1 = new AllEqualConstraint(c);
+		Constraint equal1 = ex.getExample();
 		System.out.println(equal1.isSatisfiedBy(v2));
     //Constraint disj1 = new Disjunction();
     //Constraint incomp1 = new IncompatibilityConstraint();
