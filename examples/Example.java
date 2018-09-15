@@ -71,13 +71,13 @@ public class Example {
 		Object[] vars_array = vars.toArray();
 
 		Map<Variable, String> v1 = new HashMap<>();
-		v1.put(vars_array[0], "rouge");
-		v1.put(vars_array[1], "rouge");
-		v1.put(vars_array[2], "rouge");
-		v1.put(vars_array[3], "noir");
-		v1.put(vars_array[4], "rouge");
-		v1.put(vars_array[5], "True");
-		v1.put(vars_array[6], "False");
+		v1.put(((Variable)vars_array[0]), "rouge");
+		v1.put(((Variable)vars_array[1]), "rouge");
+		v1.put(((Variable)vars_array[2]), "rouge");
+		v1.put(((Variable)vars_array[3]), "noir");
+		v1.put(((Variable)vars_array[4]), "rouge");
+		v1.put(((Variable)vars_array[5]), "True");
+		v1.put(((Variable)vars_array[6]), "False");
 		return v1;
 	}
 
@@ -87,13 +87,13 @@ public class Example {
 		Object[] vars_array = vars.toArray();
 
 		Map<Variable, String> v2 = new HashMap<>();
-		v2.put(vars_array[0], "noir");
-		v2.put(vars_array[1], "noir");
-		v2.put(vars_array[2], "blanc");
-		v2.put(vars_array[3], "blanc");
-		v2.put(vars_array[4], "rouge");
-		v2.put(vars_array[5], "True");
-		v2.put(vars_array[6], "True");
+		v2.put(((Variable)vars_array[0]), "noir");
+		v2.put(((Variable)vars_array[1]), "noir");
+		v2.put(((Variable)vars_array[2]), "blanc");
+		v2.put(((Variable)vars_array[3]), "blanc");
+		v2.put(((Variable)vars_array[4]), "rouge");
+		v2.put(((Variable)vars_array[5]), "True");
+		v2.put(((Variable)vars_array[6]), "True");
 		return v2;
 	}
 
@@ -103,13 +103,13 @@ public class Example {
 		Object[] vars_array = vars.toArray();
 
 		Map<Variable, String> v3 = new HashMap<>();
-		v3.put(vars_array[0], "noir");
-		v3.put(vars_array[1], "noir");
-		v3.put(vars_array[2], "noir");
-		v3.put(vars_array[3], "noir");
-		v3.put(vars_array[4], "noir");
-		v3.put(vars_array[5], "False");
-		v3.put(vars_array[6], "True");
+		v3.put(((Variable)vars_array[0]), "noir");
+		v3.put(((Variable)vars_array[1]), "noir");
+		v3.put(((Variable)vars_array[2]), "noir");
+		v3.put(((Variable)vars_array[3]), "noir");
+		v3.put(((Variable)vars_array[4]), "noir");
+		v3.put(((Variable)vars_array[5]), "False");
+		v3.put(((Variable)vars_array[6]), "True");
 		return v3;
 	}
 }
