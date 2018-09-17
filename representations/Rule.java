@@ -21,14 +21,14 @@ public class Rule implements Constraint {
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
     // premisse
-    for (Variable v : test.keySet()) {
-        if (!(v.equals(this.premisse.get(v)))) {
+    for (Variable v : this.premisse.keySet()) {
+        if (!(v.equals(test.get(v)))) {
             return true;
         }
     }
     // conclusion
-    for (Variable v: test.keySet()) {
-      if (v.equals(this.conclusion.get(v))) {
+    for (Variable v: this.conclusion.keySet()) {
+      if (v.equals(test.get(v))) {
         return true;
       }
     }

@@ -17,10 +17,15 @@ public class Main {
 
     Map<Variable, String> v3 = ex.getVoiture3();
 
-		Constraint equal1 = ex.getAllEqual();
-		System.out.println(equal1.isSatisfiedBy(v1));
-    //Constraint disj1 = new Disjunction();
-    //Constraint incomp1 = new IncompatibilityConstraint();
+		Constraint c1 = ex.getAllEqual();
+		System.out.println(c1.isSatisfiedBy(v1));
+		System.out.println(c1.isSatisfiedBy(v2));
+		System.out.println(c1.isSatisfiedBy(v3));
+		Constraint c3 = ex.getIncompatibilityConstraintForBlackSides();
+		System.out.println(c3.isSatisfiedBy(v1));
+		System.out.println(c3.isSatisfiedBy(v2));
+		System.out.println(c3.isSatisfiedBy(v3));
+
 
     /*
     r1 = ct = "noir" -> cc = b || ch = r

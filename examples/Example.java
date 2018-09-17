@@ -52,6 +52,45 @@ public class Example {
 		return equal1;
 	}
 
+/*	public Constraint getDisjunction() {
+
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		conditions.put(this.ct,"blanc");
+	}*/
+
+	public Constraint getIncompatibilityConstraintForBlackSides() {
+
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		conditions.put(this.cg, "noir");
+		conditions.put(this.cd,"noir");
+
+		Constraint inc_black = new IncompatibilityConstraint(conditions);
+
+		return inc_black;
+	}
+
+	public Constraint getIncompatibilityConstraintForSono1() {
+
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		conditions.put(this.sono, "True");
+		conditions.put(this.to,"True");
+
+		Constraint inc_sono1 = new IncompatibilityConstraint(conditions);
+
+		return inc_sono1;
+	}
+
+	public Constraint getIncompatibilityConstraintForSono2() {
+
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		conditions.put(this.sono, "False");
+		conditions.put(this.to,"False");
+
+		Constraint inc_sono2 = new IncompatibilityConstraint(conditions);
+
+		return inc_sono2;
+	}
+
 	public Set<Variable> getVariables() {
 		Set<Variable> result = new HashSet<Variable>();
 		result.add(this.ct);
