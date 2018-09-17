@@ -40,7 +40,7 @@ public class Example {
 		this.to = new Variable("toit_ouvrant", this.domaine_boolean);
 	}
 
-	public Constraint getExample() {
+	public Constraint getAllEqual() {
 
 		Set<Variable> c = new HashSet<Variable>();
 		c.add(this.ct);
