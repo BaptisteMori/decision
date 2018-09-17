@@ -11,10 +11,10 @@ public class IncompatibilityConstraint extends Rule {
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
 		for (Variable v : this.premisse.keySet()) {
-			if (!(v.equals(test.get(v)))) {
-				return false;
+			if (!(premisse.get(v).equals(test.get(v)))) {
+				return true;
 			}
 		}
-		return true;
+		return false;
   }
 }

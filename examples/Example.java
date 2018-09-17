@@ -52,11 +52,41 @@ public class Example {
 		return equal1;
 	}
 
-/*	public Constraint getDisjunction() {
+	public Constraint getDisjunctionBlanc() {
 
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
-		conditions.put(this.ct,"blanc");
-	}*/
+		String coul_toit = "blanc";
+		conditions.put(this.ct,coul_toit);
+		conditions.put(this.cg,coul_toit);
+		conditions.put(this.cd,coul_toit);
+
+		Constraint disjunction = new Disjunction(conditions);
+		return disjunction;
+	}
+
+	public Constraint getDisjunctionNoir() {
+
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		String coul_toit = "noir";
+		conditions.put(this.ct,coul_toit);
+		conditions.put(this.cg,coul_toit);
+		conditions.put(this.cd,coul_toit);
+
+		Constraint disjunction = new Disjunction(conditions);
+		return disjunction;
+	}
+
+	public Constraint getDisjunctionRouge() {
+
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		String coul_toit = "rouge";
+		conditions.put(this.ct,coul_toit);
+		conditions.put(this.cg,coul_toit);
+		conditions.put(this.cd,coul_toit);
+
+		Constraint disjunction = new Disjunction(conditions);
+		return disjunction;
+	}
 
 	public Constraint getIncompatibilityConstraintForBlackSides() {
 
@@ -69,26 +99,15 @@ public class Example {
 		return inc_black;
 	}
 
-	public Constraint getIncompatibilityConstraintForSono1() {
+	public Constraint getIncompatibilityConstraintForSono() {
 
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
 		conditions.put(this.sono, "True");
 		conditions.put(this.to,"True");
 
-		Constraint inc_sono1 = new IncompatibilityConstraint(conditions);
+		Constraint inc_sono = new IncompatibilityConstraint(conditions);
 
-		return inc_sono1;
-	}
-
-	public Constraint getIncompatibilityConstraintForSono2() {
-
-		Map<Variable,String> conditions = new HashMap<Variable,String>();
-		conditions.put(this.sono, "False");
-		conditions.put(this.to,"False");
-
-		Constraint inc_sono2 = new IncompatibilityConstraint(conditions);
-
-		return inc_sono2;
+		return inc_sono;
 	}
 
 	public Set<Variable> getVariables() {
@@ -106,17 +125,14 @@ public class Example {
 	/*Création des voitures*/
 	public Map<Variable,String> getVoiture1() {
 
-		Set<Variable> vars = this.getVariables();
-		Object[] vars_array = vars.toArray();
-
 		Map<Variable, String> v1 = new HashMap<>();
-		v1.put(((Variable)vars_array[0]), "rouge");
-		v1.put(((Variable)vars_array[1]), "rouge");
-		v1.put(((Variable)vars_array[2]), "rouge");
-		v1.put(((Variable)vars_array[3]), "noir");
-		v1.put(((Variable)vars_array[4]), "rouge");
-		v1.put(((Variable)vars_array[5]), "True");
-		v1.put(((Variable)vars_array[6]), "False");
+		v1.put(this.ct, "rouge");
+		v1.put(this.cc, "rouge");
+		v1.put(this.ch, "rouge");
+		v1.put(this.cg, "noir");
+		v1.put(this.cd, "rouge");
+		v1.put(this.sono, "True");
+		v1.put(this.to, "False");
 		return v1;
 	}
 
@@ -126,13 +142,13 @@ public class Example {
 		Object[] vars_array = vars.toArray();
 
 		Map<Variable, String> v2 = new HashMap<>();
-		v2.put(((Variable)vars_array[0]), "noir");
-		v2.put(((Variable)vars_array[1]), "noir");
-		v2.put(((Variable)vars_array[2]), "blanc");
-		v2.put(((Variable)vars_array[3]), "blanc");
-		v2.put(((Variable)vars_array[4]), "rouge");
-		v2.put(((Variable)vars_array[5]), "True");
-		v2.put(((Variable)vars_array[6]), "True");
+		v2.put(this.ct, "noir");
+		v2.put(this.cc, "noir");
+		v2.put(this.ch, "blanc");
+		v2.put(this.cg, "blanc");
+		v2.put(this.cd, "rouge");
+		v2.put(this.sono, "True");
+		v2.put(this.to, "True");
 		return v2;
 	}
 
@@ -142,13 +158,13 @@ public class Example {
 		Object[] vars_array = vars.toArray();
 
 		Map<Variable, String> v3 = new HashMap<>();
-		v3.put(((Variable)vars_array[0]), "noir");
-		v3.put(((Variable)vars_array[1]), "noir");
-		v3.put(((Variable)vars_array[2]), "noir");
-		v3.put(((Variable)vars_array[3]), "noir");
-		v3.put(((Variable)vars_array[4]), "noir");
-		v3.put(((Variable)vars_array[5]), "False");
-		v3.put(((Variable)vars_array[6]), "True");
+		v3.put(this.ct, "noir");
+		v3.put(this.cc, "noir");
+		v3.put(this.ch, "noir");
+		v3.put(this.cg, "noir");
+		v3.put(this.cd, "noir");
+		v3.put(this.sono, "False");
+		v3.put(this.to, "True");
 		return v3;
 	}
 }

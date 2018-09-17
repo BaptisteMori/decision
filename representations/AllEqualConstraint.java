@@ -15,7 +15,8 @@ public class AllEqualConstraint implements Constraint {
   public boolean isSatisfiedBy(Map<Variable,String> voiture) {
 		Object[] scope_array = this.scope.toArray();
 		String test_value = voiture.get(scope_array[0]);
-		for (int i = 1; i < this.scope.size() -1 ; i++) {
+
+		for (int i = 0; i <= this.scope.size() -1 ; i++) {
 			if(!(voiture.get(scope_array[i]).equals(test_value))) {
 				return false;
 			}
