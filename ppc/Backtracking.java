@@ -5,10 +5,12 @@ import examples;
 
 public class Backtracking {
 
-  private String[Variable] variables;
+  private Variable[] variables;
+  private Constraint[] constraints;
 
-  public Backtracking() {
-
+  public Backtracking(Variable[] variables, Constraint[] constraints) {
+    this.variables = variables;
+    this.constraints = constraints;
 
   }
 }
