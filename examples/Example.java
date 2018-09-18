@@ -111,7 +111,7 @@ public class Example {
 	}
 
 	public Variable[] getVariables() {
-		Variable[7] result = new Variable[];
+		Variable[] result = new Variable[7];
 		result[0]=this.ct;
 		result[1]=this.cc;
 		result[2]=this.ch;
@@ -123,7 +123,7 @@ public class Example {
 	}
 
 	public Constraint[] getConstraints() {
-		Constraint[6] result = new Constraint[];
+		Constraint[] result = new Constraint[6];
 		result[0]=this.getAllEqual();
 		result[1]=this.getDisjunctionNoir();
 		result[2]=this.getDisjunctionBlanc();
