@@ -2,6 +2,7 @@ package representations;
 
 import java.util.*;
 import examples.Example;
+import ppc.*;
 
 public class Main {
 
@@ -28,7 +29,7 @@ public class Main {
     Constraint c4 = ex.getIncompatibilityConstraintForSono();
 		System.out.println(c4.isSatisfiedBy(v1));
 		System.out.println(c4.isSatisfiedBy(v2));
-		System.out.println(c4.isSatisfiedBy(v3));*/
+		System.out.println(c4.isSatisfiedBy(v3));
     Constraint c2a = ex.getDisjunctionBlanc();
     Constraint c2b = ex.getDisjunctionNoir();
     Constraint c2c = ex.getDisjunctionRouge();
@@ -43,5 +44,16 @@ public class Main {
       System.out.println("BUG")
     }
     */
+    Variable[] v = ex.getVariables();
+    Constraint[] constraints = new Constraint[3];
+    Constraint allEqual = ex.getAllEqual();
+    constraints[0] = allEqual;
+    Constraint incompSono = ex.getIncompatibilityConstraintForSono();
+    constraints[1] = incompSono;
+    Constraint incompSides = ex.getIncompatibilityConstraintForBlackSides();
+    constraints[2] = incompSides;
+
+    GenerateAndTest gt = new GenerateAndTest(v,constraints);
+    System.out.println(gt);
   }
 }
