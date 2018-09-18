@@ -110,15 +110,26 @@ public class Example {
 		return inc_sono;
 	}
 
-	public Set<Variable> getVariables() {
-		Set<Variable> result = new HashSet<Variable>();
-		result.add(this.ct);
-		result.add(this.cc);
-		result.add(this.ch);
-		result.add(this.cg);
-		result.add(this.cd);
-		result.add(this.sono);
-		result.add(this.to);
+	public Variable[] getVariables() {
+		Variable[7] result = new Variable[];
+		result[0]=this.ct;
+		result[1]=this.cc;
+		result[2]=this.ch;
+		result[3]=this.cg;
+		result[4]=this.cd;
+		result[5]=this.sono;
+		result[6]=this.to;
+		return result;
+	}
+
+	public Constraint[] getConstraints() {
+		Constraint[6] result = new Constraint[];
+		result[0]=this.getAllEqual();
+		result[1]=this.getDisjunctionNoir();
+		result[2]=this.getDisjunctionBlanc();
+		result[3]=this.getDisjunctionRouge();
+		result[4]=this.getIncompatibilityConstraintForBlackSides();
+		result[5]=this.getIncompatibilityConstraintForSono();
 		return result;
 	}
 
@@ -138,9 +149,6 @@ public class Example {
 
 	public Map<Variable,String> getVoiture2() {
 
-		Set<Variable> vars = this.getVariables();
-		Object[] vars_array = vars.toArray();
-
 		Map<Variable, String> v2 = new HashMap<>();
 		v2.put(this.ct, "noir");
 		v2.put(this.cc, "noir");
@@ -153,9 +161,6 @@ public class Example {
 	}
 
 	public Map<Variable,String> getVoiture3() {
-
-		Set<Variable> vars = this.getVariables();
-		Object[] vars_array = vars.toArray();
 
 		Map<Variable, String> v3 = new HashMap<>();
 		v3.put(this.ct, "noir");

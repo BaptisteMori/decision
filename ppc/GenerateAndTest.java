@@ -11,6 +11,5 @@ public class GenerateAndTest {
   public GenerateAndTest(Variable[] variables, Constraint[] constraints) {
     this.variables = variables;
     this.constraints = constraints;
-
   }
 }
