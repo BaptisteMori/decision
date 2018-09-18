@@ -35,6 +35,10 @@ public class Variable {
 		return this.nom;
 	}
 
+	public getDomaine() {
+		return this.domaine;
+	}
+	
   public String toString(){
     return this.nom;
   }
