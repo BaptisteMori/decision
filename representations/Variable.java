@@ -39,7 +39,11 @@ public class Variable {
 		return this.domaine;
 	}
 
-  public String toString(){
+  public Set<String> setDomaine(Set<String> new_dom) {
+    this.domaine=new_dom;
+  }
+
+  public String toString() {
     return this.nom;
   }
 }

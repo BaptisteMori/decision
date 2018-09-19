@@ -14,8 +14,7 @@ public class Main {
 		Map<Variable,String> map = b.generateMap();
 
 		//Map<Variable,String> test = b.atomicAttribution(map,e[5]);
-		boolean r = b.backtrack(map);
-		System.out.println(r);
+		b.backtrack(map,0);
 		//System.out.println(b.allConstraintsSatisfiedBy(test));
 	}
 }

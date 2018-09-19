@@ -14,33 +14,54 @@ public class Backtracking {
     this.constraints = constraints;
   }
 
-  public boolean backtrack(Map<Variable,String> voiture) {
-    boolean res = true;
-    int i=0;
-    Map<Variable,String> tmp = new HashMap<Variable,String>();
-    while (res) {
-      tmp = atomicAttribution(voiture, this.variables[i]);
-      i++;
-      res = allConstraintsSatisfiedBy(tmp);
+  public void backtrack(Map<Variable,String> voiture, int nb_variables) {
 
-      if (res == false) {
-        tmp = voiture;
-        tmp = atomicAttribution(tmp, this.variables[i]);
-        res = true;
+    if (this.allConstraintsSatisfiedBy(voiture)) {
+      if (!(voiture.containsValue(""))) {
+        System.out.println(voiture);
+        recursion:
+        voiture.atomicAttribution(voiture, this.variables[nb_variables]);
+        Set<String> current_domain = this.variables[nb_variables].getDomaine();
+        current_domain.remove(voiture.get(this.variables[nb_variables]));
+        this.variables[nb_variables].setDomaine(current_domain);
+        backtrack(voiture, nb_variables);
+      } else {
+        voiture.atomicAttribution(voiture,this.variables[nb_variables-1]);
+        Set<String> current_domain = this.variables[nb_variables-1].getDomaine();
+        current_domain.remove(voiture.get(this.variables[nb_variables-1]));
+        this.variables[nb_variables].setDomaine(current_domain);
+        backtrack(voiture, nb_variables-1);
       }
-      voiture = tmp;
+    } else {
+      break recursion;
     }
-    return res;
+
+    // while (nb_variables < this.variables.length) {
+    //   tmp = atomicAttribution(voiture, this.variables[nb_variables]);
+    //   valuelist.add(tmp.get(this.variables[nb_variables]));
+    //
+    //     System.out.println(tmp);
+    //     backtrack(tmp, nb_variables+1);
+    //   } else if (valuelist.size() == this.variables[nb_variables].getDomaine().size()) {
+    //     tmp = atomicAttribution(tmp, this.variables[nb_variables-1]);
+    //     valuelist=new ArrayList<String>();
+    //     backtrack(tmp, nb_variables+1);
+    //   } else {
+    //     tmp = atomicAttribution(tmp, this.variables[nb_variables]);
+    //     backtrack(tmp, nb_variables+1);
+    //   }
+    // }
   }
 
 	public Map<Variable,String> atomicAttribution(Map<Variable,String> map, Variable v) {
 
-		Random r = new Random();
-		String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
-		String value = domaine[r.nextInt(domaine.length)];
-		map.put(v,value);
-		System.out.println(map);
-		return map;
+    Random r = new Random();
+    String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
+    String value = domaine[r.nextInt(domaine.length)];
+    map.put(v,value);
+    System.out.println(map);
+    return map;
+
 	}
 
 	public boolean allConstraintsSatisfiedBy(Map<Variable,String> voiture) {
@@ -67,5 +88,4 @@ public class Backtracking {
 	public Constraint[] getConstraints() {
 		return this.constraints;
 	}
-
 }
