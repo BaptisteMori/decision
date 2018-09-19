@@ -39,7 +39,7 @@ public class Variable {
 		return this.domaine;
 	}
 
-  public Set<String> setDomaine(Set<String> new_dom) {
+  public void setDomaine(Set<String> new_dom) {
     this.domaine=new_dom;
   }
 

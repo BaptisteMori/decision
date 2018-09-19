@@ -19,21 +19,18 @@ public class Backtracking {
     if (this.allConstraintsSatisfiedBy(voiture)) {
       if (!(voiture.containsValue(""))) {
         System.out.println(voiture);
-        recursion:
-        voiture.atomicAttribution(voiture, this.variables[nb_variables]);
+      }
+        this.atomicAttribution(voiture,this.variables[nb_variables]);
         Set<String> current_domain = this.variables[nb_variables].getDomaine();
         current_domain.remove(voiture.get(this.variables[nb_variables]));
         this.variables[nb_variables].setDomaine(current_domain);
         backtrack(voiture, nb_variables);
-      } else {
-        voiture.atomicAttribution(voiture,this.variables[nb_variables-1]);
-        Set<String> current_domain = this.variables[nb_variables-1].getDomaine();
-        current_domain.remove(voiture.get(this.variables[nb_variables-1]));
-        this.variables[nb_variables].setDomaine(current_domain);
-        backtrack(voiture, nb_variables-1);
-      }
     } else {
-      break recursion;
+      this.atomicAttribution(voiture, this.variables[nb_variables-1]);
+      Set<String> current_domain = this.variables[nb_variables-1].getDomaine();
+      current_domain.remove(voiture.get(this.variables[nb_variables-1]));
+      this.variables[nb_variables-1].setDomaine(current_domain);
+      backtrack(voiture, nb_variables-1);
     }
 
     // while (nb_variables < this.variables.length) {
@@ -57,6 +54,7 @@ public class Backtracking {
 
     Random r = new Random();
     String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
+    System.out.println(domaine.length);
     String value = domaine[r.nextInt(domaine.length)];
     map.put(v,value);
     System.out.println(map);
