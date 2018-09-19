@@ -13,14 +13,14 @@ public class Disjunction extends Rule {
 		// premisse
 		if (!(this.premisse == null)) {
 			for (Variable v : this.premisse.keySet()) {
-				if (!(premisse.get(v).equals(test.get(v)))) {
+				if (!(premisse.get(v).equals(test.get(v)) || test.get(v).equals(""))) {
 					return false;
 				}
 			}
 		}
 		// conclusion
 		for (Variable v: this.conclusion.keySet()) {
-			if (conclusion.get(v).equals(test.get(v))) {
+			if (conclusion.get(v).equals(test.get(v)) || test.get(v).equals("")) {
 				return true;
 			}
 		}

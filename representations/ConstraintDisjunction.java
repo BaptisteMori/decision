@@ -2,7 +2,7 @@ package representations;
 
 import java.util.*;
 
-public class ConstraintDisjunction {
+public class ConstraintDisjunction implements Constraint {
 
   private Constraint[] constraints;
 
@@ -17,4 +17,9 @@ public class ConstraintDisjunction {
 		}
 		return union_result;
 	}
+
+  @Override
+  public Set<Variable> getScope() {
+    return null;
+  }
 }

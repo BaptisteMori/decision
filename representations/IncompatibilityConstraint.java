@@ -11,7 +11,8 @@ public class IncompatibilityConstraint extends Rule {
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
 		for (Variable v : this.premisse.keySet()) {
-			if (!(premisse.get(v).equals(test.get(v)))) {
+			if (!(premisse.get(v).equals(test.get(v))) || test.get(v).equals("")) {
+
 				return true;
 			}
 		}

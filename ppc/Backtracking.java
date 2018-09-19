@@ -33,6 +33,14 @@ public class Backtracking {
 		return true;
 	}
 
+  public Map<Variable,String> generateMap() {
+    Map<Variable,String> map = new HashMap<Variable,String>();
+    for (int i = 0; i < this.variables.length; i++) {
+      map.put(this.variables[i],"");
+    }
+    return map;
+  }
+
 	public Variable[] getVariables() {
 		return this.variables;
 	}

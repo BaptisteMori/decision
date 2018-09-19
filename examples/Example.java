@@ -63,6 +63,15 @@ public class Example {
 		return disjunction;
 	}
 
+	public Constraint getDisjunctionTotal() {
+		Constraint[] disjunction_list = new Constraint[3];
+		disjunction_list[0]=getDisjunctionToit("noir");
+		disjunction_list[1]=getDisjunctionToit("blanc");
+		disjunction_list[2]=getDisjunctionToit("rouge");
+		ConstraintDisjunction union = new ConstraintDisjunction(disjunction_list);
+		return union;
+	}
+
 	public Constraint getIncompatibilityConstraintForBlackSides() {
 
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
@@ -96,13 +105,11 @@ public class Example {
 	}
 
 	public Constraint[] getConstraints() {
-		Constraint[] result = new Constraint[6];
+		Constraint[] result = new Constraint[4];
 		result[0]=this.getAllEqual();
-		result[1]=this.getDisjunctionToit("noir");
-		result[2]=this.getDisjunctionToit("blanc");
-		result[3]=this.getDisjunctionToit("rouge");
-		result[4]=this.getIncompatibilityConstraintForBlackSides();
-		result[5]=this.getIncompatibilityConstraintForSono();
+		result[1]=this.getDisjunctionTotal();
+		result[2]=this.getIncompatibilityConstraintForBlackSides();
+		result[3]=this.getIncompatibilityConstraintForSono();
 		return result;
 	}
 
