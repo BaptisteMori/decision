@@ -14,15 +14,14 @@ public class Backtracking {
     this.constraints = constraints;
   }
 
-	public Map<Variable,String> atomicAttrbution(Variable v) {
+	public Map<Variable,String> atomicAttribution(Map<Variable,String> map, Variable v) {
 
 		Random r = new Random();
 		String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
 		String value = domaine[r.nextInt(domaine.length)];
-		Map<Variable,String> att = new HashMap();
-		att.put(v,value);
-		System.out.println(att);
-		return att;
+		map.put(v,value);
+		System.out.println(map);
+		return map;
 	}
 
 	public boolean allConstraintsSatisfiedBy(Map<Variable,String> voiture) {

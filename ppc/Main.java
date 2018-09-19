@@ -12,7 +12,7 @@ public class Main {
 		Backtracking b = new Backtracking(data.getVariables(), data.getConstraints());
 
 		Variable[] e = b.getVariables();
-		Map<Variable,String> test = b.atomicAttrbution(e[5]);
+		Map<Variable,String> test = b.atomicAttribution(e[5]);
 		System.out.println(b.allConstraintsSatisfiedBy(test));
 	}
 }
