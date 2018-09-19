@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Rule implements Constraint {
 
-  private Set<Variable> scope;
+  private Set<Variable> scope = new HashSet<Variable>();
   Map<Variable,String> premisse = new HashMap<>();
   Map<Variable,String> conclusion = new HashMap<>();
 
@@ -15,6 +15,13 @@ public class Rule implements Constraint {
 
 	@Override
   public Set<Variable> getScope() {
+    if (this.premisse != null) {
+      this.scope.addAll(this.premisse.keySet());
+    }
+    if (this.conclusion != null) {
+      this.scope.addAll(this.conclusion.keySet());
+    }
+    //System.out.println(this.scope);
 		return this.scope;
   }
 

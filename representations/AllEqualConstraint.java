@@ -27,4 +27,5 @@ public class AllEqualConstraint implements Constraint {
   public Set<Variable> getScope() {
 		return this.scope;
   }
+
 }
