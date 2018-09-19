@@ -35,10 +35,6 @@ public class GenerateAndTest {
   public boolean testConstraints() {
     Example ex = new Example();
 
-    Constraint disjBlanc = ex.getDisjunctionToit("blanc");
-    Constraint disjNoir = ex.getDisjunctionToit("noir");
-    Constraint disjRouge = ex.getDisjunctionToit("rouge");
-
     for (int i = 0; i < this.constraints.length; i++) {
       if (this.constraints[i].isSatisfiedBy(this.test) == false) {
         this.res = false;
@@ -47,8 +43,6 @@ public class GenerateAndTest {
         this.res = true;
       }
     }
-    this.res = disjBlanc.isSatisfiedBy(this.test) && disjNoir.isSatisfiedBy(this.test) && disjRouge.isSatisfiedBy(this.test);
-
     if (this.res == true) {
       System.out.println(this.test);
     }

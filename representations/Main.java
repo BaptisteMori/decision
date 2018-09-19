@@ -18,18 +18,14 @@ public class Main {
 
 		/*Test de contraintes */
 
-		System.out.println("Contrainte 1");
+		/*System.out.println("Contrainte 1");
 		Constraint c1 = ex.getAllEqual();
 		System.out.println(c1.isSatisfiedBy(v1));
 		System.out.println(c1.isSatisfiedBy(v2));
 		System.out.println(c1.isSatisfiedBy(v3));
 
 		System.out.println("Contrainte 2");
-		Constraint[] disjunction_list = new Constraint[3];
-		disjunction_list[0]=ex.getDisjunctionToit("noir");
-		disjunction_list[1]=ex.getDisjunctionToit("blanc");
-		disjunction_list[2]=ex.getDisjunctionToit("rouge");
-		ConstraintDisjunction c2 = new ConstraintDisjunction(disjunction_list);
+		Constraint c2 = ex.getDisjunctionTotal();
 		System.out.println(c2.isSatisfiedBy(v1));
 		System.out.println(c2.isSatisfiedBy(v2));
 		System.out.println(c2.isSatisfiedBy(v3));
@@ -44,18 +40,18 @@ public class Main {
     Constraint c4 = ex.getIncompatibilityConstraintForSono();
 		System.out.println(c4.isSatisfiedBy(v1));
 		System.out.println(c4.isSatisfiedBy(v2));
-		System.out.println(c4.isSatisfiedBy(v3));
+		System.out.println(c4.isSatisfiedBy(v3));*/
 
-    // Variable[] v = ex.getVariables();
-    // Constraint[] constraints = new Constraint[3];
-    // Constraint allEqual = ex.getAllEqual();
-    // constraints[0] = allEqual;
-    // Constraint incompSono = ex.getIncompatibilityConstraintForSono();
-    // constraints[1] = incompSono;
-    // Constraint incompSides = ex.getIncompatibilityConstraintForBlackSides();
-    // constraints[2] = incompSides;
-		//
-    // GenerateAndTest gt = new GenerateAndTest(v,constraints);
-    // System.out.println(gt);
+     Variable[] v = ex.getVariables();
+     Constraint[] constraints = new Constraint[4];
+     Constraint allEqual = ex.getAllEqual();
+     constraints[0] = allEqual;
+     Constraint incompSono = ex.getIncompatibilityConstraintForSono();
+     constraints[1] = incompSono;
+     Constraint incompSides = ex.getIncompatibilityConstraintForBlackSides();
+     constraints[2] = incompSides;
+     Constraint disj = ex.getDisjunctionTotal();
+     constraints[3] = disj;
+     GenerateAndTest gt = new GenerateAndTest(v,constraints);
   }
 }
