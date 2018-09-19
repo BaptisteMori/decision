@@ -15,6 +15,8 @@ public class Main {
 
 		//Map<Variable,String> test = b.atomicAttribution(map,e[5]);
 		b.backtrack(map,0);
+		b.heuristic();
+		b.heuristicDomaine();
 		//System.out.println(b.allConstraintsSatisfiedBy(test));
 	}
 }

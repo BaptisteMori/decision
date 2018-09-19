@@ -5,6 +5,7 @@ import java.util.*;
 public class ConstraintDisjunction implements Constraint {
 
   private Constraint[] constraints;
+  private Set<Variable> scope = new HashSet<Variable>();
 
   public ConstraintDisjunction(Constraint[] constraints) {
 		this.constraints=constraints;
@@ -20,6 +21,9 @@ public class ConstraintDisjunction implements Constraint {
 
   @Override
   public Set<Variable> getScope() {
-    return null;
+    for (int i = 0; i < this.constraints.length; i++) {
+      this.scope.addAll(this.constraints[i].getScope());
+    }
+    return this.scope;
   }
 }

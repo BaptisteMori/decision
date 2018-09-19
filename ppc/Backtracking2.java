@@ -16,6 +16,7 @@ public class Backtracking2 {
   }
 
   public void heuristic() {
+    //SUPPRIMER DANS LA LISTE DES VARIABLES DES CONTRAINTES CELLES DEJA ASSIGNEES
     Variable[] scopeTMP;
     ArrayList<Variable> scope = new ArrayList<>();
     for (Constraint c : constraints) {
