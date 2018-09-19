@@ -20,14 +20,9 @@ public class Rule implements Constraint {
 
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
-		int cont_cpt = 0;
     // premisse
     if (!(this.premisse == null)) {
       for (Variable v : this.premisse.keySet()) {
-				if (!(test.containsKey(this.premisse.get(v)))) {
-					cont_cpt++;
-					continue;
-				}
         if (!(premisse.get(v).equals(test.get(v)))) {
           return true;
         }
@@ -35,17 +30,10 @@ public class Rule implements Constraint {
     }
     // conclusion
     for (Variable v: this.conclusion.keySet()) {
-			if (!(test.containsKey(this.conclusion.get(v)))) {
-				cont_cpt++;
-				continue;
-			}
       if (conclusion.get(v).equals(test.get(v))) {
         return true;
       }
     }
-		if (cont_cpt!=0) {
-			return true;
-		}
     return false;
   }
 }

@@ -27,7 +27,7 @@ public class Backtracking {
 
 	public boolean allConstraintsSatisfiedBy(Map<Variable,String> voiture) {
 		for (int i = 0; i< this.constraints.length; i++) {
-			if(this.constraints[i].isSatisfiedBy(voiture)) {
+			if(!(this.constraints[i].isSatisfiedBy(voiture))) {
 				return false;
 			}
 		}

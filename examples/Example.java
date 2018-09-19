@@ -48,43 +48,18 @@ public class Example {
 		c.add(this.cc);
 
 		Constraint equal1 = new AllEqualConstraint(c);
-
 		return equal1;
 	}
 
-	public Constraint getDisjunctionBlanc() {
+	public Constraint getDisjunctionToit(String coul_toit) {
 
+		Map<Variable,String> premisse = new HashMap<Variable,String>();
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
-		String coul_toit = "blanc";
-		conditions.put(this.ct,coul_toit);
+		premisse.put(this.ct,coul_toit);
 		conditions.put(this.cg,coul_toit);
 		conditions.put(this.cd,coul_toit);
 
-		Constraint disjunction = new Disjunction(conditions);
-		return disjunction;
-	}
-
-	public Constraint getDisjunctionNoir() {
-
-		Map<Variable,String> conditions = new HashMap<Variable,String>();
-		String coul_toit = "noir";
-		conditions.put(this.ct,coul_toit);
-		conditions.put(this.cg,coul_toit);
-		conditions.put(this.cd,coul_toit);
-
-		Constraint disjunction = new Disjunction(conditions);
-		return disjunction;
-	}
-
-	public Constraint getDisjunctionRouge() {
-
-		Map<Variable,String> conditions = new HashMap<Variable,String>();
-		String coul_toit = "rouge";
-		conditions.put(this.ct,coul_toit);
-		conditions.put(this.cg,coul_toit);
-		conditions.put(this.cd,coul_toit);
-
-		Constraint disjunction = new Disjunction(conditions);
+		Constraint disjunction = new Disjunction(premisse,conditions);
 		return disjunction;
 	}
 
@@ -95,7 +70,6 @@ public class Example {
 		conditions.put(this.cd,"noir");
 
 		Constraint inc_black = new IncompatibilityConstraint(conditions);
-
 		return inc_black;
 	}
 
@@ -106,7 +80,6 @@ public class Example {
 		conditions.put(this.to,"True");
 
 		Constraint inc_sono = new IncompatibilityConstraint(conditions);
-
 		return inc_sono;
 	}
 
@@ -125,9 +98,9 @@ public class Example {
 	public Constraint[] getConstraints() {
 		Constraint[] result = new Constraint[6];
 		result[0]=this.getAllEqual();
-		result[1]=this.getDisjunctionNoir();
-		result[2]=this.getDisjunctionBlanc();
-		result[3]=this.getDisjunctionRouge();
+		result[1]=this.getDisjunctionToit("noir");
+		result[2]=this.getDisjunctionToit("blanc");
+		result[3]=this.getDisjunctionToit("rouge");
 		result[4]=this.getIncompatibilityConstraintForBlackSides();
 		result[5]=this.getIncompatibilityConstraintForSono();
 		return result;
