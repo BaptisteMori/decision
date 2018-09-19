@@ -14,6 +14,25 @@ public class Backtracking {
     this.constraints = constraints;
   }
 
+  public boolean backtrack(Map<Variable,String> voiture) {
+    boolean res = true;
+    int i=0;
+    Map<Variable,String> tmp = new HashMap<Variable,String>();
+    while (res) {
+      tmp = atomicAttribution(voiture, this.variables[i]);
+      i++;
+      res = allConstraintsSatisfiedBy(tmp);
+
+      if (res == false) {
+        tmp = voiture;
+        tmp = atomicAttribution(tmp, this.variables[i]);
+        res = true;
+      }
+      voiture = tmp;
+    }
+    return res;
+  }
+
 	public Map<Variable,String> atomicAttribution(Map<Variable,String> map, Variable v) {
 
 		Random r = new Random();
