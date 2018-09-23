@@ -16,7 +16,10 @@ public class AllEqualConstraint implements Constraint {
 		Object[] scope_array = this.scope.toArray();
 		String test_value = voiture.get(scope_array[0]);
 		for (int i = 0; i <= this.scope.size() -1 ; i++) {
-			if(!(voiture.get(scope_array[i]).equals(test_value) || voiture.get(scope_array[i]).equals(""))) {
+			if (voiture.get(scope_array[i]).equals("")) {
+				return true;
+			}
+			if(!(voiture.get(scope_array[i]).equals(test_value))) {
 				return false;
 			}
 		}
