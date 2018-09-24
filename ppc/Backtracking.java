@@ -18,18 +18,23 @@ public class Backtracking {
   public void backtrack(Map<Variable,String> map, int i) {
     String value = "";
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
-      value = atomicAttribution(variables[i]);
-      map.put(variables[i],value);
       if (allConstraintsSatisfiedBy(map)) {
+				value = atomicAttribution(variables[i]);
+				map.put(variables[i],value);
         if (!(map.containsValue(""))) {
-          System.out.println(map);
+          System.out.println("Yep\n" + map);
+					backtrack(map,i);
         } else {
-          System.out.println(map);
+          System.out.println("Bof\n" + map);
           backtrack(map, i+1);
         }
       } else {
-        System.out.println(map);
-        backtrack(map,i-1);
+        System.out.println("Nope\n" + map);
+				if (i==0) {
+					backtrack(map,i);
+				} else {
+        	backtrack(map,i-1);
+				}
       }
     }
   }
