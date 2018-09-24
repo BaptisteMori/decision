@@ -15,19 +15,41 @@ public class Backtracking {
     this.constraints = constraints;
   }
 
-  public void backtrack(Map<Variable,String> voiture, int nb_variables) {
+  public void backtrack(Map<Variable,String> map, int i) {
+    String value = "";
+    if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
+      value = atomicAttribution(variables[i]);
+      map.put(variables[i],value);
+      if (allConstraintsSatisfiedBy(map)) {
+        if (!(map.containsValue(""))) {
+          System.out.println(map);
+        } else {
+          System.out.println(map);
+          backtrack(map, i+1);
+        }
+      } else {
+        System.out.println(map);
+        backtrack(map,i-1);
+      }
+    }
+  }
+
+  public void backtrack2(Map<Variable,String> voiture, int nb_variables) {
 
     if (this.allConstraintsSatisfiedBy(voiture)) {
       if (!(voiture.containsValue(""))) {
         System.out.println(voiture);
+      } else {
+        if (this.variables[nb_variables].getDomaine().size() > 0) {
+          this.atomicAttribution2(voiture,this.variables[nb_variables]);
+          Set<String> current_domain = this.variables[nb_variables].getDomaine();
+          current_domain.remove(voiture.get(this.variables[nb_variables]));
+          this.variables[nb_variables].setDomaine(current_domain);
+          backtrack(voiture, nb_variables);
+        }
       }
-        this.atomicAttribution(voiture,this.variables[nb_variables]);
-        Set<String> current_domain = this.variables[nb_variables].getDomaine();
-        current_domain.remove(voiture.get(this.variables[nb_variables]));
-        this.variables[nb_variables].setDomaine(current_domain);
-        backtrack(voiture, nb_variables);
     } else {
-      this.atomicAttribution(voiture, this.variables[nb_variables-1]);
+      this.atomicAttribution2(voiture, this.variables[nb_variables-1]);
       Set<String> current_domain = this.variables[nb_variables-1].getDomaine();
       current_domain.remove(voiture.get(this.variables[nb_variables-1]));
       this.variables[nb_variables-1].setDomaine(current_domain);
@@ -51,7 +73,14 @@ public class Backtracking {
     // }
   }
 
-	public Map<Variable,String> atomicAttribution(Map<Variable,String> map, Variable v) {
+  public String atomicAttribution(Variable v) {
+    Random r = new Random();
+    String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
+    String value = domaine[r.nextInt(domaine.length)];
+    return value;
+  }
+
+	public Map<Variable,String> atomicAttribution2(Map<Variable,String> map, Variable v) {
 
     Random r = new Random();
     String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
