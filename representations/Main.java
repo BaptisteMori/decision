@@ -42,7 +42,7 @@ public class Main {
 		System.out.println(c4.isSatisfiedBy(v2));
 		System.out.println(c4.isSatisfiedBy(v3));*/
 
-     Variable[] v = ex.getVariables();
+     /*Variable[] v = ex.getVariables();
      Constraint[] constraints = new Constraint[4];
      Constraint allEqual = ex.getAllEqual();
      constraints[0] = allEqual;
@@ -52,6 +52,22 @@ public class Main {
      constraints[2] = incompSides;
      Constraint disj = ex.getDisjunctionTotal();
      constraints[3] = disj;
-     GenerateAndTest gt = new GenerateAndTest(v,constraints);
+     GenerateAndTest gt = new GenerateAndTest(v,constraints);*/
+
+     Constraint c = ex.getAllEqual();
+     Map<Variable,String> v4 = ex.getVoiture4();
+     Map<Variable, Set<String>> domaines = new HashMap<>();
+     Set<Variable> var = v4.keySet();
+     for (Variable v : var) {
+       if (v4.get(v).equals("")) {
+         domaines.put(v, v.getDomaine());
+         System.out.println(v+" " +v.getDomaine());
+       }
+     }
+     System.out.println(c.filter(v4, domaines));
+     for (Variable v : var) {
+       System.out.println(v+" " +v.getDomaine());
+     }
+
   }
 }

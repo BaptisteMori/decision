@@ -152,4 +152,17 @@ public class Example {
 		v3.put(this.to, "True");
 		return v3;
 	}
+
+	public Map<Variable,String> getVoiture4() {
+
+		Map<Variable,String> v4 = new HashMap<>();
+		v4.put(this.ct, "noir");
+		v4.put(this.cc, "");
+		v4.put(this.ch, "");
+		v4.put(this.cg, "");
+		v4.put(this.cd, "");
+		v4.put(this.sono, "");
+		v4.put(this.to, "");
+		return v4;
+	}
 }

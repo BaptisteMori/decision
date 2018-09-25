@@ -26,4 +26,9 @@ public class ConstraintDisjunction implements Constraint {
     }
     return this.scope;
   }
+
+  @Override
+  public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
+    return true;
+  }
 }

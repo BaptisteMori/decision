@@ -18,6 +18,7 @@ public class Backtracking {
 
   public void backtrack(Map<Variable,String> map, int i) {
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
+        
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){

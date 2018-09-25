@@ -43,4 +43,9 @@ public class Rule implements Constraint {
     }
     return false;
   }
+
+  @Override
+  public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
+    return true;
+  }
 }

@@ -31,9 +31,22 @@ public class AllEqualConstraint implements Constraint {
 		return this.scope;
   }
 
-  @Overrride
+  @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
-
+    boolean tmp = false;
+    for (Variable v : this.scope) {
+      if (voiture.get(v) != ""){
+        for (Variable v2 : this.scope) {
+          if (!(v.equals(v2))) {
+            Set<String> newDomaine = new HashSet<>();
+            newDomaine.add(voiture.get(v));
+            v2.setDomaine(newDomaine);
+            tmp = true;
+          }
+        }
+      }
+    }
+    return tmp;
   }
 
 }
