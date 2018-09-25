@@ -16,31 +16,29 @@ public class Backtracking {
     this.constraints = constraints;
   }
 
-  public Map<Variable, String> backtrack(Map<Variable,String> map, int i) {
+  public void backtrack(Map<Variable,String> map, int i) {
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){
-          System.out.println("\n" + i + "\n");
-          System.out.println(variables[i]+ " " + valeur);
+          System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
           map.put(variables[i],valeur);
           // si le dictionnaire est plein
+          System.out.println(this.allConstraintsSatisfiedBy(map));
           if (!(map.containsValue("")) && this.allConstraintsSatisfiedBy(map)) {
-            System.out.println("Yep1 " + map);
             // pour reussir, faire une fonction qui copie map (pour pas l'écraser a chaque fois)
-
-            this.list.add(map);
-            System.out.println("list " +this.list);
+            Map<Variable,String> tmp = new HashMap<Variable,String>();
+            tmp.putAll(map);
+            this.list.add(tmp);
+            System.out.println("ajouté");
           } else {
             if (this.allConstraintsSatisfiedBy(map)){
-              System.out.println("Bof\n" + map);
               backtrack(map,i+1);
             }
           }
         }
-        return map;
+        map.put(variables[i],"");
     }
-    return null;
   }
 
 
