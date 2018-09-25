@@ -7,6 +7,7 @@ public class Example {
 
 	private HashSet<String> domaine_couleur;
 	private HashSet<String> domaine_boolean;
+	private HashSet<String> domaine_couleur2;
 	private Variable ct;
 	private Variable cc;
 	private Variable ch;
@@ -14,6 +15,14 @@ public class Example {
 	private Variable cd;
 	private Variable sono;
 	private Variable to;
+
+	private Variable ct2;
+	private Variable cc2;
+	private Variable ch2;
+	private Variable cg2;
+	private Variable cd2;
+	private Variable sono2;
+	private Variable to2;
 
 	public Example(){
 		/*Domaine couleur*/
@@ -31,11 +40,21 @@ public class Example {
 
 		/*Création des variables avec leurs domaines*/
 
-		this.ct = new Variable("couleur_toit",this.domaine_couleur);
-		this.cc = new Variable("couleur_capot", this.domaine_couleur);
-		this.ch = new Variable("couleur_hayon", this.domaine_couleur);
-		this.cg = new Variable("couleur_gauche", this.domaine_couleur);
-		this.cd = new Variable("couleur_droite", this.domaine_couleur);
+		Set<String> tmp1 = new HashSet<>();
+		tmp1.addAll(this.domaine_couleur);
+		this.ct = new Variable("couleur_toit",tmp1);
+		Set<String> tmp2 = new HashSet<>();
+		tmp2.addAll(this.domaine_couleur);
+		this.cc = new Variable("couleur_capot", tmp2);
+		Set<String> tmp3 = new HashSet<>();
+		tmp3.addAll(this.domaine_couleur);
+		this.ch = new Variable("couleur_hayon", tmp3);
+		Set<String> tmp4 = new HashSet<>();
+		tmp4.addAll(this.domaine_couleur);
+		this.cg = new Variable("couleur_gauche", tmp4);
+		Set<String> tmp5 = new HashSet<>();
+		tmp5.addAll(this.domaine_couleur);
+		this.cd = new Variable("couleur_droite", tmp5);
 		this.sono = new Variable("sono",this.domaine_boolean);
 		this.to = new Variable("toit_ouvrant", this.domaine_boolean);
 	}

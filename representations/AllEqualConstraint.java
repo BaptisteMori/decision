@@ -38,10 +38,15 @@ public class AllEqualConstraint implements Constraint {
       if (voiture.get(v) != ""){
         for (Variable v2 : this.scope) {
           if (!(v.equals(v2))) {
-            Set<String> newDomaine = new HashSet<>();
-            newDomaine.add(voiture.get(v));
-            v2.setDomaine(newDomaine);
-            tmp = true;
+            Set<String> dom = domaines.get(v2);
+            Set<String> tmp_dom = new HashSet<>();
+            tmp_dom.addAll(dom);
+            for (String s : tmp_dom){
+              if (dom.contains(s) && s!=voiture.get(v)){
+                dom.remove(s);
+              }
+            }
+            domaines.put(v2,dom);
           }
         }
       }

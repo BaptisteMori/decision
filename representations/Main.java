@@ -57,7 +57,7 @@ public class Main {
      Constraint c = ex.getAllEqual();
      Map<Variable,String> v4 = ex.getVoiture4();
      Map<Variable, Set<String>> domaines = new HashMap<>();
-     Set<Variable> var = v4.keySet();
+     Set<Variable> var = v1.keySet();
      for (Variable v : var) {
        if (v4.get(v).equals("")) {
          domaines.put(v, v.getDomaine());
