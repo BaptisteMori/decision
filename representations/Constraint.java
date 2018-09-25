@@ -8,5 +8,5 @@ public interface Constraint {
 
   public boolean isSatisfiedBy(Map<Variable,String> map);
 
-  public boolean filter(Map<Variable,String>, Map<Variable, Set<String>>);
+  public boolean filter(Map<Variable,String> map, Map<Variable, Set<String>> domaines);
 }
