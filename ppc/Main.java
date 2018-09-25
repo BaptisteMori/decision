@@ -6,6 +6,12 @@ import java.util.*;
 
 public class Main {
 
+
+	/*
+		Méthode main permettant de tout créer, et de
+		générer toutes les voitures satisfaisants toutes
+		les contraintes.
+	*/
 	public static void main(String[] args) {
 
 		Example data = new Example();

@@ -5,9 +5,26 @@ import representations.*;
 
 public class Example {
 
+	/*
+		Déclaration des HashSet pour les domaines.
+	*/
+
 	private HashSet<String> domaine_couleur;
 	private HashSet<String> domaine_boolean;
 	private HashSet<String> domaine_couleur2;
+
+
+	/*
+		Déclaration des Varaibles.
+		- ct pour couleur toit.
+		- cc pour couleur capot.
+		- ch pour couleur hayon.
+		- cg pour couleur de la porte gauche.
+		- cd pour la couleur de la porte droite.
+		- sono pour la sono.
+		- to pour le toit ouvrant.
+	*/
+
 	private Variable ct;
 	private Variable cc;
 	private Variable ch;
@@ -25,6 +42,7 @@ public class Example {
 	private Variable to2;
 
 	public Example(){
+
 		/*Domaine couleur*/
 
 		this.domaine_couleur = new HashSet<>();
@@ -59,6 +77,11 @@ public class Example {
 		this.to = new Variable("toit_ouvrant", this.domaine_boolean);
 	}
 
+	/*
+		Méthode vérifiant si la couleur du toit,
+		la couleur du hayon et la couleur du capot
+		sont de la même couleur.
+	*/
 	public Constraint getAllEqual() {
 
 		Set<Variable> c = new HashSet<Variable>();
@@ -69,6 +92,11 @@ public class Example {
 		Constraint equal1 = new AllEqualConstraint(c);
 		return equal1;
 	}
+
+	/*
+		Méthode de type Constraint qui regarde pour
+		la disjonction du toit.
+	*/
 
 	public Constraint getDisjunctionToit(String coul_toit) {
 
@@ -91,6 +119,13 @@ public class Example {
 		return union;
 	}
 
+	/*
+		Méthode de type Constraint qui regarde pour
+		l'incompatibilité pour les portes droites et
+		gauche qui ne peuvent pas être toutes les deux
+		de la couleur noir.
+	*/
+
 	public Constraint getIncompatibilityConstraintForBlackSides() {
 
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
@@ -101,6 +136,13 @@ public class Example {
 		return inc_black;
 	}
 
+	/*
+		Méthode de type Constraint qui regarde pour
+		l'incompatibilité pour la sono, qui ne peut pas
+		être présente si le toit ouvrant est pris, et
+		inversement..
+	*/
+
 	public Constraint getIncompatibilityConstraintForSono() {
 
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
@@ -110,6 +152,11 @@ public class Example {
 		Constraint inc_sono = new IncompatibilityConstraint(conditions);
 		return inc_sono;
 	}
+
+	/*
+		Méthode qui stocke dans result toutes
+		les variables.
+	*/
 
 	public Variable[] getVariables() {
 		Variable[] result = new Variable[7];
@@ -122,6 +169,10 @@ public class Example {
 		result[6]=this.to;
 		return result;
 	}
+	/*
+		Méthode qui stocke dans result toutes
+		les contraintes.
+	*/
 
 	public Constraint[] getConstraints() {
 		Constraint[] result = new Constraint[4];
@@ -132,7 +183,9 @@ public class Example {
 		return result;
 	}
 
-	/*Création des voitures*/
+	/*Création des différentes voitures*/
+
+	/*Voiture numéro 1*/
 	public Map<Variable,String> getVoiture1() {
 
 		Map<Variable, String> v1 = new HashMap<>();
@@ -146,6 +199,7 @@ public class Example {
 		return v1;
 	}
 
+/*Voiture numéro 2*/
 	public Map<Variable,String> getVoiture2() {
 
 		Map<Variable, String> v2 = new HashMap<>();
@@ -159,6 +213,7 @@ public class Example {
 		return v2;
 	}
 
+/*Voiture numéro 3*/
 	public Map<Variable,String> getVoiture3() {
 
 		Map<Variable, String> v3 = new HashMap<>();
@@ -172,6 +227,7 @@ public class Example {
 		return v3;
 	}
 
+/*Voiture numéro 4*/
 	public Map<Variable,String> getVoiture4() {
 
 		Map<Variable,String> v4 = new HashMap<>();

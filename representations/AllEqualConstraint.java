@@ -26,10 +26,21 @@ public class AllEqualConstraint implements Constraint {
 		return true;
   }
 
+  /*
+    Méthode Override qui retourne toutes les
+    variables de la prémice ou de la conclusion.
+  */
+
   @Override
   public Set<Variable> getScope() {
 		return this.scope;
   }
+
+  /*
+    Méthode qui Override la méthode filter et qui
+    permet de réduire le domaine des variables non
+    assignées en enlevant les valeurs non viables.
+  */
 
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){

@@ -16,9 +16,13 @@ public class Backtracking {
     this.constraints = constraints;
   }
 
+/*
+  La méthode backtrack, utilise l'algorithme de Backtracking.
+*/
+
   public void backtrack(Map<Variable,String> map, int i) {
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
-        
+
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){
@@ -43,24 +47,7 @@ public class Backtracking {
   }
 
 
-  public String atomicAttribution(Variable v) {
-    Random r = new Random();
-    String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
-    String value = domaine[r.nextInt(domaine.length)];
-    return value;
-  }
 
-	public Map<Variable,String> atomicAttribution2(Map<Variable,String> map, Variable v) {
-
-    Random r = new Random();
-    String[] domaine = v.getDomaine().toArray(new String[v.getDomaine().size()]);
-    System.out.println(domaine.length);
-    String value = domaine[r.nextInt(domaine.length)];
-    map.put(v,value);
-    System.out.println(map);
-    return map;
-
-	}
 
 	public boolean allConstraintsSatisfiedBy(Map<Variable,String> voiture) {
 		for (int i = 0; i< this.constraints.length; i++) {
@@ -92,7 +79,7 @@ public class Backtracking {
   }
 
   // ********************************************
-  // HEURISTIC
+  //                 HEURISTIC
   // ********************************************
 
   public void heuristic() {

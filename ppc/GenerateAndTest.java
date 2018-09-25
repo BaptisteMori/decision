@@ -22,6 +22,11 @@ public class GenerateAndTest {
     }
   }
 
+  /*
+    Méthode permettant de générer toutes les configurations
+    de voitures possible.
+  */
+
   public void generate() {
     for (Variable v : variables) {
       Set<String> d = v.getDomaine();
@@ -31,6 +36,13 @@ public class GenerateAndTest {
       this.test.put(v,domaine[value]);
     }
   }
+
+    /*
+      Méthode qui teste sur les voitures, toutes
+      les contraintes et permet de retourner les
+      voitures ayant accomplies les différentes
+      contraintes.
+    */
 
   public boolean testConstraints() {
     Example ex = new Example();
