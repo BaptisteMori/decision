@@ -44,8 +44,17 @@ public class Rule implements Constraint {
     return false;
   }
 
-  @Override
-  public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
-    return true;
-  }
+	@Override
+	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
+		boolean tmp = false;
+		if (this.isSatisfiedBy(voiture) && this.premisse != null) {
+			for (Variable v : this.scope) {
+				if (voiture.get(v).equals("") && unassigned_domains.size()==1) {
+					voiture.put(v,this.conclusion.get(v));
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
