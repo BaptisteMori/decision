@@ -9,74 +9,40 @@ public class Backtracking {
   private Variable[] variables;
   private Constraint[] constraints;
   private Map<Variable,Integer> cpt = new HashMap<Variable,Integer>();
+  private ArrayList<Map<Variable,String>> list = new ArrayList<>();
 
   public Backtracking(Variable[] variables, Constraint[] constraints) {
     this.variables = variables;
     this.constraints = constraints;
   }
 
-  public void backtrack(Map<Variable,String> map, int i) {
-    String value = "";
+  public Map<Variable, String> backtrack(Map<Variable,String> map, int i) {
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
-      if (allConstraintsSatisfiedBy(map)) {
-				value = atomicAttribution(variables[i]);
-				map.put(variables[i],value);
-        if (!(map.containsValue(""))) {
-          System.out.println("Yep\n" + map);
-					backtrack(map,i);
-        } else {
-          System.out.println("Bof\n" + map);
-          backtrack(map, i+1);
+        String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
+        // tout ce qui compte c'est les valeurs
+        for (String valeur : domaine){
+          System.out.println("\n" + i + "\n");
+          System.out.println(variables[i]+ " " + valeur);
+          map.put(variables[i],valeur);
+          // si le dictionnaire est plein
+          if (!(map.containsValue("")) && this.allConstraintsSatisfiedBy(map)) {
+            System.out.println("Yep1 " + map);
+            // pour reussir, faire une fonction qui copie map (pour pas l'écraser a chaque fois)
+
+            this.list.add(map);
+            System.out.println("list " +this.list);
+          } else {
+            if (this.allConstraintsSatisfiedBy(map)){
+              System.out.println("Bof\n" + map);
+              backtrack(map,i+1);
+            }
+          }
         }
-      } else {
-        System.out.println("Nope\n" + map);
-				if (i==0) {
-					backtrack(map,i);
-				} else {
-        	backtrack(map,i-1);
-				}
-      }
+        return map;
     }
+    return null;
   }
 
-  public void backtrack2(Map<Variable,String> voiture, int nb_variables) {
-
-    if (this.allConstraintsSatisfiedBy(voiture)) {
-      if (!(voiture.containsValue(""))) {
-        System.out.println(voiture);
-      } else {
-        if (this.variables[nb_variables].getDomaine().size() > 0) {
-          this.atomicAttribution2(voiture,this.variables[nb_variables]);
-          Set<String> current_domain = this.variables[nb_variables].getDomaine();
-          current_domain.remove(voiture.get(this.variables[nb_variables]));
-          this.variables[nb_variables].setDomaine(current_domain);
-          backtrack(voiture, nb_variables);
-        }
-      }
-    } else {
-      this.atomicAttribution2(voiture, this.variables[nb_variables-1]);
-      Set<String> current_domain = this.variables[nb_variables-1].getDomaine();
-      current_domain.remove(voiture.get(this.variables[nb_variables-1]));
-      this.variables[nb_variables-1].setDomaine(current_domain);
-      backtrack(voiture, nb_variables-1);
-    }
-
-    // while (nb_variables < this.variables.length) {
-    //   tmp = atomicAttribution(voiture, this.variables[nb_variables]);
-    //   valuelist.add(tmp.get(this.variables[nb_variables]));
-    //
-    //     System.out.println(tmp);
-    //     backtrack(tmp, nb_variables+1);
-    //   } else if (valuelist.size() == this.variables[nb_variables].getDomaine().size()) {
-    //     tmp = atomicAttribution(tmp, this.variables[nb_variables-1]);
-    //     valuelist=new ArrayList<String>();
-    //     backtrack(tmp, nb_variables+1);
-    //   } else {
-    //     tmp = atomicAttribution(tmp, this.variables[nb_variables]);
-    //     backtrack(tmp, nb_variables+1);
-    //   }
-    // }
-  }
 
   public String atomicAttribution(Variable v) {
     Random r = new Random();
@@ -121,6 +87,10 @@ public class Backtracking {
 	public Constraint[] getConstraints() {
 		return this.constraints;
 	}
+
+  public ArrayList<Map<Variable,String>> getList() {
+    return this.list;
+  }
 
   // ********************************************
   // HEURISTIC
