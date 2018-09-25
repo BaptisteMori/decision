@@ -31,4 +31,9 @@ public class AllEqualConstraint implements Constraint {
 		return this.scope;
   }
 
+  @Overrride
+  public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
+
+  }
+
 }
