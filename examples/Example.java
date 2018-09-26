@@ -73,8 +73,12 @@ public class Example {
 		Set<String> tmp5 = new HashSet<>();
 		tmp5.addAll(this.domaine_couleur);
 		this.cd = new Variable("couleur_droite", tmp5);
-		this.sono = new Variable("sono",this.domaine_boolean);
-		this.to = new Variable("toit_ouvrant", this.domaine_boolean);
+		Set<String> tmp6 = new HashSet<>();
+		tmp6.addAll(this.domaine_boolean);
+		this.sono = new Variable("sono",tmp6);
+		Set<String> tmp7 = new HashSet<>();
+		tmp7.addAll(this.domaine_boolean);
+		this.to = new Variable("toit_ouvrant", tmp7);
 	}
 
 	/*
@@ -231,12 +235,12 @@ public class Example {
 	public Map<Variable,String> getVoiture4() {
 
 		Map<Variable,String> v4 = new HashMap<>();
-		v4.put(this.ct, "noir");
+		v4.put(this.ct, "");
 		v4.put(this.cc, "");
 		v4.put(this.ch, "");
 		v4.put(this.cg, "");
 		v4.put(this.cd, "");
-		v4.put(this.sono, "");
+		v4.put(this.sono, "True");
 		v4.put(this.to, "");
 		return v4;
 	}
