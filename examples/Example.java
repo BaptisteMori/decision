@@ -97,6 +97,17 @@ public class Example {
 		return equal1;
 	}
 
+	public Constraint getRules(String coul_toit) {
+		Map<Variable,String> premisse = new HashMap<Variable,String>();
+		Map<Variable,String> conditions = new HashMap<Variable,String>();
+		premisse.put(this.ct,coul_toit);
+		conditions.put(this.cg,coul_toit);
+		conditions.put(this.cd,coul_toit);
+
+		Constraint rule = new Rule(premisse,conditions);
+		return rule;
+	}
+
 	/*
 		Méthode de type Constraint qui regarde pour
 		la disjonction du toit.
@@ -235,10 +246,10 @@ public class Example {
 	public Map<Variable,String> getVoiture4() {
 
 		Map<Variable,String> v4 = new HashMap<>();
-		v4.put(this.ct, "");
+		v4.put(this.ct, "blanc");
 		v4.put(this.cc, "");
 		v4.put(this.ch, "");
-		v4.put(this.cg, "");
+		v4.put(this.cg, "rouge");
 		v4.put(this.cd, "");
 		v4.put(this.sono, "True");
 		v4.put(this.to, "");

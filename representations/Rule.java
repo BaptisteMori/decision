@@ -48,13 +48,28 @@ public class Rule implements Constraint {
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
 		boolean tmp = false;
 		if (this.isSatisfiedBy(voiture) && this.premisse != null) {
-			for (Variable v : this.scope) {
-				if (voiture.get(v).equals("") && unassigned_domains.size()==1) {
-					voiture.put(v,this.conclusion.get(v));
-					return true;
+			for (Variable v : this.conclusion.keySet()) {
+				if (unassigned_domains.size()==1 && voiture.get(v).equals("")) {
+          for (Variable va : this.conclusion.keySet()){
+            if(!(voiture.get(va).equals(""))) {
+              String value = voiture.get(va);
+              Set<String> dom = unassigned_domains.get(va);
+              Set<String> tmp_dom = new HashSet<>();
+              tmp_dom.addAll(dom);
+              for (String s : tmp_dom){
+                if (dom.contains(s) && s == value){
+                  dom.remove(s);
+                  tmp = true;
+                }
+              }
+              unassigned_domains.put(v,dom);
+            }
+          }
+          //voiture.put(v,this.conclusion.get(v));
+					//return tmp;
 				}
 			}
 		}
-		return false;
+		return tmp;
 	}
 }
