@@ -54,7 +54,7 @@ public class Main {
      constraints[3] = disj;
      GenerateAndTest gt = new GenerateAndTest(v,constraints);*/
 
-     Constraint c = ex.getAllEqual();
+     Constraint c = ex.getIncompatibilityConstraintForSono();
      Map<Variable,String> v4 = ex.getVoiture4();
      Map<Variable, Set<String>> domaines = new HashMap<>();
      Set<Variable> var = v1.keySet();

@@ -55,6 +55,7 @@ public class AllEqualConstraint implements Constraint {
             for (String s : tmp_dom){
               if (dom.contains(s) && s!=voiture.get(v)){
                 dom.remove(s);
+                tmp = true;
               }
             }
             domaines.put(v2,dom);
