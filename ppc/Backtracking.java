@@ -20,7 +20,7 @@ public class Backtracking {
   La méthode backtrack, utilise l'algorithme de Backtracking.
 */
 
-  public void backtrack(Map<Variable,String> map, int i) {
+  public void backtrack(Map<Variable,String> map, int i) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
     //applyAllFilters()
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
