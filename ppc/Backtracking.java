@@ -21,8 +21,8 @@ public class Backtracking {
 */
 
   public void backtrack(Map<Variable,String> map, int i) {
+    //applyAllFilters()
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
-
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){
@@ -46,8 +46,18 @@ public class Backtracking {
     }
   }
 
-
-
+  public boolean applyAllFilters(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
+    boolean restart = false;
+    for (int i = 0; i< this.constraints.length; i++) {
+      if(this.constraints[i].filter(voiture, unassigned_domains)){
+        restart = true;
+      }
+    }
+    if (restart) {
+      applyAllFilters(voiture, unassigned_domains);
+    }
+    return restart;
+  }
 
 	public boolean allConstraintsSatisfiedBy(Map<Variable,String> voiture) {
 		for (int i = 0; i< this.constraints.length; i++) {
