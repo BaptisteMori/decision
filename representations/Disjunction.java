@@ -8,22 +8,30 @@ public class Disjunction extends Rule {
 		super(premisse,conclusion);
   }
 
+
+  @Override
+  public boolean premisse(Map<Variable,String> test) {
+    if (!(this.premisse == null)) {
+      for (Variable v : this.premisse.keySet()) {
+        if (!(premisse.get(v).equals(test.get(v)))) {
+          return false;
+        }
+        if (test.get(v).equals("")) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
 	@Override
 	public boolean isSatisfiedBy(Map<Variable,String> test) {
-		// premisse
-		if (!(this.premisse == null)) {
-			for (Variable v : this.premisse.keySet()) {
-				if (!(premisse.get(v).equals(test.get(v)) || test.get(v).equals(""))) {
-					return false;
-				}
-			}
-		}
-		// conclusion
-		for (Variable v: this.conclusion.keySet()) {
-			if (conclusion.get(v).equals(test.get(v)) || test.get(v).equals("")) {
-				return true;
-			}
-		}
-		return false;
-	}
+    boolean p = premisse(test);
+    boolean c = conclusion(test);
+
+    return p && c;
+  }
+
+  
 }

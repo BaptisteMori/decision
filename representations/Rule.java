@@ -57,7 +57,7 @@ public class Rule implements Constraint {
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
 		boolean tmp = false;
-		if (this.premisse(voiture) && this.premisse != null) {
+		if (this.premisse(voiture) && this.premisse != null && unassigned_domains.size() != 0 ) {
       Variable unassigned_variable = null;
       int cpt = 0;
 

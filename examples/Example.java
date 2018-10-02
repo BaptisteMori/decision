@@ -232,10 +232,10 @@ public class Example {
 	public Map<Variable,String> getVoiture3() {
 
 		Map<Variable, String> v3 = new HashMap<>();
-		v3.put(this.ct, "noir");
+		v3.put(this.ct, "blanc");
 		v3.put(this.cc, "noir");
 		v3.put(this.ch, "noir");
-		v3.put(this.cg, "noir");
+		v3.put(this.cg, "blanc");
 		v3.put(this.cd, "noir");
 		v3.put(this.sono, "False");
 		v3.put(this.to, "True");
@@ -247,12 +247,12 @@ public class Example {
 
 		Map<Variable,String> v4 = new HashMap<>();
 		v4.put(this.ct, "blanc");
-		v4.put(this.cc, "");
-		v4.put(this.ch, "");
-		v4.put(this.cg, "rouge");
-		v4.put(this.cd, "");
+		v4.put(this.cc, "blanc");
+		v4.put(this.ch, "blanc");
+		v4.put(this.cg, "");
+		v4.put(this.cd, "noir");
 		v4.put(this.sono, "True");
-		v4.put(this.to, "");
+		v4.put(this.to, "False");
 		return v4;
 	}
 }

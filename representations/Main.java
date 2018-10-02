@@ -55,17 +55,17 @@ public class Main {
      GenerateAndTest gt = new GenerateAndTest(v,constraints);*/
 
 
-     Constraint c = ex.getRules("blanc");
-     Map<Variable,String> v4 = ex.getVoiture4();
+     Constraint c = ex.getDisjunctionTotal();
+     Map<Variable,String> v4 = ex.getVoiture3();
      Map<Variable, Set<String>> domaines = new HashMap<>();
      Set<Variable> var = v1.keySet();
      for (Variable v : var) {
-       if (v4.get(v).equals("")) {
+       if (v3.get(v).equals("")) {
          domaines.put(v, v.getDomaine());
          System.out.println(v+" " +v.getDomaine());
        }
      }
-     System.out.println(c.filter(v4, domaines));
+     System.out.println(c.filter(v3, domaines));
      for (Variable v : var) {
        System.out.println(v+" " +v.getDomaine());
      }
