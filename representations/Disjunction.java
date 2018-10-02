@@ -13,10 +13,7 @@ public class Disjunction extends Rule {
   public boolean premisse(Map<Variable,String> test) {
     if (!(this.premisse == null)) {
       for (Variable v : this.premisse.keySet()) {
-        if (!(premisse.get(v).equals(test.get(v)))) {
-          return false;
-        }
-        if (test.get(v).equals("")) {
+        if (!(premisse.get(v).equals(test.get(v))) && !(test.get(v).equals(""))) {
           return false;
         }
       }
@@ -29,9 +26,10 @@ public class Disjunction extends Rule {
 	public boolean isSatisfiedBy(Map<Variable,String> test) {
     boolean p = premisse(test);
     boolean c = conclusion(test);
+    System.out.println("conc : " + c);
 
     return p && c;
   }
 
-  
+
 }

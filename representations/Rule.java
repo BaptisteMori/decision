@@ -39,7 +39,7 @@ public class Rule implements Constraint {
 
   public boolean conclusion(Map<Variable,String> test){
     for (Variable v: this.conclusion.keySet()) {
-      if (conclusion.get(v).equals(test.get(v))) {
+      if (test.get(v).equals(conclusion.get(v)) || test.get(v).equals("")) {
         return true;
       }
     }
