@@ -25,67 +25,74 @@ public class Rule implements Constraint {
 		return this.scope;
   }
 
-  @Override
-  public boolean isSatisfiedBy(Map<Variable,String> test) {
-    // premisse
+  public boolean premisse(Map<Variable,String> test){
     if (!(this.premisse == null)) {
       for (Variable v : this.premisse.keySet()) {
         if (!(premisse.get(v).equals(test.get(v)))) {
-          return true;
+          return false;
         }
       }
+      return true;
     }
-    // conclusion
+    return true;
+  }
+
+  public boolean conclusion(Map<Variable,String> test){
     for (Variable v: this.conclusion.keySet()) {
-      if (conclusion.get(v).equals(test.get(v))) {
+      if (test.get(v).equals(conclusion.get(v)) || test.get(v).equals("")) {
         return true;
       }
     }
     return false;
   }
 
+  @Override
+  public boolean isSatisfiedBy(Map<Variable,String> test) {
+    boolean p = premisse(test);
+    boolean c = conclusion(test);
+
+    return !p || c;
+  }
+
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
 		boolean tmp = false;
-    /*Variable[] var_set = this.premisse.keySet().toArray(new Variable[this.premisse.keySet().size()]);
-    String couleur_var = "";
-    for (Variable v : var_set) {
-      if (v.getNom().equals("couleur_toit")) {
-        couleur_var = voiture.get(v);
-        System.out.println(couleur_var);
-      }
-    }*/
+		if (this.premisse(voiture) && this.premisse != null && unassigned_domains.size() != 0 ) {
+      Variable unassigned_variable = null;
+      int cpt = 0;
 
-    /*PAS FONCTIONNEL
-    if (this.isSatisfiedBy(voiture) && this.premisse != null) {
+      // cheker si unassigned_domains contient une seul variable du scope de conclusion
+      // et la sauvegarde
       for (Variable v : this.conclusion.keySet()) {
-        if (!(voiture.get(v).equals(""))) {
-
-          Set<String> dom = unassigned_domains.get;
-          Set<String> tmp_dom = new HashSet<>();
-          tmp_dom.addAll(dom);
-          if (this.conclusion.get(v) == voiture.get(v)){
-
-          }*/
-
-          /*FONCTIONNEL MAIS BIZARRE (avec le premier commentaire)
-          for (Variable v2 : this.conclusion.keySet()) {
-            if (!(v.equals(v2))) {
-              Set<String> dom = unassigned_domains.get(v2);
-              Set<String> tmp_dom = new HashSet<>();
-              tmp_dom.addAll(dom);
-              for (String s : tmp_dom) {
-                if(!(voiture.get(v).equals(couleur_var)) && s != couleur_var) {
-                  dom.remove(s);
-                  tmp = true;
-                }
-              }
-              unassigned_domains.put(v2,dom);
-            }
-          }
+        if (unassigned_domains.keySet().contains(v)){
+          unassigned_variable=v;
+          cpt++;
+        }
+        if (cpt>1){
+          return false;
         }
       }
-    }*/
-    return tmp;
-  }
+
+      // on recupère la valeur attendu par la conclusion
+      String expected = this.conclusion.get(unassigned_variable);
+      // on cherche toues les variables ayant la valeur attendu
+      for (Variable va : this.conclusion.keySet()){
+        if (this.conclusion.get(va)==expected && !(va.equals(unassigned_variable)) && voiture.get(va)==expected){
+          // une variables du scope de la conlusion est deja affecté
+          tmp = true;
+        }
+      }
+      if (tmp){
+        // on supprime la valeur attendu
+        return unassigned_domains.get(unassigned_variable).remove(expected);
+      }else{
+        unassigned_domains.get(unassigned_variable).clear();
+        return unassigned_domains.get(unassigned_variable).add(expected);
+      }
+
+
+		}else{
+      return false;
+    }
+	}
 }
