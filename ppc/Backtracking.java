@@ -10,6 +10,7 @@ public class Backtracking {
   private Constraint[] constraints;
   private Map<Variable,Integer> cpt = new HashMap<Variable,Integer>();
   private ArrayList<Map<Variable,String>> list = new ArrayList<>();
+  private Map<Variable,Set<String>> unassigned_domains = new HashMap<>();
 
   public Backtracking(Variable[] variables, Constraint[] constraints) {
     this.variables = variables;
@@ -21,13 +22,18 @@ public class Backtracking {
 */
 
   public void backtrack(Map<Variable,String> map, int i) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
-    //applyAllFilters()
+    //applyAllFilters(map, this.unassigned_domains);
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){
           System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
           map.put(variables[i],valeur);
+          /*for (int j = 0; j < this.variables.length; j++) {
+            Set<String> tmp_dom = this.variables[j].getDomaine();
+            this.unassigned_domains.put(this.variables[j], tmp_dom);
+          }
+          unassigned_domains.remove(variables[i]);*/
           // si le dictionnaire est plein
           System.out.println(this.allConstraintsSatisfiedBy(map));
           if (!(map.containsValue("")) && this.allConstraintsSatisfiedBy(map)) {
