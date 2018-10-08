@@ -21,26 +21,16 @@ public class IncompatibilityConstraint extends Rule {
 
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable,Set<String>> domaines) {
-    boolean tmp = false;
-    Set<Variable> scope = premisse.keySet();
-    for (Variable v : scope) {
+    for (Variable v : this.premisse.keySet()) {
       if (voiture.get(v) != "") {
-        for (Variable v2 : scope) {
-          if (!(v.equals(v2))) {
-            Set<String> dom = domaines.get(v2);
-            Set<String> tmp_dom = new HashSet<>();
-            tmp_dom.addAll(dom);
-            for (String s : tmp_dom) {
-              if (dom.contains(s) && s == voiture.get(v)) {
-                dom.remove(s);
-                tmp = true;
-              }
-            }
-            domaines.put(v2,dom);
+        for (Variable v2 : this.premisse.keySet()) {
+          if (!(v.equals(v2)) && domaines.containsKey(v2)) {
+            domaines.get(v2).remove(voiture.get(v));
+            return true;
           }
         }
       }
     }
-    return tmp;
+    return false;
   }
 }

@@ -45,20 +45,18 @@ public class AllEqualConstraint implements Constraint {
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
     boolean tmp = false;
+    System.out.println("AllEqualConstraint cond");
     for (Variable v : this.scope) {
-      if (voiture.get(v) != ""){
+      if (voiture.get(v)!="") {
+
+
         for (Variable v2 : this.scope) {
-          if (!(v.equals(v2))) {
-            Set<String> dom = domaines.get(v2);
-            Set<String> tmp_dom = new HashSet<>();
-            tmp_dom.addAll(dom);
-            for (String s : tmp_dom){
-              if (dom.contains(s) && s!=voiture.get(v)){
-                dom.remove(s);
-                tmp = true;
-              }
-            }
-            domaines.put(v2,dom);
+          if (!(v.equals(v2)) && domaines.containsKey(v2) && domaines.get(v2).size()!=1) {
+            System.out.println(domaines.get(v2));
+            tmp=true;
+            domaines.get(v2).clear();
+            domaines.get(v2).add(voiture.get(v));
+            System.out.println(domaines.get(v2));
           }
         }
       }
