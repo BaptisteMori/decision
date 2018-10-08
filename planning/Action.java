@@ -34,4 +34,46 @@ public class Action {
     State new_state = new State(new_map);
     return new_state;
   }
+
+
+  /*
+    Des actions d’installation d’une pièce unique.
+  */
+
+  public State uniqueInstall(State state){
+
+    /* Un truc dans le genre.
+    if ( INSTALL_BODY != false) {
+        PAINT_ROOF = true;
+    }
+    */
+  }
+
+  /*
+    Des actions d’installation parallèle
+  */
+
+  public State parallelInstall(State state){
+
+  }
+
+  /*
+    Des actions de peinture précises
+  */
+
+  public State specificPaint(State state){
+
+    if()
+
+  }
+
+  /*
+    Des actions de peinture à large effet.
+  */
+
+  public State largePaint(State state){
+
+  }
+
+
 }
