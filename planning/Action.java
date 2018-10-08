@@ -41,20 +41,14 @@ public class Action {
   */
 
   public State uniqueInstall(State state){
-
-    /* Un truc dans le genre.
-    if ( INSTALL_BODY != false) {
-        PAINT_ROOF = true;
-    }
-    */
+    return state;
   }
-
   /*
     Des actions d’installation parallèle
   */
 
   public State parallelInstall(State state){
-
+    return state;
   }
 
   /*
@@ -62,9 +56,12 @@ public class Action {
   */
 
   public State specificPaint(State state){
-
-    if()
-
+    /*
+    if ( INSTALL_BODY != false) {
+        PAINT_ROOF = true;
+    }
+  */
+    return state;
   }
 
   /*
@@ -72,7 +69,7 @@ public class Action {
   */
 
   public State largePaint(State state){
-
+    return state;
   }
 
 
