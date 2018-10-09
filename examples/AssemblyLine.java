@@ -6,26 +6,6 @@ import java.util.*;
 
 public class AssemblyLine {
 
-	private boolean HAS_CHASSIS;
-	private boolean HAS_BODY;
-	private boolean HAS_FRONT_LEFT_WHEEL;
-	private boolean HAS_FRONT_RIGHT_WHEEL;
-	private boolean HAS_REAR_LEFT_WHEEL;
-	private boolean HAS_REAR_RIGHT_WHEEL;
-
-	private Variable FRONT_LEFT_WHEEL_COLOR;
-	private Variable FRONT_RIGHT_WHEEL_COLOR;
-	private Variable REAR_LEFT_WHEEL_COLOR;
-	private Variable REAR_RIGHT_WHEEL_COLOR;
-
-	private Variable FRONT_COLOR;
-	private Variable REAR_COLOR;
-	private Variable LEFT_COLOR;
-	private Variable RIGHT_COLOR;
-	private Variable ROOF_COLOR;
-
-	private Set<String> ALL_COLORS;
-
 	private Action INSTALL_CHASSIS;
 	private Action INSTALL_BODY;
 	private Action INSTALL_FRONT_LEFT_WHEEL;
@@ -46,24 +26,52 @@ public class AssemblyLine {
 
 	public AssemblyLine() {
 
-		this.HAS_CHASSIS=false;
-		this.HAS_BODY=false;
-		this.HAS_FRONT_LEFT_WHEEL=false;
-		this.HAS_FRONT_RIGHT_WHEEL=false;
-		this.HAS_REAR_LEFT_WHEEL=false;
-		this.HAS_REAR_RIGHT_WHEEL=false;
+		/* Ensembles de variables et domaines associés */
+		Set<String> parts_list = new HashSet(Arrays.asList(new String[] {"HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL"}));
 
-		this.ALL_COLORS = new HashSet(Arrays.asList(new String[] {"GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"}));
+		Set<String> booleans_dom = new HashSet(Arrays.asList(new String[] {"TRUE", "FALSE"}));
 
-		this.FRONT_LEFT_WHEEL_COLOR = new Variable("couleur roue avant gauche", this.ALL_COLORS);
-		this.FRONT_RIGHT_WHEEL_COLOR = new Variable("couleur roue avant droite", this.ALL_COLORS);
-		this.REAR_LEFT_WHEEL_COLOR = new Variable("couleur roue arrière gauche", this.ALL_COLORS);
-		this.REAR_RIGHT_WHEEL_COLOR = new Variable("couleur roue arrière droite", this.ALL_COLORS);
-		this.FRONT_COLOR = new Variable("couleur capot", this.ALL_COLORS);
-		this.REAR_COLOR = new Variable("couleur hayon", this.ALL_COLORS);
-		this.LEFT_COLOR = new Variable("couleur gauche", this.ALL_COLORS);
-		this.RIGHT_COLOR = new Variable("couleur droite", this.ALL_COLORS);
-		this.ROOF_COLOR = new Variable("couleur toit", this.ALL_COLORS);
+		Set<String> colors_list = new HashSet(Arrays.asList(new String[] {"FRONT_COLOR", "REAR_COLOR", "LEFT_COLOR", "RIGHT_COLOR", "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR"}));
+
+		Set<String> ALL_COLORS = new HashSet(Arrays.asList(new String[] {"GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"}));
+
+		/* Création de l'état initial */
+		HashMap<Variable,String> starting_car = new HashMap<Variable,String>();
+		for (String part : parts_list) {
+			starting_car.put(new Variable(part, booleans_dom),"FALSE");
+		}
+		for (String paint : colors_list) {
+			starting_car.put(new Variable(paint, ALL_COLORS), "GRAY");
+		}
+
+		/* Actions d'installation */
+		HashMap<Variable,String> outcome_chassis = new HashMap<Variable,String>();
+		outcome_chassis.put(new Variable("HAS_CHASSIS",booleans_dom), "TRUE");
+		this.INSTALL_CHASSIS = new Action(new HashMap<Variable,String>(), outcome_chassis);
+
+		HashMap<Variable,String> outcome_body = new HashMap<Variable,String>();
+		outcome_body.put(new Variable("HAS_BODY",booleans_dom), "TRUE");
+		HashMap<Variable,String> outcome_rrw = new HashMap<Variable,String>();
+		outcome_rrw.put(new Variable("HAS_REAR_RIGHT_WHEEL",booleans_dom), "TRUE");
+		HashMap<Variable,String> outcome_rlw = new HashMap<Variable,String>();
+		outcome_rlw.put(new Variable("HAS_REAR_LEFT_WHEEL",booleans_dom), "TRUE");
+		HashMap<Variable,String> outcome_frw = new HashMap<Variable,String>();
+		outcome_frw.put(new Variable("HAS_FRONT_RIGHT_WHEEL",booleans_dom), "TRUE");
+		HashMap<Variable,String> outcome_flw = new HashMap<Variable,String>();
+		outcome_flw.put(new Variable("HAS_FRONT_LEFT_WHEEL",booleans_dom), "TRUE");
+
+		this.INSTALL_BODY = new Action(outcome_chassis, outcome_body);
+		this.INSTALL_REAR_RIGHT_WHEEL = new Action(outcome_chassis, outcome_rrw);
+		this.INSTALL_REAR_LEFT_WHEEL = new Action(outcome_chassis, outcome_rlw);
+		this.INSTALL_FRONT_RIGHT_WHEEL = new Action(outcome_chassis, outcome_frw);
+		this.INSTALL_FRONT_LEFT_WHEEL = new Action(outcome_chassis, outcome_flw);
+		this.INSTALL_REAR_WHEELS = new Action(outcome_chassis, outcome_rlw.putAll(outcome_rrw));
+		this.INSTALL_FRONT_WHEELS = new Action(outcome_chassis, outcome_flw.putAll(outcome_frw));
+		this.INSTALL_LEFT_WHEELS = new Action(outcome_chassis, outcome_flw.putAll(outcome_rlw));
+		this.INSTALL_RIGHT_WHEELS = new Action(outcome_chassis, outcome_frw.putAll(outcome_rrw));
+		
+		this.PAINT_ROOF = new Action(outcome_body, );
+
 
 	}
 

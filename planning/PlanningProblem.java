@@ -38,7 +38,7 @@ public class PlanningProblem {
             if (sublan != null) {
               return subplan;
             }
-            plan.pop;
+            plan.pop();
           }
           this.actions.add(act);
         }
@@ -74,7 +74,7 @@ public class PlanningProblem {
     father.put(this.init,null);
 
     while (open != null) {
-      
+
     }
   }
 }
