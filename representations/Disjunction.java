@@ -31,5 +31,8 @@ public class Disjunction extends Rule {
     return p && c;
   }
 
-
+  @Override
+  public String toString(){
+    return "disjunction\n";
+  }
 }

@@ -38,4 +38,13 @@ public class ConstraintDisjunction implements Constraint {
     }
     return false;
   }
+
+  @Override
+  public String toString(){
+    String ch = "";
+    for(Constraint d : constraints){
+      ch+=((Disjunction)d).toString();
+    }
+    return ch;
+  }
 }

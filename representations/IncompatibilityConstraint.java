@@ -33,4 +33,9 @@ public class IncompatibilityConstraint extends Rule {
     }
     return false;
   }
+
+  @Override
+  public String toString(){
+    return "IncompatibilityConstraint";
+  }
 }

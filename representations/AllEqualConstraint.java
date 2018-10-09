@@ -64,4 +64,8 @@ public class AllEqualConstraint implements Constraint {
     return tmp;
   }
 
+  @Override
+  public String toString(){
+    return "AllEqualConstraint";
+  }
 }

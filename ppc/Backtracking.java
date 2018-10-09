@@ -59,6 +59,7 @@ public class Backtracking {
     boolean restart = false;
     for (int i = 0; i< this.constraints.length; i++) {
       System.out.println("i : "+i);
+      System.out.println(this.constraints[i]);
       boolean b = this.constraints[i].filter(voiture, unassigned_domains);
       System.out.println(b);
 
