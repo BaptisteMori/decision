@@ -18,5 +18,18 @@ public class Main {
 		for (int k=0; k<5; k++) {
 			System.out.println(universe.getPaintActionLists().get(k));
 		}*/
+		State goalState = universe.generateGoalState();
+		ArrayList<State> goals = new ArrayList<>();
+		goals.add(goalState);
+		ArrayList<Action> actions = new ArrayList<>();
+		//actions.addAll();
+		PlanningProblem pb = new PlanningProblem(universe.getInitialState(), goals, actions );
+		Stack<Action> plan = new Stack<>();
+		ArrayList<State> closed = new ArrayList<>();
+		Stack<Action> actions_dfs = pb.dfs(universe.getInitialState(), plan, closed); //OK
+		System.out.println("\nDFS: "+actions_dfs);
+		Stack<Action> actions_bfs = pb.bfs();
+		System.out.println("\nBFS: "+actions_bfs);
+
 	}
 }

@@ -25,16 +25,19 @@ public class PlanningProblem {
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
     if (satisfies(state)) {
+      System.out.println("ok");
       return plan;
     } else {
-      for (Action act : this.actions) {
+      ArrayList<Action> tmp_actions = new ArrayList<>();
+      tmp_actions.addAll(this.actions);
+      for (Action act : tmp_actions) {
         if (act.is_applicable(state)) {
           State next = act.apply(state);
           this.actions.remove(act);
           if (!(closed.contains(next))) {
             plan.push(act);
             closed.add(next);
-            Stack subplan = dfs(next, plan, closed);
+            Stack<Action> subplan = dfs(next, plan, closed);
             if (subplan != null) {
               return subplan;
             }
@@ -72,6 +75,7 @@ public class PlanningProblem {
       plan.push(action_done.pop);
 
     }*/
+    return null;
   }
 
   public Stack<Action> bfs() {
@@ -81,17 +85,17 @@ public class PlanningProblem {
     Stack<State> open = new Stack<>();
     open.push(this.init);
     father.put(this.init,null);
-
-    while (open != null) {
+    while (!(open.isEmpty())) {
       State state = open.pop();
       closed.add(state);
       for (Action act : this.actions) {
         State next = act.apply(state);
-        System.out.println(open.search(next));
-        if (!(closed.contains(state)) /*&& (!(open.search(next)))*/) {
+        if (!(closed.contains(next)) && (open.search(next) != -1)) {
+          System.out.println("ok");
           father.put(next, state);
           plan.put(next, act);
           if (satisfies(next)) {
+            System.out.println("OK 2");
             return getBFSPlan(father, plan, next);
           } else {
             open.push(next);
@@ -104,10 +108,12 @@ public class PlanningProblem {
 
   public Stack<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {
     Stack<Action> plan = new Stack<>();
+    System.out.println(goal);
     while (goal != null) {
       plan.push(actions.get(goal));
       goal = father.get(goal);
     }
-    return Collections.reverse(plan);
+    Collections.reverse(plan);
+    return plan;
   }
 }
