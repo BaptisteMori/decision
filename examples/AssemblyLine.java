@@ -26,16 +26,17 @@ public class AssemblyLine {
 
 	private State initial_state;
 
+	//Ensembles de variables et domaines associés
+	private Set<String> parts_list = new HashSet(Arrays.asList(new String[] {"HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL"}));
+
+	private Set<String> booleans_dom = new HashSet(Arrays.asList(new String[] {"TRUE", "FALSE"}));
+
+	private Set<String> parts_color = new HashSet(Arrays.asList(new String[] {"FRONT_COLOR", "REAR_COLOR", "LEFT_COLOR", "RIGHT_COLOR", "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR"}));
+
+	private Set<String> all_colors = new HashSet(Arrays.asList(new String[] {"GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"}));
+
 	public AssemblyLine() {
 
-		//Ensembles de variables et domaines associés
-		Set<String> parts_list = new HashSet(Arrays.asList(new String[] {"HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL"}));
-
-		Set<String> booleans_dom = new HashSet(Arrays.asList(new String[] {"TRUE", "FALSE"}));
-
-		Set<String> parts_color = new HashSet(Arrays.asList(new String[] {"FRONT_COLOR", "REAR_COLOR", "LEFT_COLOR", "RIGHT_COLOR", "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR"}));
-
-		Set<String> all_colors = new HashSet(Arrays.asList(new String[] {"GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"}));
 
 		//Création de l'état initial
 		HashMap<Variable,String> starting_car = new HashMap<Variable,String>();
@@ -86,27 +87,22 @@ public class AssemblyLine {
 		/* Actions de peinture
 		Les actions sont stockées dans des listes selon la cible. Chaque liste contient autant d'actions que de couleurs dans le domaine all_color, et les actions sont triées dans le même ordre que le domaine. */
 
-		HashMap<Variable,String> outcome_roof = new HashMap<Variable,String>();
 		HashMap<Variable,String> conditions_rear = new HashMap<Variable,String>();
 		conditions_rear.putAll(outcome_body);
 		conditions_rear.put(new Variable("HAS_REAR_LEFT_WHEEL", booleans_dom), "TRUE");
 		conditions_rear.put(new Variable("HAS_REAR_RIGHT_WHEEL", booleans_dom), "TRUE");
 		HashMap<Variable,String> conditions_front = new HashMap<Variable,String>();
-		conditions_rear.putAll(outcome_body);
-		conditions_rear.put(new Variable("HAS_FRONT_LEFT_WHEEL", booleans_dom), "TRUE");
-		conditions_rear.put(new Variable("HAS_FRONT_RIGHT_WHEEL", booleans_dom), "TRUE");
+		conditions_front.putAll(outcome_body);
+		conditions_front.put(new Variable("HAS_FRONT_LEFT_WHEEL", booleans_dom), "TRUE");
+		conditions_front.put(new Variable("HAS_FRONT_RIGHT_WHEEL", booleans_dom), "TRUE");
 		HashMap<Variable,String> conditions_left = new HashMap<Variable,String>();
-		conditions_rear.putAll(outcome_body);
-		conditions_rear.put(new Variable("HAS_REAR_LEFT_WHEEL", booleans_dom), "TRUE");
-		conditions_rear.put(new Variable("HAS_FRONT_LEFT_WHEEL", booleans_dom), "TRUE");
+		conditions_left.putAll(outcome_body);
+		conditions_left.put(new Variable("HAS_REAR_LEFT_WHEEL", booleans_dom), "TRUE");
+		conditions_left.put(new Variable("HAS_FRONT_LEFT_WHEEL", booleans_dom), "TRUE");
 		HashMap<Variable,String> conditions_right = new HashMap<Variable,String>();
-		conditions_rear.putAll(outcome_body);
-		conditions_rear.put(new Variable("HAS_FRONT_RIGHT_WHEEL", booleans_dom), "TRUE");
-		conditions_rear.put(new Variable("HAS_REAR_RIGHT_WHEEL", booleans_dom), "TRUE");
-		HashMap<Variable,String> outcome_rear = new HashMap<Variable,String>();
-		HashMap<Variable,String> outcome_front = new HashMap<Variable,String>();
-		HashMap<Variable,String> outcome_left = new HashMap<Variable,String>();
-		HashMap<Variable,String> outcome_right = new HashMap<Variable,String>();
+		conditions_right.putAll(outcome_body);
+		conditions_right.put(new Variable("HAS_FRONT_RIGHT_WHEEL", booleans_dom), "TRUE");
+		conditions_right.put(new Variable("HAS_REAR_RIGHT_WHEEL", booleans_dom), "TRUE");
 
 		this.PAINT_ROOF = new ArrayList<Action>();
 		this.PAINT_REAR = new ArrayList<Action>();
@@ -116,30 +112,30 @@ public class AssemblyLine {
 
 		for (String color : all_colors) {
 			//Peinture précise de coût 2
-			outcome_roof.clear();
+			HashMap<Variable,String> outcome_roof = new HashMap<Variable,String>();
 			outcome_roof.put(new Variable("ROOF_COLOR", all_colors), color);
 			this.PAINT_ROOF.add(new Action(outcome_body, outcome_roof));
 
 			//Peinture large de coût 1
-			outcome_rear.clear();
+			HashMap<Variable,String> outcome_rear = new HashMap<Variable,String>();
 			outcome_rear.putAll(outcome_roof);
 			outcome_rear.put(new Variable("REAR_COLOR", all_colors), color);
-			outcome_rear.put(new Variable("REAR_REAR_WHEEL_COLOR", all_colors), color);
-			outcome_rear.put(new Variable("FRONT_REAR_WHEEL_COLOR", all_colors), color);
+			outcome_rear.put(new Variable("REAR_LEFT_WHEEL_COLOR", all_colors), color);
+			outcome_rear.put(new Variable("REAR_RIGHT_WHEEL_COLOR", all_colors), color);
 			this.PAINT_REAR.add(new Action(conditions_rear, outcome_rear));
-			outcome_front.clear();
+			HashMap<Variable,String> outcome_front = new HashMap<Variable,String>();
 			outcome_front.putAll(outcome_roof);
 			outcome_front.put(new Variable("FRONT_COLOR", all_colors), color);
-			outcome_front.put(new Variable("REAR_FRONT_WHEEL_COLOR", all_colors), color);
-			outcome_front.put(new Variable("FRONT_FRONT_WHEEL_COLOR", all_colors), color);
+			outcome_front.put(new Variable("FRONT_LEFT_WHEEL_COLOR", all_colors), color);
+			outcome_front.put(new Variable("FRONT_RIGHT_WHEEL_COLOR", all_colors), color);
 			this.PAINT_FRONT.add(new Action(conditions_front, outcome_front));
-			outcome_left.clear();
+			HashMap<Variable,String> outcome_left = new HashMap<Variable,String>();
 			outcome_left.putAll(outcome_roof);
 			outcome_left.put(new Variable("LEFT_COLOR", all_colors), color);
 			outcome_left.put(new Variable("REAR_LEFT_WHEEL_COLOR", all_colors), color);
 			outcome_left.put(new Variable("FRONT_LEFT_WHEEL_COLOR", all_colors), color);
 			this.PAINT_LEFT.add(new Action(conditions_left, outcome_left));
-			outcome_right.clear();
+			HashMap<Variable,String> outcome_right = new HashMap<Variable,String>();
 			outcome_right.putAll(outcome_roof);
 			outcome_right.put(new Variable("RIGHT_COLOR", all_colors), color);
 			outcome_right.put(new Variable("REAR_RIGHT_WHEEL_COLOR", all_colors), color);
@@ -153,32 +149,37 @@ public class AssemblyLine {
 	}
 
 	public Action[] getBasicInstallActions() {
-		Action[] result = new Action[6];
-		result[0] = this.INSTALL_CHASSIS;
-		result[1] = this.INSTALL_BODY;
-		result[2] = this.INSTALL_REAR_LEFT_WHEEL;
-		result[3] = this.INSTALL_REAR_RIGHT_WHEEL;
-		result[4] = this.INSTALL_FRONT_LEFT_WHEEL;
-		result[5] = this.INSTALL_FRONT_RIGHT_WHEEL;
-		return result;
+		return new Action[] {INSTALL_CHASSIS, INSTALL_BODY, INSTALL_REAR_LEFT_WHEEL, INSTALL_REAR_RIGHT_WHEEL, INSTALL_FRONT_LEFT_WHEEL, INSTALL_FRONT_RIGHT_WHEEL};
 	}
 
 	public Action[] getParallelWheelInstallActions() {
-		Action[] result = new Action[4];
-		result[0] = this.INSTALL_REAR_WHEELS;
-		result[1] = this.INSTALL_FRONT_WHEELS;
-		result[2] = this.INSTALL_LEFT_WHEELS;
-		result[3] = this.INSTALL_RIGHT_WHEELS;
+		return new Action[] {INSTALL_REAR_WHEELS, INSTALL_FRONT_WHEELS, INSTALL_LEFT_WHEELS, INSTALL_RIGHT_WHEELS};
+	}
+
+	public ArrayList<ArrayList<Action>> getPaintActionLists() {
+		//String[] getable_array =
+		//this.all_colors.to_array(new String[this.all_colors.size()]);
+		/*for (String s : this.all_colors){
+			getable_array.add(s);
+		}*/
+		ArrayList<ArrayList<Action>> result = new ArrayList<ArrayList<Action>>();
+		result.add(this.PAINT_ROOF);
+		result.add(this.PAINT_REAR);
+		result.add(this.PAINT_FRONT);
+		result.add(this.PAINT_LEFT);
+		result.add(this.PAINT_RIGHT);
 		return result;
 	}
 
-/*	ArrayList<Action>[] getPaintActionLists() {
-		ArrayList<Action>[] result = new ArrayList<Action>[5];
-		result[0] = this.PAINT_ROOF;
-		result[1] = this.PAINT_REAR;
-		result[2] = this.PAINT_FRONT;
-		result[3] = this.PAINT_LEFT;
-		result[4] = this.PAINT_RIGHT;
-		return result;
-	}*/
+	public State generateGoalState() {
+		HashMap<Variable,String> random_car = new HashMap<Variable,String>();
+		for (String part : parts_list) {
+			random_car.put(new Variable(part, booleans_dom),"TRUE");
+		}
+		for (String paint : parts_color) {
+			random_car.put(new Variable(paint, all_colors), "RED");
+		}
+		State random_goal = new State(random_car);
+		return random_goal;
+	}
 }

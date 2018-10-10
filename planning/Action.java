@@ -36,7 +36,7 @@ public class Action {
   }
 
 	public String toString() {
-		return "Si " + this.premisse + " est vrai, alors faire " + this.conclusion;
+		return "Si " + this.premisse + " est vrai, alors faire " + this.conclusion + "\n";
 	}
 
 }
