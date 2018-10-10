@@ -35,7 +35,7 @@ public class PlanningProblem {
             plan.push(act);
             closed.add(next);
             Stack subplan = dfs(next, plan, closed);
-            if (sublan != null) {
+            if (subplan != null) {
               return subplan;
             }
             plan.pop();
@@ -76,5 +76,6 @@ public class PlanningProblem {
     while (open != null) {
 
     }
+		return null;//pour compiler
   }
 }

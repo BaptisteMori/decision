@@ -13,7 +13,6 @@ public class Example {
 	private HashSet<String> domaine_boolean;
 	private HashSet<String> domaine_couleur2;
 
-
 	/*
 		Déclaration des Varaibles.
 		- ct pour couleur toit.
@@ -32,14 +31,6 @@ public class Example {
 	private Variable cd;
 	private Variable sono;
 	private Variable to;
-
-	private Variable ct2;
-	private Variable cc2;
-	private Variable ch2;
-	private Variable cg2;
-	private Variable cd2;
-	private Variable sono2;
-	private Variable to2;
 
 	public Example(){
 

@@ -26,7 +26,7 @@ public class State {
     if (!(o instanceof State)) {
 			return false;
 		}
-    ArrayList<String> this_string = new ArrayList<>();
+    ArrayList<String> this_string = new ArrayList<>();// ???
     for (Variable v : this.state.keySet()) {
       if (!(this.state.get(v).equals(((State)o).getState().get(v)))) {
         return false;
@@ -42,4 +42,8 @@ public class State {
   public void setState(Map<Variable,String> state) {
     this.state = state;
   }
+
+	public String toString() {
+		return this.state.toString();
+	}
 }

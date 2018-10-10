@@ -35,6 +35,8 @@ public class Action {
     return new_state;
   }
 
-
+	public String toString() {
+		return "Si " + this.premisse + " est vrai, alors faire " + this.conclusion;
+	}
 
 }
