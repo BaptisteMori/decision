@@ -36,8 +36,6 @@ public class AssemblyLine {
 	private Set<String> all_colors = new HashSet(Arrays.asList(new String[] {"GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"}));
 
 	public AssemblyLine() {
-
-
 		//Création de l'état initial
 		HashMap<Variable,String> starting_car = new HashMap<Variable,String>();
 		for (String part : parts_list) {
@@ -157,11 +155,6 @@ public class AssemblyLine {
 	}
 
 	public ArrayList<ArrayList<Action>> getPaintActionLists() {
-		//String[] getable_array =
-		//this.all_colors.to_array(new String[this.all_colors.size()]);
-		/*for (String s : this.all_colors){
-			getable_array.add(s);
-		}*/
 		ArrayList<ArrayList<Action>> result = new ArrayList<ArrayList<Action>>();
 		result.add(this.PAINT_ROOF);
 		result.add(this.PAINT_REAR);
@@ -172,12 +165,13 @@ public class AssemblyLine {
 	}
 
 	public State generateGoalState() {
+		String[] getable_array = this.all_colors.toArray(new String[this.all_colors.size()]);
 		HashMap<Variable,String> random_car = new HashMap<Variable,String>();
 		for (String part : parts_list) {
 			random_car.put(new Variable(part, booleans_dom),"TRUE");
 		}
 		for (String paint : parts_color) {
-			random_car.put(new Variable(paint, all_colors), "RED");
+			random_car.put(new Variable(paint, all_colors), getable_array[new Random().nextInt(getable_array.length)]);
 		}
 		State random_goal = new State(random_car);
 		return random_goal;
