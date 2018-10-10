@@ -47,8 +47,20 @@ public class AssemblyLine {
 		this.initial_state = new State(starting_car);
 
 		//Actions d'installation
+		HashMap<Variable,String> condition_chassis = new HashMap<Variable,String>();
+		condition_chassis.put(new Variable("HAS_CHASSIS",booleans_dom), "FALSE");
 		HashMap<Variable,String> outcome_chassis = new HashMap<Variable,String>();
 		outcome_chassis.put(new Variable("HAS_CHASSIS",booleans_dom), "TRUE");
+		HashMap<Variable,String> conditions_body = new HashMap<Variable,String>(outcome_chassis);
+		conditions_body.put(new Variable("HAS_BODY",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_rrw = new HashMap<Variable,String>(outcome_chassis);
+		conditions_rrw.put(new Variable("HAS_REAR_RIGHT_WHEEL",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_rlw = new HashMap<Variable,String>(outcome_chassis);
+		conditions_rlw.put(new Variable("HAS_REAR_LEFT_WHEEL",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_frw = new HashMap<Variable,String>(outcome_chassis);
+		conditions_frw.put(new Variable("HAS_FRONT_RIGHT_WHEEL",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_flw = new HashMap<Variable,String>(outcome_chassis);
+		conditions_flw.put(new Variable("HAS_FRONT_LEFT_WHEEL",booleans_dom), "FALSE");
 		HashMap<Variable,String> outcome_body = new HashMap<Variable,String>();
 		outcome_body.put(new Variable("HAS_BODY",booleans_dom), "TRUE");
 		HashMap<Variable,String> outcome_rrw = new HashMap<Variable,String>();
@@ -60,15 +72,24 @@ public class AssemblyLine {
 		HashMap<Variable,String> outcome_flw = new HashMap<Variable,String>();
 		outcome_flw.put(new Variable("HAS_FRONT_LEFT_WHEEL",booleans_dom), "TRUE");
 
-			//Installations de coût 1
-		this.INSTALL_CHASSIS = new Action(new HashMap<Variable,String>(), outcome_chassis);
-		this.INSTALL_BODY = new Action(outcome_chassis, outcome_body);
-		this.INSTALL_REAR_RIGHT_WHEEL = new Action(outcome_chassis, outcome_rrw);
-		this.INSTALL_REAR_LEFT_WHEEL = new Action(outcome_chassis, outcome_rlw);
-		this.INSTALL_FRONT_RIGHT_WHEEL = new Action(outcome_chassis, outcome_frw);
-		this.INSTALL_FRONT_LEFT_WHEEL = new Action(outcome_chassis, outcome_flw);
-
 			//Installations de coût 2
+		this.INSTALL_CHASSIS = new Action(condition_chassis, outcome_chassis);
+		this.INSTALL_BODY = new Action(conditions_body, outcome_body);
+		this.INSTALL_REAR_RIGHT_WHEEL = new Action(conditions_rrw, outcome_rrw);
+		this.INSTALL_REAR_LEFT_WHEEL = new Action(conditions_rlw, outcome_rlw);
+		this.INSTALL_FRONT_RIGHT_WHEEL = new Action(conditions_frw, outcome_frw);
+		this.INSTALL_FRONT_LEFT_WHEEL = new Action(conditions_flw, outcome_flw);
+
+			//Installations de coût 1
+
+		HashMap<Variable,String> conditions_prw = new HashMap<Variable,String>(conditions_rlw);
+		conditions_prw.put(new Variable("HAS_REAR_RIGHT_WHEEL",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_pfw = new HashMap<Variable,String>(conditions_frw);
+		conditions_pfw.put(new Variable("HAS_FRONT_LEFT_WHEEL",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_plw = new HashMap<Variable,String>(conditions_rlw);
+		conditions_plw.put(new Variable("HAS_FRONT_LEFT_WHEEL",booleans_dom), "FALSE");
+		HashMap<Variable,String> conditions_pdw = new HashMap<Variable,String>(conditions_frw);
+		conditions_pdw.put(new Variable("HAS_REAR_RIGHT_WHEEL",booleans_dom), "FALSE");
 		HashMap<Variable,String> outcome_prw = new HashMap<Variable,String>(outcome_rlw);
 		outcome_prw.putAll(outcome_rrw);
 		HashMap<Variable,String> outcome_pfw = new HashMap<Variable,String>(outcome_flw);
@@ -77,10 +98,10 @@ public class AssemblyLine {
 		outcome_plw.putAll(outcome_rlw);
 		HashMap<Variable,String> outcome_pdw = new HashMap<Variable,String>(outcome_frw);
 		outcome_pdw.putAll(outcome_rrw);
-		this.INSTALL_REAR_WHEELS = new Action(outcome_chassis, outcome_prw);
-		this.INSTALL_FRONT_WHEELS = new Action(outcome_chassis, outcome_pfw);
-		this.INSTALL_LEFT_WHEELS = new Action(outcome_chassis, outcome_plw);
-		this.INSTALL_RIGHT_WHEELS = new Action(outcome_chassis, outcome_pdw);
+		this.INSTALL_REAR_WHEELS = new Action(conditions_prw, outcome_prw);
+		this.INSTALL_FRONT_WHEELS = new Action(conditions_pfw, outcome_pfw);
+		this.INSTALL_LEFT_WHEELS = new Action(conditions_plw, outcome_plw);
+		this.INSTALL_RIGHT_WHEELS = new Action(conditions_pdw, outcome_pdw);
 
 		/* Actions de peinture
 		Les actions sont stockées dans des listes selon la cible. Chaque liste contient autant d'actions que de couleurs dans le domaine all_color, et les actions sont triées dans le même ordre que le domaine. */
@@ -107,6 +128,8 @@ public class AssemblyLine {
 		this.PAINT_FRONT = new ArrayList<Action>();
 		this.PAINT_LEFT = new ArrayList<Action>();
 		this.PAINT_RIGHT = new ArrayList<Action>();
+		String[] colors_array = this.all_colors.toArray(new String[this.all_colors.size()]);
+
 
 		for (String color : all_colors) {
 			//Peinture précise de coût 2
@@ -147,31 +170,43 @@ public class AssemblyLine {
 	}
 
 	public Action[] getBasicInstallActions() {
-		return new Action[] {INSTALL_CHASSIS, INSTALL_BODY, INSTALL_REAR_LEFT_WHEEL, INSTALL_REAR_RIGHT_WHEEL, INSTALL_FRONT_LEFT_WHEEL, INSTALL_FRONT_RIGHT_WHEEL};
+		return new Action[] {this.INSTALL_CHASSIS, this.INSTALL_BODY, this.INSTALL_REAR_LEFT_WHEEL, this.INSTALL_REAR_RIGHT_WHEEL, this.INSTALL_FRONT_LEFT_WHEEL, this.INSTALL_FRONT_RIGHT_WHEEL};
 	}
 
 	public Action[] getParallelWheelInstallActions() {
-		return new Action[] {INSTALL_REAR_WHEELS, INSTALL_FRONT_WHEELS, INSTALL_LEFT_WHEELS, INSTALL_RIGHT_WHEELS};
+		return new Action[] {this.INSTALL_REAR_WHEELS, this.INSTALL_FRONT_WHEELS, this.INSTALL_LEFT_WHEELS, this.INSTALL_RIGHT_WHEELS};
 	}
 
-	public ArrayList<ArrayList<Action>> getPaintActionLists() {
-		ArrayList<ArrayList<Action>> result = new ArrayList<ArrayList<Action>>();
-		result.add(this.PAINT_ROOF);
-		result.add(this.PAINT_REAR);
-		result.add(this.PAINT_FRONT);
-		result.add(this.PAINT_LEFT);
-		result.add(this.PAINT_RIGHT);
+	public ArrayList<Action> getPrecisePaintActions() {
+		return this.PAINT_ROOF;
+	}
+
+	public ArrayList<Action> getLargePaintActions() {
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.addAll(this.PAINT_REAR);
+		result.addAll(this.PAINT_FRONT);
+		result.addAll(this.PAINT_LEFT);
+		result.addAll(this.PAINT_RIGHT);
+		return result;
+	}
+
+	public ArrayList<Action> getAllActions() {
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.addAll(Arrays.asList(this.getBasicInstallActions()));
+		result.addAll(Arrays.asList(this.getParallelWheelInstallActions()));
+		result.addAll(this.getPrecisePaintActions());
+		result.addAll(this.getLargePaintActions());
 		return result;
 	}
 
 	public State generateGoalState() {
-		String[] getable_array = this.all_colors.toArray(new String[this.all_colors.size()]);
+		String[] gettable_array = this.all_colors.toArray(new String[this.all_colors.size()]);//passage du set en array pour pouvoir récupérer une couleur
 		HashMap<Variable,String> random_car = new HashMap<Variable,String>();
 		for (String part : parts_list) {
 			random_car.put(new Variable(part, booleans_dom),"TRUE");
 		}
 		for (String paint : parts_color) {
-			random_car.put(new Variable(paint, all_colors), getable_array[new Random().nextInt(getable_array.length)]);
+			random_car.put(new Variable(paint, all_colors), gettable_array[new Random().nextInt(gettable_array.length)]);
 		}
 		State random_goal = new State(random_car);
 		return random_goal;

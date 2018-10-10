@@ -9,6 +9,7 @@ public class Main {
 
 		AssemblyLine universe = new AssemblyLine();
 		System.out.println(universe.getInitialState());
+		System.out.println(universe.getAllActions());
 		for (int i=0; i<6; i++) {
 			System.out.println(universe.generateGoalState());
 		}
