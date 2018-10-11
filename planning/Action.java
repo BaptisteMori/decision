@@ -18,7 +18,12 @@ public class Action {
       if (state.getState().get(v) != premisse.get(v)) {
         return false;
       }
-    }
+		}
+		for (Variable v : conclusion.keySet()) {
+			if (state.getState().get(v).equals(conclusion.get(v))) {
+				return false;
+			}
+		}
     return true;
   }
 
@@ -36,7 +41,7 @@ public class Action {
   }
 
 	public String toString() {
-		return "Si " + this.premisse + " est vrai, alors faire " + this.conclusion + "\n";
+		return "Si " + this.premisse + " est vrai et " + this.conclusion + " n'est pas réalisé, alors faire " + this.conclusion + "\n";
 	}
 
 }

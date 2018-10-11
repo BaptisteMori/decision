@@ -8,22 +8,12 @@ public class Main {
 	public static void main(String[] args) {
 
 		AssemblyLine universe = new AssemblyLine();
-		System.out.println(universe.getInitialState());
-		System.out.println(universe.getAllActions());
-		for (int i=0; i<6; i++) {
-			System.out.println(universe.generateGoalState());
-		}
-		/*for (int j=0; j<4; j++) {
-			System.out.println(universe.getParallelWheelInstallActions()[j]);
-		}
-		for (int k=0; k<5; k++) {
-			System.out.println(universe.getPaintActionLists().get(k));
-		}*/
+		System.out.println(universe.getAllActions().get(0).is_applicable(universe.getInitialState()));
 		State goalState = universe.generateGoalState();
 		ArrayList<State> goals = new ArrayList<>();
 		goals.add(goalState);
 		ArrayList<Action> actions = new ArrayList<>();
-		//actions.addAll();
+		//actions.addAll(universe.getAllActions());
 		PlanningProblem pb = new PlanningProblem(universe.getInitialState(), goals, actions );
 		Stack<Action> plan = new Stack<>();
 		ArrayList<State> closed = new ArrayList<>();
