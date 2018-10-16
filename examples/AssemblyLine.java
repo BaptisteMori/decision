@@ -147,12 +147,24 @@ public class AssemblyLine {
 		return this.initial_state;
 	}
 
-	public Action[] getBasicInstallActions() {
-		return new Action[] {this.INSTALL_CHASSIS, this.INSTALL_BODY, this.INSTALL_REAR_LEFT_WHEEL, this.INSTALL_REAR_RIGHT_WHEEL, this.INSTALL_FRONT_LEFT_WHEEL, this.INSTALL_FRONT_RIGHT_WHEEL};
+	public ArrayList<Action> getBasicInstallActions() {
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.add(this.INSTALL_CHASSIS);
+		result.add(this.INSTALL_BODY);
+		result.add(this.INSTALL_REAR_LEFT_WHEEL);
+		result.add(this.INSTALL_REAR_RIGHT_WHEEL);
+		result.add(this.INSTALL_FRONT_LEFT_WHEEL);
+		result.add(this.INSTALL_FRONT_RIGHT_WHEEL);
+		return result;
 	}
 
-	public Action[] getParallelWheelInstallActions() {
-		return new Action[] {this.INSTALL_REAR_WHEELS, this.INSTALL_FRONT_WHEELS, this.INSTALL_LEFT_WHEELS, this.INSTALL_RIGHT_WHEELS};
+	public ArrayList<Action> getParallelWheelInstallActions() {
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.add(this.INSTALL_REAR_WHEELS);
+		result.add(this.INSTALL_FRONT_WHEELS);
+		result.add(this.INSTALL_LEFT_WHEELS);
+		result.add(this.INSTALL_RIGHT_WHEELS);
+		return result;
 	}
 
 	public ArrayList<Action> getPrecisePaintActions() {
@@ -160,8 +172,7 @@ public class AssemblyLine {
 	}
 
 	public ArrayList<Action> getLargePaintActions() {
-		ArrayList<Action> result = new ArrayList<Action>();
-		result.addAll(this.PAINT_REAR);
+		ArrayList<Action> result = new ArrayList<Action>(this.PAINT_REAR);
 		result.addAll(this.PAINT_FRONT);
 		result.addAll(this.PAINT_LEFT);
 		result.addAll(this.PAINT_RIGHT);
@@ -169,9 +180,8 @@ public class AssemblyLine {
 	}
 
 	public ArrayList<Action> getAllActions() {
-		ArrayList<Action> result = new ArrayList<Action>();
-		result.addAll(Arrays.asList(this.getBasicInstallActions()));
-		result.addAll(Arrays.asList(this.getParallelWheelInstallActions()));
+		ArrayList<Action> result = new ArrayList<Action>(this.getBasicInstallActions());
+		result.addAll(this.getParallelWheelInstallActions());
 		result.addAll(this.getPrecisePaintActions());
 		result.addAll(this.getLargePaintActions());
 		return result;

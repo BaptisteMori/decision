@@ -11,6 +11,10 @@ public class State {
     this.state = state;
   }
 
+	public State() {
+		this(null);
+	}
+
   @Override
 	public int hashCode() {
 		int code=7;
