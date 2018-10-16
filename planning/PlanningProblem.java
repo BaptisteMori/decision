@@ -78,34 +78,6 @@ public class PlanningProblem {
     return plan;
   }
 
-  public Stack<Action> dfsIteratif(State state) {
-    Stack<State> state_plan = new Stack<State>();
-    state_plan.add(state);
-    ArrayList<State> closed = new ArrayList<>();
-    closed.add(state);
-    while (!state_plan.isEmpty()) {
-      State elem = state_plan.pop();
-
-    }
-    /*ArrayList<State> closed = new ArrayList<>();
-    Stack<Action> plan = new Stack();
-    Stack<State> state_plan = new Stack();
-    Stack<Action> action_done = new Stack();
-    State present_state = state;
-    while (!(satisfies(present_state))) {
-      for (Action act : this.actions) {
-        State next = act.apply(present_state);
-        state_plan.push(next);
-        action_done.push(act);
-      }
-      present_state = state_plan.pop();
-
-      plan.push(action_done.pop);
-
-    }*/
-    return null;
-  }
-
   public Stack<Action> bfs() {
     Map<State,State> father = new HashMap<>();
     Map<State,Action> plan = new HashMap<>();
@@ -122,7 +94,7 @@ public class PlanningProblem {
           father.put(state, next);
           plan.put(next, act);
           if (satisfies(next)) {
-            System.out.println("OK 2");
+            System.out.println("next satisfait un état but");
             return getBFSPlan(father, plan, next);
           } else {
             open.push(next);
