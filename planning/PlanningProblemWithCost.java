@@ -7,6 +7,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 
 	private ArrayList<Action> cost1;
 	private ArrayList<Action> cost2;
+	private Heuristic h;
 
 	public PlanningProblemWithCost(State init, ArrayList<State> goals, ArrayList<Action> actions) {
 		super(init,goals,actions);
@@ -15,7 +16,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		cost1.addAll(al.getLargePaintActions());
 		this.cost2 = new ArrayList<Action>(al.getBasicInstallActions());
 		cost2.addAll(al.getPrecisePaintActions());
-
+		this.h = new SimpleHeuristic();
 	}
 
 	public double cost(Action a) {
@@ -26,6 +27,14 @@ public class PlanningProblemWithCost extends PlanningProblem {
 			return 1.;
 		}
 		throw new IllegalArgumentException("Action non comprise dans l'exemple");
+	}
+
+	public double heuristic(State s) {
+		return h.heuristic(s);
+	}
+
+	public void setHeuristic(Heuristic new_h) {
+		this.h=new_h;
 	}
 
 	public State minimumCost(Collection<State> states, Map<State,Double> distance_map) {
@@ -49,9 +58,13 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		open.add(this.init);
 		distance.put(this.init,0.);
 		father.put(this.init,null);
+		int cpt=-1;
 		while (!(open.isEmpty())) {
-			System.out.println(goals);
 			State state = minimumCost(open, distance);
+			cpt++;
+			if (cpt%10000==0){
+				System.out.println(state);
+			}
 			open.remove(state);
 			if (this.satisfies(state)) {
 				System.out.println("goal Dijkstra");

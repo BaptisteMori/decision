@@ -55,7 +55,7 @@ public class Action {
 				return false;
 			}
 		}
-		for (Variable v : this.premisse.keySet()) {
+		for (Variable v : this.conclusion.keySet()) {
 			if (!(this.conclusion.get(v).equals(((Action)o).getPostcondition().get(v)))) {
 				return false;
 			}
