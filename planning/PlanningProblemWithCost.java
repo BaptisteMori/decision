@@ -50,6 +50,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		distance.put(this.init,0.);
 		father.put(this.init,null);
 		while (!(open.isEmpty())) {
+			System.out.println(goals);
 			State state = minimumCost(open, distance);
 			open.remove(state);
 			if (this.satisfies(state)) {

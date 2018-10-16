@@ -35,8 +35,44 @@ public class Action {
     return new_state;
   }
 
+	@Override
+	public int hashCode() {
+		int code=11;
+		code+=59*code+this.premisse.size()+this.conclusion.size();
+		return code;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o==this) {
+			return true;
+		}
+		if (!(o instanceof Action)) {
+			return false;
+		}
+		for (Variable v : this.premisse.keySet()) {
+			if (!(this.premisse.get(v).equals(((Action)o).getPrecondition().get(v)))) {
+				return false;
+			}
+		}
+		for (Variable v : this.premisse.keySet()) {
+			if (!(this.conclusion.get(v).equals(((Action)o).getPostcondition().get(v)))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public Map<Variable,String> getPrecondition() {
+		return this.premisse;
+	}
+
+	public Map<Variable,String> getPostcondition() {
+		return this.conclusion;
+	}
+
 	public String toString() {
-		return "Si " + this.premisse + " est vrai et " + this.conclusion + " n'est pas réalisé, alors faire " + this.conclusion + "\n";
+		return "Si " + this.premisse + " est vrai, alors faire " + this.conclusion + "\n";
 	}
 
 }
