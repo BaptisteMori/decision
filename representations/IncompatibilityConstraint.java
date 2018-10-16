@@ -12,7 +12,6 @@ public class IncompatibilityConstraint extends Rule {
   public boolean isSatisfiedBy(Map<Variable,String> test) {
 		for (Variable v : this.premisse.keySet()) {
 			if (!(premisse.get(v).equals(test.get(v))) || test.get(v).equals("")) {
-
 				return true;
 			}
 		}
@@ -21,21 +20,24 @@ public class IncompatibilityConstraint extends Rule {
 
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable,Set<String>> domaines) {
+    boolean tmp = false;
     for (Variable v : this.premisse.keySet()) {
-      if (voiture.get(v) != "") {
-        for (Variable v2 : this.premisse.keySet()) {
-          if (!(v.equals(v2)) && domaines.containsKey(v2)) {
-            domaines.get(v2).remove(voiture.get(v));
-            return true;
+      if (voiture.get(v).equals(this.premisse.get(v))){
+        for (Variable d : this.premisse.keySet()){
+          System.out.println(domaines.get(d));
+          System.out.println("contains " + domaines.get(d).contains(voiture.get(v)));
+          if (domaines.containsKey(d)){
+            domaines.get(d).remove(voiture.get(v));
+            tmp=true;
           }
         }
       }
     }
-    return false;
+    return tmp;
   }
 
   @Override
   public String toString(){
-    return "IncompatibilityConstraint";
+    return premisse + "\n IncompatibilityConstraint";
   }
 }
