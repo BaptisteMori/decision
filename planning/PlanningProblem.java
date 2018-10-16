@@ -8,7 +8,6 @@ public class PlanningProblem {
   State init;
   ArrayList<State> goals;
   ArrayList<Action> actions;
-  private int cpt;
 
   public PlanningProblem(State init, ArrayList<State> goals, ArrayList<Action> actions) {
     this.init = init;
@@ -28,10 +27,6 @@ public class PlanningProblem {
   }
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
-    this.cpt+=1;
-    if (this.cpt%10000 == 0) {
-      System.out.println(state);
-    }
     if (satisfies(state)) {
       return plan;
     } else {
@@ -55,6 +50,32 @@ public class PlanningProblem {
       }
       return null;
     }
+  }
+
+  public Stack<Action> dfsIteratif(State state,int profondeur) {
+    ArrayList<State> closed = new ArrayList<>();
+    Stack<Action> plan = new Stack<>();
+    State present_state = state;
+    State next = null;
+    Stack<Action> action_tmp = new Stack();
+    for (Action a : this.actions) {
+      action_tmp.push(a);
+    }
+    while (profondeur > 0) {
+      for (Action act : action_tmp) {
+        if (act.is_applicable(present_state)) {
+          next = act.apply(present_state);
+          if (!(closed.contains(next))) {
+            plan.push(act);
+            closed.add(next);
+            action_tmp.pop();
+          }
+        }
+        present_state = next;
+      }
+      profondeur--;
+    }
+    return plan;
   }
 
   public Stack<Action> dfsIteratif(State state) {
