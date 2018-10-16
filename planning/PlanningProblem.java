@@ -8,6 +8,7 @@ public class PlanningProblem {
   State init;
   ArrayList<State> goals;
   ArrayList<Action> actions;
+  private int cpt;
 
   public PlanningProblem(State init, ArrayList<State> goals, ArrayList<Action> actions) {
     this.init = init;
@@ -18,7 +19,6 @@ public class PlanningProblem {
   public boolean satisfies(State state) {
     for (State s : goals) {
       for (Variable v : s.getState().keySet()) {
-        System.out.println(state.getState().get(v) != s.getState().get(v));
         if (!(state.getState().containsKey(v)) || (state.getState().get(v) != s.getState().get(v))) {
           return false;
         }
@@ -28,7 +28,10 @@ public class PlanningProblem {
   }
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
-    System.out.println(plan);
+    this.cpt+=1;
+    if (this.cpt%10000 == 0) {
+      System.out.println(state);
+    }
     if (satisfies(state)) {
       return plan;
     } else {
@@ -94,7 +97,7 @@ public class PlanningProblem {
       closed.add(state);
       for (Action act : this.actions) {
         State next = act.apply(state);
-        if (!(closed.contains(next)) && (open.search(next) != -1)) {
+        if (!(closed.contains(next)) && (open.search(next) == -1)) {
           father.put(state, next);
           plan.put(next, act);
           if (satisfies(next)) {
