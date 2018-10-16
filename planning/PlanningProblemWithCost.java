@@ -29,8 +29,8 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		throw new IllegalArgumentException("Action non comprise dans l'exemple");
 	}
 
-	public double heuristic(State s) {
-		return h.heuristic(s);
+	public double heuristic(State s, State goal) {
+		return h.heuristic(s, goal);
 	}
 
 	public void setHeuristic(Heuristic new_h) {
