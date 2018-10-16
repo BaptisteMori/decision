@@ -64,7 +64,7 @@ public class Rule implements Constraint {
       // cheker si unassigned_domains contient une seul variable du scope de conclusion
       // et la sauvegarde
       for (Variable v : this.conclusion.keySet()) {
-        if (unassigned_domains.keySet().contains(v)){
+        if (unassigned_domains.keySet().contains(v)) {
           unassigned_variable=v;
           cpt++;
         }
@@ -72,12 +72,14 @@ public class Rule implements Constraint {
           return false;
         }
       }
-
+      System.out.println("unassigned_variable : "+unassigned_variable);
+      if (unassigned_variable==null){return false;}
       // on recupère la valeur attendu par la conclusion
       String expected = this.conclusion.get(unassigned_variable);
+      if (!(unassigned_domains.get(unassigned_variable).contains(expected))){return false;}
       // on cherche toues les variables ayant la valeur attendu
       for (Variable va : this.conclusion.keySet()){
-        if (this.conclusion.get(va)==expected && !(va.equals(unassigned_variable)) && voiture.get(va)==expected){
+        if (this.conclusion.get(va)==expected && !(va.equals(unassigned_variable)) && voiture.get(va)==expected ){
           // une variables du scope de la conlusion est deja affecté
           tmp = true;
         }

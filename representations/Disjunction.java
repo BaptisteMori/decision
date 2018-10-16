@@ -26,8 +26,6 @@ public class Disjunction extends Rule {
 	public boolean isSatisfiedBy(Map<Variable,String> test) {
     boolean p = premisse(test);
     boolean c = conclusion(test);
-    System.out.println("conc : " + c);
-
     return p && c;
   }
 

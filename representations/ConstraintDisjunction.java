@@ -30,7 +30,7 @@ public class ConstraintDisjunction implements Constraint {
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
     boolean tmp = false;
-    for (Constraint c : constraints) {
+    for (Constraint c : this.constraints) {
       tmp = ((Disjunction)c).filter(voiture, domaines);
       if (tmp) {
         return true;

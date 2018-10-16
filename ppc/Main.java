@@ -20,6 +20,7 @@ public class Main {
 
 		b.backtrack(map,0);
 		ArrayList<Map<Variable,String>> list = b.getList();
+		System.out.println(list.size());
 		for (Map<Variable,String> voiture : list) {
 			System.out.println("v " + voiture);
 		}

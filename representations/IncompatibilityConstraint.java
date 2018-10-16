@@ -24,9 +24,7 @@ public class IncompatibilityConstraint extends Rule {
     for (Variable v : this.premisse.keySet()) {
       if (voiture.get(v).equals(this.premisse.get(v))){
         for (Variable d : this.premisse.keySet()){
-          System.out.println(domaines.get(d));
-          System.out.println("contains " + domaines.get(d).contains(voiture.get(v)));
-          if (domaines.containsKey(d)){
+          if (domaines.containsKey(d) && domaines.get(d).contains(voiture.get(v))){
             domaines.get(d).remove(voiture.get(v));
             tmp=true;
           }
