@@ -1,6 +1,7 @@
 package planning;
 
 import java.util.*;
+import representations.*;
 
 public class PlanningProblem {
 
@@ -15,17 +16,20 @@ public class PlanningProblem {
   }
 
   public boolean satisfies(State state) {
+    Map<Variable,String> state_map = new HashMap<>();
+    state_map.putAll(state.getState());
     for (State s : goals) {
-      if (s.getState().equals(state.getState())) {
-        return true;
+      for (Variable v : s.getState().keySet()) {
+        if (!(state.getState().containsKey(v)) && state.getState().get(v).equals(s.getState().get(v))) {
+          return false;
+        }
       }
     }
-    return false;
+    return true;
   }
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
     if (satisfies(state)) {
-      System.out.println("ok");
       return plan;
     } else {
       ArrayList<Action> tmp_actions = new ArrayList<>();
@@ -91,8 +95,7 @@ public class PlanningProblem {
       for (Action act : this.actions) {
         State next = act.apply(state);
         if (!(closed.contains(next)) && (open.search(next) != -1)) {
-          System.out.println("ok");
-          father.put(next, state);
+          father.put(state, next);
           plan.put(next, act);
           if (satisfies(next)) {
             System.out.println("OK 2");

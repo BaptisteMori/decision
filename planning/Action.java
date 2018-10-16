@@ -19,11 +19,6 @@ public class Action {
         return false;
       }
 		}
-		for (Variable v : conclusion.keySet()) {
-			if (state.getState().get(v).equals(conclusion.get(v))) {
-				return false;
-			}
-		}
     return true;
   }
 
