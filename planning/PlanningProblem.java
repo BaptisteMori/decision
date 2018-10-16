@@ -16,11 +16,10 @@ public class PlanningProblem {
   }
 
   public boolean satisfies(State state) {
-    Map<Variable,String> state_map = new HashMap<>();
-    state_map.putAll(state.getState());
     for (State s : goals) {
       for (Variable v : s.getState().keySet()) {
-        if (!(state.getState().containsKey(v)) && state.getState().get(v).equals(s.getState().get(v))) {
+        System.out.println(state.getState().get(v) != s.getState().get(v));
+        if (!(state.getState().containsKey(v)) || (state.getState().get(v) != s.getState().get(v))) {
           return false;
         }
       }
@@ -29,6 +28,7 @@ public class PlanningProblem {
   }
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
+    System.out.println(plan);
     if (satisfies(state)) {
       return plan;
     } else {
