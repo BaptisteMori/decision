@@ -58,7 +58,6 @@ public class Backtracking {
   public boolean applyAllFilters(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
     boolean restart = false;
     for (int i = 0; i< this.constraints.length; i++) {
-      System.out.println("i : "+i);
       System.out.println(this.constraints[i]);
       boolean b = this.constraints[i].filter(voiture, unassigned_domains);
       System.out.println(b);
@@ -67,6 +66,10 @@ public class Backtracking {
         restart = true;
       }
     }
+    for (Variable v : unassigned_domains.keySet()){
+      System.out.println(v +" "+ unassigned_domains.get(v));
+    }
+    System.out.println("\n\n");
     if (restart) {
       applyAllFilters(voiture, unassigned_domains);
     }
