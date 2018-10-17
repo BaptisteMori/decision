@@ -19,6 +19,15 @@ public class AssemblyLine {
 	private Action INSTALL_RIGHT_WHEELS;
 
 	private ArrayList<Action> PAINT_ROOF;
+	private ArrayList<Action> PAINT_ONLY_FRONT;
+	private ArrayList<Action> PAINT_ONLY_REAR;
+	private ArrayList<Action> PAINT_ONLY_LEFT;
+	private ArrayList<Action> PAINT_ONLY_RIGHT;
+	private ArrayList<Action> PAINT_REAR_RIGHT_WHEEL;
+	private ArrayList<Action> PAINT_REAR_LEFT_WHEEL;
+	private ArrayList<Action> PAINT_FRONT_RIGHT_WHEEL;
+	private ArrayList<Action> PAINT_FRONT_LEFT_WHEEL;
+
 	private ArrayList<Action> PAINT_FRONT;
 	private ArrayList<Action> PAINT_REAR;
 	private ArrayList<Action> PAINT_LEFT;
@@ -27,13 +36,13 @@ public class AssemblyLine {
 	private State initial_state;
 
 	//Ensembles de variables et domaines associés
-	private Set<String> parts_list = new HashSet(Arrays.asList(new String[] {"HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL"}));
+	private Set<String> parts_list = new HashSet<String>(Arrays.asList(new String[] {"HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL"}));
 
-	private Set<String> booleans_dom = new HashSet(Arrays.asList(new String[] {"TRUE", "FALSE"}));
+	private Set<String> booleans_dom = new HashSet<String>(Arrays.asList(new String[] {"TRUE", "FALSE"}));
 
-	private Set<String> parts_color = new HashSet(Arrays.asList(new String[] {"FRONT_COLOR", "REAR_COLOR", "LEFT_COLOR", "RIGHT_COLOR", "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR"}));
+	private Set<String> parts_color = new HashSet<String>(Arrays.asList(new String[] {"FRONT_COLOR", "REAR_COLOR", "LEFT_COLOR", "RIGHT_COLOR", "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR"}));
 
-	private Set<String> all_colors = new HashSet(Arrays.asList(new String[] {"GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"}));
+public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new String[] {"GRAY", "BLACK"/*, "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"*/}));
 
 	public AssemblyLine() {
 		//Création de l'état initial
@@ -114,6 +123,30 @@ public class AssemblyLine {
 			HashMap<Variable,String> outcome_roof = new HashMap<Variable,String>();
 			outcome_roof.put(new Variable("ROOF_COLOR", all_colors), color);
 			this.PAINT_ROOF.add(new Action(outcome_body, outcome_roof));
+			HashMap<Variable,String> outcome_rec = new HashMap<Variable,String>();
+			outcome_rec.put(new Variable("REAR_COLOR", all_colors), color);
+			this.PAINT_ONLY_REAR.add(new Action(outcome_body, outcome_rec));
+			HashMap<Variable,String> outcome_fc = new HashMap<Variable,String>();
+			outcome_fc.put(new Variable("FRONT_COLOR", all_colors), color);
+			this.PAINT_ONLY_FRONT.add(new Action(outcome_body, outcome_fc));
+			HashMap<Variable,String> outcome_lc = new HashMap<Variable,String>();
+			outcome_lc.put(new Variable("LEFT_COLOR", all_colors), color);
+			this.PAINT_ONLY_LEFT.add(new Action(outcome_body, outcome_lc));
+			HashMap<Variable,String> outcome_ric = new HashMap<Variable,String>();
+			outcome_ric.put(new Variable("RIGHT_COLOR", all_colors), color);
+			this.PAINT_ONLY_RIGHT.add(new Action(outcome_body, outcome_ric));
+			HashMap<Variable,String> outcome_rrc = new HashMap<Variable,String>();
+			outcome_rrc.put(new Variable("REAR_RIGHT_WHEEL_COLOR", all_colors), color);
+			this.PAINT_REAR_RIGHT_WHEEL.add(new Action(outcome_body, outcome_rrc));
+			HashMap<Variable,String> outcome_rlc = new HashMap<Variable,String>();
+			outcome_rlc.put(new Variable("REAR_LEFT_WHEEL_COLOR", all_colors), color);
+			this.PAINT_REAR_LEFT_WHEEL.add(new Action(outcome_body, outcome_rlc));
+			HashMap<Variable,String> outcome_frc = new HashMap<Variable,String>();
+			outcome_frc.put(new Variable("FRONT_RIGHT_WHEEL_COLOR", all_colors), color);
+			this.PAINT_FRONT_RIGHT_WHEEL.add(new Action(outcome_body, outcome_frc));
+			HashMap<Variable,String> outcome_flc = new HashMap<Variable,String>();
+			outcome_flc.put(new Variable("FRONT_LEFT_WHEEL_COLOR", all_colors), color);
+			this.PAINT_FRONT_LEFT_WHEEL.add(new Action(outcome_body, outcome_flc));
 
 			//Peinture large de coût 1
 			HashMap<Variable,String> outcome_rear = new HashMap<Variable,String>();
@@ -148,8 +181,7 @@ public class AssemblyLine {
 	}
 
 	public ArrayList<Action> getBasicInstallActions() {
-		ArrayList<Action> result = new ArrayList<Action>();
-		result.add(this.INSTALL_CHASSIS);
+		ArrayList<Action> result = new ArrayList<Action>(this.INSTALL_CHASSIS);
 		result.add(this.INSTALL_BODY);
 		result.add(this.INSTALL_REAR_LEFT_WHEEL);
 		result.add(this.INSTALL_REAR_RIGHT_WHEEL);
@@ -159,8 +191,7 @@ public class AssemblyLine {
 	}
 
 	public ArrayList<Action> getParallelWheelInstallActions() {
-		ArrayList<Action> result = new ArrayList<Action>();
-		result.add(this.INSTALL_REAR_WHEELS);
+		ArrayList<Action> result = new ArrayList<Action>(this.INSTALL_REAR_WHEELS);
 		result.add(this.INSTALL_FRONT_WHEELS);
 		result.add(this.INSTALL_LEFT_WHEELS);
 		result.add(this.INSTALL_RIGHT_WHEELS);
@@ -168,7 +199,16 @@ public class AssemblyLine {
 	}
 
 	public ArrayList<Action> getPrecisePaintActions() {
-		return this.PAINT_ROOF;
+		ArrayList<Action> result = new ArrayList<Action>(this.PAINT_ROOF);
+		result.add(this.PAINT_ONLY_REAR);
+		result.add(this.PAINT_ONLY_FRONT);
+		result.add(this.PAINT_ONLY_LEFT);
+		result.add(this.PAINT_ONLY_RIGHT);
+		result.add(this.PAINT_REAR_RIGHT_WHEEL);
+		result.add(this.PAINT_REAR_LEFT_WHEEL);
+		result.add(this.PAINT_FRONT_RIGHT_WHEEL);
+		result.add(this.PAINT_FRONT_LEFT_WHEEL);
+		return result;
 	}
 
 	public ArrayList<Action> getLargePaintActions() {

@@ -57,7 +57,7 @@ public class PlanningProblem {
     Stack<Action> plan = new Stack<>();
     State present_state = state;
     State next = null;
-    Stack<Action> action_tmp = new Stack();
+    Stack<Action> action_tmp = new Stack<>();
     for (Action a : this.actions) {
       action_tmp.push(a);
     }
@@ -102,7 +102,7 @@ public class PlanningProblem {
         }
       }
     }
-		return null;//pour compiler
+		return null;
   }
 
   public Stack<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {

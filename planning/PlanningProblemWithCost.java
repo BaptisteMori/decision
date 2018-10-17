@@ -37,7 +37,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		this.h=new_h;
 	}
 
-	public State minimumCost(Collection<State> states, Map<State,Double> distance_map) {
+	public State minimumCost(ArrayList<State> states, Map<State,Double> distance_map) {
 		Double min=Double.POSITIVE_INFINITY;
 		State minState=new State();
 		for (State s : states) {
@@ -86,6 +86,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 				}
 			}
 		}
+		System.out.println(goals);
 		return getDijkstraPlan(father,plan,goals,distance);
 	}
 
@@ -119,12 +120,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
 																												}
 																											}
 																										});
-		open.add(this.init);
+		open.offer(this.init);
 		father.put(this.init,null);
 		distance.put(this.init,0.);
-		//value.put(this.init, heuristic(this.init));//faire heuristique
+		value.put(this.init, heuristic(this.init, this.goals.get(0)));
 		while (!(open.isEmpty())) {
-			State state = minimumCost(open, value);
+			State state = open.poll();
 			if (this.satisfies(state)) {
 				return this.getBFSPlan(father,plan,state);
 			} else {
@@ -138,10 +139,10 @@ public class PlanningProblemWithCost extends PlanningProblem {
 						double dist = distance.get(state) + this.cost(a);
 						if (distance.get(next) > dist) {
 							distance.put(next, dist);
-				//			value.put(next, dist + heuristic(next));
+							value.put(next, dist + heuristic(next, this.goals.get(0)));
 							father.put(next,state);
 							plan.put(next,a);
-							open.add(next);
+							open.offer(next);
 						}
 					}
 				}
