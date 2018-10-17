@@ -57,22 +57,29 @@ public class Rule implements Constraint {
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
 		boolean tmp = false;
-		if (this.premisse(voiture) && this.premisse != null && unassigned_domains.size() != 0 ) {
+    // si la premisse est satisfaite,
+    // la premisse est différente de null,
+    // et la taille du unassigned_domains est supérieur à 0
+    // on continue
+		if (this.premisse(voiture) && this.premisse != null && unassigned_domains.size() > 0 ) {
+
       Variable unassigned_variable = null;
       int cpt = 0;
 
       // cheker si unassigned_domains contient une seul variable du scope de conclusion
       // et la sauvegarde
       for (Variable v : this.conclusion.keySet()) {
-        if (unassigned_domains.keySet().contains(v)) {
+        if (unassigned_domains.keySet().contains(v) && voiture.get(v)!="") {
+          // on stock la variable
           unassigned_variable=v;
           cpt++;
         }
+        // si le compteur est supérieur à 1 ça signifie qu'il reste plus d'un domaine
         if (cpt>1){
           return false;
         }
       }
-      System.out.println("unassigned_variable : "+unassigned_variable);
+      
       if (unassigned_variable==null){return false;}
       // on recupère la valeur attendu par la conclusion
       String expected = this.conclusion.get(unassigned_variable);
@@ -88,11 +95,11 @@ public class Rule implements Constraint {
         // on supprime la valeur attendu
         return unassigned_domains.get(unassigned_variable).remove(expected);
       }else{
+        // on supprime toutes les valeurs
         unassigned_domains.get(unassigned_variable).clear();
+        // et on y ajoute celle attendue
         return unassigned_domains.get(unassigned_variable).add(expected);
       }
-
-
 		}else{
       return false;
     }
