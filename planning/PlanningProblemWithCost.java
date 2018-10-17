@@ -101,7 +101,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return plan;
 	}
 
-	public Stack<Action> aStar() {
+	public Queue<Action> aStar() {
 		Map<State,Double> distance = new HashMap<>();
 		Map<State,Double> value = new HashMap<>();
 		Map<State,State> father = new HashMap<>();

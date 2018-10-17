@@ -78,26 +78,25 @@ public class PlanningProblem {
     return plan;
   }
 
-  public Stack<Action> bfs() {
+  public Queue<Action> bfs() {
     Map<State,State> father = new HashMap<>();
     Map<State,Action> plan = new HashMap<>();
-    ArrayList<State> closed = new ArrayList<>();
-    Stack<State> open = new Stack<>();
-    open.push(this.init);
+    Set<State> closed = new HashSet<>();
+    Queue<State> open = new LinkedList();
+    open.add(this.init);
     father.put(this.init,null);
     while (!(open.isEmpty())) {
-      State state = open.pop();
+      State state = open.remove();
       closed.add(state);
       for (Action act : this.actions) {
         State next = act.apply(state);
-        if (!(closed.contains(next)) && (open.search(next) == -1)) {
-          father.put(state, next);
+        if (!(closed.contains(next)) && !(open.contains(next))) {
+          father.put(next, state);
           plan.put(next, act);
           if (satisfies(next)) {
-            System.out.println("next satisfait un état but");
             return getBFSPlan(father, plan, next);
           } else {
-            open.push(next);
+            open.add(next);
           }
         }
       }
@@ -105,14 +104,13 @@ public class PlanningProblem {
 		return null;
   }
 
-  public Stack<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {
-    Stack<Action> plan = new Stack<>();
-    System.out.println(goal);
+  public Queue<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {
+    Queue<Action> plan = new LinkedList();
     while (goal != null) {
-      plan.push(actions.get(goal));
+      plan.add(actions.get(goal));
       goal = father.get(goal);
     }
-    Collections.reverse(plan);
+    Collections.reverse((LinkedList<Action>)plan);
     return plan;
   }
 }
