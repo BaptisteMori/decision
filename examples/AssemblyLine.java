@@ -181,7 +181,8 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 	public ArrayList<Action> getBasicInstallActions() {
-		ArrayList<Action> result = new ArrayList<Action>(this.INSTALL_CHASSIS);
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.add(this.INSTALL_CHASSIS);
 		result.add(this.INSTALL_BODY);
 		result.add(this.INSTALL_REAR_LEFT_WHEEL);
 		result.add(this.INSTALL_REAR_RIGHT_WHEEL);
@@ -191,7 +192,8 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 	public ArrayList<Action> getParallelWheelInstallActions() {
-		ArrayList<Action> result = new ArrayList<Action>(this.INSTALL_REAR_WHEELS);
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.add(this.INSTALL_REAR_WHEELS);
 		result.add(this.INSTALL_FRONT_WHEELS);
 		result.add(this.INSTALL_LEFT_WHEELS);
 		result.add(this.INSTALL_RIGHT_WHEELS);
@@ -199,20 +201,22 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 	public ArrayList<Action> getPrecisePaintActions() {
-		ArrayList<Action> result = new ArrayList<Action>(this.PAINT_ROOF);
-		result.add(this.PAINT_ONLY_REAR);
-		result.add(this.PAINT_ONLY_FRONT);
-		result.add(this.PAINT_ONLY_LEFT);
-		result.add(this.PAINT_ONLY_RIGHT);
-		result.add(this.PAINT_REAR_RIGHT_WHEEL);
-		result.add(this.PAINT_REAR_LEFT_WHEEL);
-		result.add(this.PAINT_FRONT_RIGHT_WHEEL);
-		result.add(this.PAINT_FRONT_LEFT_WHEEL);
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.addAll(this.PAINT_ROOF);
+		result.addAll(this.PAINT_ONLY_REAR);
+		result.addAll(this.PAINT_ONLY_FRONT);
+		result.addAll(this.PAINT_ONLY_LEFT);
+		result.addAll(this.PAINT_ONLY_RIGHT);
+		result.addAll(this.PAINT_REAR_RIGHT_WHEEL);
+		result.addAll(this.PAINT_REAR_LEFT_WHEEL);
+		result.addAll(this.PAINT_FRONT_RIGHT_WHEEL);
+		result.addAll(this.PAINT_FRONT_LEFT_WHEEL);
 		return result;
 	}
 
 	public ArrayList<Action> getLargePaintActions() {
-		ArrayList<Action> result = new ArrayList<Action>(this.PAINT_REAR);
+		ArrayList<Action> result = new ArrayList<Action>();
+		result.addAll(this.PAINT_REAR);
 		result.addAll(this.PAINT_FRONT);
 		result.addAll(this.PAINT_LEFT);
 		result.addAll(this.PAINT_RIGHT);
