@@ -16,14 +16,17 @@ public class PlanningProblem {
   }
 
   public boolean satisfies(State state) {
+    boolean tmp = true;
     for (State s : goals) {
+      tmp = true;
       for (Variable v : s.getState().keySet()) {
         if (!(state.getState().containsKey(v)) || (state.getState().get(v) != s.getState().get(v))) {
-          return false;
+          tmp = false;
+          break;
         }
       }
     }
-    return true;
+    return tmp;
   }
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
@@ -41,6 +44,7 @@ public class PlanningProblem {
             closed.add(next);
             Stack<Action> subplan = dfs(next, plan, closed);
             if (subplan != null) {
+              this.actions.add(act);
               return subplan;
             }
             plan.pop();
