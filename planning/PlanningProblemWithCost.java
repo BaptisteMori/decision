@@ -39,14 +39,14 @@ public class PlanningProblemWithCost extends PlanningProblem {
 
 	public State minimumCost(ArrayList<State> states, Map<State,Double> distance_map) {
 		Double min=Double.POSITIVE_INFINITY;
-		State minState=new State();
+		State min_state=new State();
 		for (State s : states) {
 			if (distance_map.get(s) < min) {
 				min=distance_map.get(s);
-				minState=s;
+				min_state=s;
 			}
 		}
-		return minState;
+		return min_state;
 	}
 
 	public Stack<Action> dijkstra() {
@@ -58,13 +58,10 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		open.add(this.init);
 		distance.put(this.init,0.);
 		father.put(this.init,null);
-		int cpt=-1;
+		int nb_nodes=0;
 		while (!(open.isEmpty())) {
+			nb_nodes++;
 			State state = minimumCost(open, distance);
-			cpt++;
-			if (cpt%10000==0){
-				System.out.println(state);
-			}
 			open.remove(state);
 			if (this.satisfies(state)) {
 				System.out.println("goal Dijkstra");
@@ -86,7 +83,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 				}
 			}
 		}
-		System.out.println(goals);
+		System.out.println("Noeuds explorés par Dijkstra : " + nb_nodes);
 		return getDijkstraPlan(father,plan,goals,distance);
 	}
 
@@ -101,12 +98,25 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return plan;
 	}
 
-	public Queue<Action> aStar() {
+	public State bestGoal(State s) {
+		double min = Double.POSITIVE_INFINITY;
+		State min_state = new State();
+		for (State goal : this.goals) {
+			double v = heuristic(s, goal);
+			if (v < min) {
+				min=v;
+				min_state=goal;
+			}
+		}
+		return min_state;
+	}
+
+	public Queue<Action> aStar(int k) {
 		Map<State,Double> distance = new HashMap<>();
 		Map<State,Double> value = new HashMap<>();
 		Map<State,State> father = new HashMap<>();
 		Map<State,Action> plan = new HashMap<>();
-		PriorityQueue<State> open = new PriorityQueue<>(11, new Comparator<State>() {
+		PriorityQueue<State> open = new PriorityQueue<>(k, new Comparator<State>() {
 																											@Override
 																											public int compare(State first, State second) {
 																												Double value_first = value.get(first);
@@ -123,10 +133,13 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		open.offer(this.init);
 		father.put(this.init,null);
 		distance.put(this.init,0.);
-		value.put(this.init, heuristic(this.init, this.goals.get(0)));
+		value.put(this.init, heuristic(this.init, bestGoal(this.init)));
+		int nb_nodes=0;
 		while (!(open.isEmpty())) {
+			nb_nodes++;
 			State state = open.poll();
 			if (this.satisfies(state)) {
+				System.out.println("Noeuds explorés par A*: " + nb_nodes);
 				return this.getBFSPlan(father,plan,state);
 			} else {
 				open.remove(state);
@@ -139,15 +152,31 @@ public class PlanningProblemWithCost extends PlanningProblem {
 						double dist = distance.get(state) + this.cost(a);
 						if (distance.get(next) > dist) {
 							distance.put(next, dist);
-							value.put(next, dist + heuristic(next, this.goals.get(0)));
+							value.put(next, dist + heuristic(next, bestGoal(next)));
 							father.put(next,state);
 							plan.put(next,a);
-							open.offer(next);
+							/*for (State s : open) {
+								if (open.comparator().compare(next, s) == 1) {
+									open.remove(s);*/
+									open.offer(next);/*
+									break;
+								}
+							}*/
 						}
 					}
 				}
 			}
 		}
+		System.out.println("Noeuds explorés par A*: " + nb_nodes);
 		return null;
+	}
+
+	public Queue<Action> iterativeBeamSearch(int step) {
+		int k = 10-step;
+		Queue<Action> res_astar = new LinkedList<>();
+		do {
+			res_astar = aStar(k+=step);
+		} while (res_astar == null);
+		return res_astar;
 	}
 }

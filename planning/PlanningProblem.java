@@ -8,6 +8,7 @@ public class PlanningProblem {
   State init;
   ArrayList<State> goals;
   ArrayList<Action> actions;
+	int nodes_dfs = 0;
 
   public PlanningProblem(State init, ArrayList<State> goals, ArrayList<Action> actions) {
     this.init = init;
@@ -30,13 +31,16 @@ public class PlanningProblem {
   }
 
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed, int profondeur) {
+		this.nodes_dfs++;
     if (profondeur == 0) {
       if (satisfies(state)) {
+				System.out.println("Noeuds explorés par la DFS : " + this.nodes_dfs);
         return plan;
       }
       return null;
     }
     if (satisfies(state)) {
+			System.out.println("Noeuds explorés par la DFS : " + this.nodes_dfs);
       return plan;
     } else {
       ArrayList<Action> tmp_actions = new ArrayList<>();
@@ -75,10 +79,12 @@ public class PlanningProblem {
     Map<State,State> father = new HashMap<>();
     Map<State,Action> plan = new HashMap<>();
     Set<State> closed = new HashSet<>();
-    Queue<State> open = new LinkedList();
+    Queue<State> open = new LinkedList<>();
     open.add(this.init);
     father.put(this.init,null);
+		int nb_nodes=0;
     while (!(open.isEmpty())) {
+			nb_nodes++;
       State state = open.remove();
       closed.add(state);
       for (Action act : this.actions) {
@@ -87,6 +93,7 @@ public class PlanningProblem {
           father.put(next, state);
           plan.put(next, act);
           if (satisfies(next)) {
+						System.out.println("Noeuds explorés par la BFS : " + nb_nodes);
             return getBFSPlan(father, plan, next);
           } else {
             open.add(next);
@@ -94,11 +101,12 @@ public class PlanningProblem {
         }
       }
     }
+		System.out.println("Noeuds explorés par la BFS : " + nb_nodes);
 		return null;
   }
 
   public Queue<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {
-    Queue<Action> plan = new LinkedList();
+    Queue<Action> plan = new LinkedList<>();
     while (goal != null) {
       plan.add(actions.get(goal));
       goal = father.get(goal);

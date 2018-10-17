@@ -6,7 +6,12 @@ public class InformedHeuristic implements Heuristic {
 
 	@Override
 	public double heuristic(State s, State goal) {
-
-		return 0;
+		double heuristic_value = 0.;
+		for (Variable v : s.getState().keySet()) {
+			if (!(s.getState().get(v).equals(goal.getState().get(v)))) {
+				heuristic_value++;
+			}
+		}
+		return heuristic_value;
 	}
 }

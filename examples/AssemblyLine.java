@@ -42,7 +42,7 @@ public class AssemblyLine {
 
 	private Set<String> parts_color = new HashSet<String>(Arrays.asList(new String[] {"FRONT_COLOR", "REAR_COLOR", "LEFT_COLOR", "RIGHT_COLOR", "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR"}));
 
-public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new String[] {"GRAY", "BLACK"/*, "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"*/}));
+public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new String[] {"GRAY", "BLACK"/*, "WHITE"/*, "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"*/}));
 
 	public AssemblyLine() {
 		//Création de l'état initial
@@ -92,7 +92,7 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		this.INSTALL_RIGHT_WHEELS = new Action(outcome_chassis, outcome_pdw);
 
 		/* Actions de peinture
-		Les actions sont stockées dans des listes selon la cible. Chaque liste contient autant d'actions que de couleurs dans le domaine all_color, et les actions sont triées dans le même ordre que le domaine. */
+		Les actions sont stockées dans des listes selon la cible. Chaque liste contient autant d'actions que de couleurs dans le domaine all_color. */
 
 		HashMap<Variable,String> conditions_rear = new HashMap<Variable,String>();
 		conditions_rear.putAll(outcome_body);
@@ -111,11 +111,6 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		conditions_right.put(new Variable("HAS_FRONT_RIGHT_WHEEL", booleans_dom), "TRUE");
 		conditions_right.put(new Variable("HAS_REAR_RIGHT_WHEEL", booleans_dom), "TRUE");
 
-		this.PAINT_ROOF = new ArrayList<Action>();
-		this.PAINT_REAR = new ArrayList<Action>();
-		this.PAINT_FRONT = new ArrayList<Action>();
-		this.PAINT_LEFT = new ArrayList<Action>();
-		this.PAINT_RIGHT = new ArrayList<Action>();
 		String[] colors_array = this.all_colors.toArray(new String[this.all_colors.size()]);
 
 		for (String color : all_colors) {
