@@ -29,7 +29,13 @@ public class PlanningProblem {
     return tmp;
   }
 
-  public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed) {
+  public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed, int profondeur) {
+    if (profondeur == 0) {
+      if (satisfies(state)) {
+        return plan;
+      }
+      return null;
+    }
     if (satisfies(state)) {
       return plan;
     } else {
@@ -42,7 +48,7 @@ public class PlanningProblem {
           if (!(closed.contains(next))) {
             plan.push(act);
             closed.add(next);
-            Stack<Action> subplan = dfs(next, plan, closed);
+            Stack<Action> subplan = dfs(next, plan, closed, profondeur-1);
             if (subplan != null) {
               this.actions.add(act);
               return subplan;
@@ -56,30 +62,13 @@ public class PlanningProblem {
     }
   }
 
-  public Stack<Action> dfsIteratif(State state,int profondeur) {
-    ArrayList<State> closed = new ArrayList<>();
-    Stack<Action> plan = new Stack<>();
-    State present_state = state;
-    State next = null;
-    Stack<Action> action_tmp = new Stack<>();
-    for (Action a : this.actions) {
-      action_tmp.push(a);
-    }
-    while (profondeur > 0) {
-      for (Action act : action_tmp) {
-        if (act.is_applicable(present_state)) {
-          next = act.apply(present_state);
-          if (!(closed.contains(next))) {
-            plan.push(act);
-            closed.add(next);
-            action_tmp.pop();
-          }
-        }
-        present_state = next;
-      }
-      profondeur--;
-    }
-    return plan;
+  public Stack<Action> dfsIteratif(State state, Stack<Action> plan, ArrayList<State> closed) {
+    int profondeur = 1;
+    Stack<Action> res_dfs = new Stack<Action>();
+    do {
+      res_dfs = dfs(state, plan, closed, profondeur++);
+    } while (res_dfs == null);
+    return res_dfs;
   }
 
   public Queue<Action> bfs() {
