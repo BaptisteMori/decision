@@ -18,20 +18,20 @@ public class AssemblyLine {
 	private Action INSTALL_LEFT_WHEELS;
 	private Action INSTALL_RIGHT_WHEELS;
 
-	private ArrayList<Action> PAINT_ROOF;
-	private ArrayList<Action> PAINT_ONLY_FRONT;
-	private ArrayList<Action> PAINT_ONLY_REAR;
-	private ArrayList<Action> PAINT_ONLY_LEFT;
-	private ArrayList<Action> PAINT_ONLY_RIGHT;
-	private ArrayList<Action> PAINT_REAR_RIGHT_WHEEL;
-	private ArrayList<Action> PAINT_REAR_LEFT_WHEEL;
-	private ArrayList<Action> PAINT_FRONT_RIGHT_WHEEL;
-	private ArrayList<Action> PAINT_FRONT_LEFT_WHEEL;
+	private ArrayList<Action> PAINT_ROOF = new ArrayList<>();
+	private ArrayList<Action> PAINT_ONLY_FRONT = new ArrayList<>();
+	private ArrayList<Action> PAINT_ONLY_REAR = new ArrayList<>();
+	private ArrayList<Action> PAINT_ONLY_LEFT = new ArrayList<>();
+	private ArrayList<Action> PAINT_ONLY_RIGHT = new ArrayList<>();
+	private ArrayList<Action> PAINT_REAR_RIGHT_WHEEL = new ArrayList<>();
+	private ArrayList<Action> PAINT_REAR_LEFT_WHEEL = new ArrayList<>();
+	private ArrayList<Action> PAINT_FRONT_RIGHT_WHEEL = new ArrayList<>();
+	private ArrayList<Action> PAINT_FRONT_LEFT_WHEEL = new ArrayList<>();
 
-	private ArrayList<Action> PAINT_FRONT;
-	private ArrayList<Action> PAINT_REAR;
-	private ArrayList<Action> PAINT_LEFT;
-	private ArrayList<Action> PAINT_RIGHT;
+	private ArrayList<Action> PAINT_FRONT = new ArrayList<>();
+	private ArrayList<Action> PAINT_REAR = new ArrayList<>();
+	private ArrayList<Action> PAINT_LEFT = new ArrayList<>();
+	private ArrayList<Action> PAINT_RIGHT = new ArrayList<>();
 
 	private State initial_state;
 
