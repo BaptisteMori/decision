@@ -12,6 +12,10 @@ public class Variable {
     this.domaine = domaine;
   }
 
+  public Variable(){
+    this(null,null);
+  }
+
 	@Override
 	public int hashCode() {
 		int code=7;

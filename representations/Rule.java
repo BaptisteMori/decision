@@ -56,6 +56,8 @@ public class Rule implements Constraint {
 
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
+    //return false;
+    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		boolean tmp = false;
     // si la premisse est satisfaite,
     // la premisse est différente de null,
@@ -79,7 +81,7 @@ public class Rule implements Constraint {
           return false;
         }
       }
-      
+
       if (unassigned_variable==null){return false;}
       // on recupère la valeur attendu par la conclusion
       String expected = this.conclusion.get(unassigned_variable);

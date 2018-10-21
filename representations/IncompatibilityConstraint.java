@@ -20,6 +20,7 @@ public class IncompatibilityConstraint extends Rule {
 
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable,Set<String>> domaines) {
+    return false;/*
     boolean tmp = false;
     for (Variable v : this.premisse.keySet()) {
       if (voiture.get(v).equals(this.premisse.get(v))){
@@ -31,7 +32,7 @@ public class IncompatibilityConstraint extends Rule {
         }
       }
     }
-    return tmp;
+    return tmp;*/
   }
 
   @Override

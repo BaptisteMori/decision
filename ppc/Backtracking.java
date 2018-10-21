@@ -84,7 +84,7 @@ public class Backtracking {
         restart = true;
       }
     }
-    // si restart est à true on réaplique de façon récursive les filters 
+    // si restart est à true on réaplique de façon récursive les filters
     if (restart) {
       applyAllFilters(voiture, unassigned_domains);
     }
