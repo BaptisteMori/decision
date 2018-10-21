@@ -26,6 +26,7 @@ public class Backtracking {
     applyAllFilters(map, this.unassigned_domains);
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
+        //String[] domaine = this.unassigned_domains.get(this.variables[i]).toArray(new String[this.unassigned_domains.get(this.variables[i]).size()]);
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){
           System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
@@ -50,11 +51,12 @@ public class Backtracking {
 
 
           for (Variable v : map.keySet()){
-            System.out.println(v +" : "+map.get(v)+" ; "+((unassigned_domains.containsKey(v))? unassigned_domains.get(v) : " "));
+            System.out.println(v +" : "+map.get(v)+" ; " + v.getDomaine() + " ; "+((unassigned_domains.containsKey(v))? unassigned_domains.get(v) : " "));
           }
 
+
           System.out.println("---------\n");
-          // si le dictionnaire est plein
+          // si la map est complète et satisfait toutes les contraintes alors on l'ajoute
           if (!(map.containsValue("")) && this.allConstraintsSatisfiedBy(map)) {
             // pour reussir, faire une fonction qui copie map (pour pas l'écraser a chaque fois)
             Map<Variable,String> tmp = new HashMap<Variable,String>();
