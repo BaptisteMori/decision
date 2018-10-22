@@ -6,7 +6,7 @@ import representations.*;
 public class Example {
 
 	/*
-		Déclaration des HashSet pour les domaines.
+		Déclaration des HashSet de types Sring  pour les domaines.
 	*/
 
 	private HashSet<String> domaine_couleur;
@@ -34,14 +34,14 @@ public class Example {
 
 	public Example(){
 
-		/*Domaine couleur*/
+		/*Domaine comportant les couleurs*/
 
 		this.domaine_couleur = new HashSet<>();
 		this.domaine_couleur.add("blanc");
 		this.domaine_couleur.add("rouge");
 		this.domaine_couleur.add("noir");
 
-		/*Domaine Booléen*/
+		/*Domaine pour les Booléen*/
 
 		this.domaine_boolean = new HashSet<>();
 		this.domaine_boolean.add("True");
@@ -95,6 +95,14 @@ public class Example {
 		return equal1;
 	}
 
+	/**
+		*	Méthode permettant de récupérer toutes les Rules
+		*	@param coul_toit , qui est une String.
+	  * @return rule , qui est de type Constraint avec une premisse et une conclusion.
+	  *
+	  */
+
+
 	public Constraint getRules(String coul_toit) {
 		Map<Variable,String> premisse = new HashMap<Variable,String>();
 		Map<Variable,String> conditions = new HashMap<Variable,String>();
@@ -106,10 +114,14 @@ public class Example {
 		return rule;
 	}
 
-	/*
-		Méthode de type Constraint qui regarde pour
-		la disjonction du toit.
-	*/
+	/**
+		*
+		*	Méthode renvoyant une contrainte, qui regarde pour la disjonction du toit.
+		*
+		* @param coul_toit , de type String.
+		*	@return disjunction , qui est une nouvelle contrainte avec une premisse
+		* et des conditions.
+		*/
 
 	public Constraint getDisjunctionToit(String coul_toit) {
 
@@ -123,6 +135,12 @@ public class Example {
 		return disjunction;
 	}
 
+	/**
+		*	Méthode qui renvoie toutes les disjonctions.
+		* @return union, qui sera l'ensemble des disjonctions
+		*
+		*/
+
 	public Constraint getDisjunctionTotal() {
 		Constraint[] disjunction_list = new Constraint[3];
 		disjunction_list[0]=getDisjunctionToit("noir");
@@ -132,12 +150,13 @@ public class Example {
 		return union;
 	}
 
-	/*
-		Méthode de type Constraint qui regarde pour
-		l'incompatibilité pour les portes droites et
-		gauche qui ne peuvent pas être toutes les deux
-		de la couleur noir.
-	*/
+
+	/**
+		*	Méthode qui renverra une contrainte pour que aucune des voitures
+		* n'aient les deux côtés noirs.
+		* @return inc_black , qui sera une Constraint.
+		*
+		*/
 
 	public Constraint getIncompatibilityConstraintForBlackSides() {
 
@@ -149,12 +168,12 @@ public class Example {
 		return inc_black;
 	}
 
-	/*
-		Méthode de type Constraint qui regarde pour
-		l'incompatibilité pour la sono, qui ne peut pas
-		être présente si le toit ouvrant est pris, et
-		inversement..
-	*/
+	/**
+		*	Méthode qui renverra une contrainte pour que aucune voiture n'aient,
+		* à la fois un toit ouvrant et une sono.
+		* @return inc_sono , qui sera une nouvelle contrainte.
+		*
+		*/
 
 	public Constraint getIncompatibilityConstraintForSono() {
 
@@ -166,10 +185,13 @@ public class Example {
 		return inc_sono;
 	}
 
-	/*
-		Méthode qui stocke dans result toutes
-		les variables.
-	*/
+
+	/**
+		*	Méthode qui stocke dans un tableau toutes les Variables.
+		* @return result , qui est de type Variable[].
+		*
+		*
+		*/
 
 	public Variable[] getVariables() {
 		Variable[] result = new Variable[7];
@@ -182,10 +204,13 @@ public class Example {
 		result[6]=this.to;
 		return result;
 	}
-	/*
-		Méthode qui stocke dans result toutes
-		les contraintes.
-	*/
+
+	/**
+		*	Méthode qui stocke dans un tableau de Constraint toutes les contraintes.
+	  * @return result , qui sera un tableau qui contiendra toutes les incompatibilités
+	  *
+	  *
+	  */
 
 	public Constraint[] getConstraints() {
 		Constraint[] result = new Constraint[4];
