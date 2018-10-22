@@ -42,7 +42,10 @@ public class Backtracking {
             // vérifié si elles n'ont pas été assigné
             if (map.get(v)==""){
               // récupérer le domaine de cette variable
-              Set<String> tmp_dom = v.getDomaine();
+              Set<String> tmp_dom = new HashSet<>(v.getDomaine());
+              tmp_dom.remove(1);
+              System.out.println("tmp_dom "+tmp_dom);
+              System.out.println("variable: "+v.getDomaine());
               // assigné ce domaine à la variable dans le unassigned_domains
               this.unassigned_domains.put(v, tmp_dom);
             }

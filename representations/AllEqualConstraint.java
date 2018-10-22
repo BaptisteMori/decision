@@ -53,12 +53,16 @@ public class AllEqualConstraint implements Constraint {
         break;
       }
     }
-
+    System.out.println("You sck2 " + this.scope);
     for (Variable v2 : this.scope) {
-      if (!(test.equals(v2)) && domaines.containsKey(v2) && domaines.get(v2).size()!=1) {
+      if (!(expected.equals(v2)) && domaines.containsKey(v2) && domaines.get(v2).size()!=1) {
         tmp=true;
-        domaines.get(v2).clear();
-        domaines.get(v2).add(voiture.get(expected));
+        Set<String> tmp_dom = new HashSet(v2.getDomaine());
+        Variable tmp_var = new Variable(v2.getNom(), tmp_dom);
+        domaines.get(tmp_var).clear();
+        System.out.println("OKOK"+v2.getDomaine());
+        domaines.get(tmp_var).add(voiture.get(expected));
+        System.out.println("OKO"+v2.getDomaine());
       }
     }
     return tmp;
