@@ -77,6 +77,13 @@ public class Example {
 		la couleur du hayon et la couleur du capot
 		sont de la même couleur.
 	*/
+
+	/**
+		*	La méthode getAllEqual créer une contrainte de tpye AllEqualConstraint.
+	  * @return equal1 ,  qui est de type Constraint.
+	  *
+	  *
+	  */
 	public Constraint getAllEqual() {
 
 		Set<Variable> c = new HashSet<Variable>();
