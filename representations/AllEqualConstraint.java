@@ -46,10 +46,10 @@ public class AllEqualConstraint implements Constraint {
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
     //return false;/*
     boolean tmp = false;
-    Variable test = new Variable();
+    Variable expected = new Variable();
     for (Variable v : this.scope) {
       if (voiture.get(v)!="") {
-        test = v;
+        expected = v;
         break;
       }
     }
@@ -58,7 +58,7 @@ public class AllEqualConstraint implements Constraint {
       if (!(test.equals(v2)) && domaines.containsKey(v2) && domaines.get(v2).size()!=1) {
         tmp=true;
         domaines.get(v2).clear();
-        domaines.get(v2).add(voiture.get(test));
+        domaines.get(v2).add(voiture.get(expected));
       }
     }
     return tmp;
