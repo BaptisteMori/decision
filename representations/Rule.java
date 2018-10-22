@@ -8,10 +8,25 @@ public class Rule implements Constraint {
   Map<Variable,String> premisse = new HashMap<>();
   Map<Variable,String> conclusion = new HashMap<>();
 
+  /**
+		*	Constructeur de la classe.
+	  * @param premisse , qui est une Map de Variable et de String.
+	  * @param conclusion , qui est un Map de Variable et de String.
+	  *
+	  */
+
   public Rule(Map<Variable,String> premisse, Map<Variable,String> conclusion) {
     this.premisse = premisse;
     this.conclusion = conclusion;
   }
+
+
+  /**
+		* Méthode qui retourne le Scope.
+	  * @return this.scope , qui retourne un Set de Variable contenant les premisses,
+	  * et les conclusions.
+	  *
+	  */
 
 	@Override
   public Set<Variable> getScope() {
@@ -25,6 +40,13 @@ public class Rule implements Constraint {
 		return this.scope;
   }
 
+  /**
+		*	Méthode de type boolean qui regarde l'état d'une premisse.
+	  * @param test , qui est une Map de Variable et de String.
+	  * @return false , si la premisse n'est pas vide et qu'elle est égale à une autre premisse.
+	  * @return true , dans les autres cas.
+	  */
+
   public boolean premisse(Map<Variable,String> test){
     if (!(this.premisse == null)) {
       for (Variable v : this.premisse.keySet()) {
@@ -37,6 +59,14 @@ public class Rule implements Constraint {
     return true;
   }
 
+
+  /**
+		*	Méthode de type boolean qui regarde l'état d'une conclusion.
+	  * @param test , qui est une Map de Variable et de String.
+	  * @return true , si la conclusion est présente ou si il n'y a rien d'autre.
+	  * @return false , dans les autres cas.
+	  */
+
   public boolean conclusion(Map<Variable,String> test){
     for (Variable v: this.conclusion.keySet()) {
       if (test.get(v).equals(conclusion.get(v)) || test.get(v).equals("")) {
@@ -45,6 +75,13 @@ public class Rule implements Constraint {
     }
     return false;
   }
+
+  /**
+		*	Méthode qui renverra un boolean et qui verifie si une Variable satisfait une autre Variable.
+	  * @param test , qui est une  Map de Variable et de String.
+	  * @return (!p || c) , qui est la table de vérité
+	  *
+	  */
 
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
