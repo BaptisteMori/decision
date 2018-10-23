@@ -91,6 +91,14 @@ public class Rule implements Constraint {
     return !p || c;
   }
 
+  /**
+		* Méthode qui filtre le Domaine des Variables qui sont concernées par cette Contrainte.
+	  * @param voiture , qui est une Map de Variable et de String.
+	  * @param unassigned_domains , qui est une Map de Variable ainsi qu'un Set de String.
+	  * @return false , si elle n'a pas filtrer les Variables.
+	  */
+
+
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
     //return false;
