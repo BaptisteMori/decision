@@ -257,8 +257,8 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 /**
-	*
-	*
+	* @return random_goal , C'est un State avec un but précis.
+	* Retourne un but précis pour une voiture.
 	*
 	*/
 
