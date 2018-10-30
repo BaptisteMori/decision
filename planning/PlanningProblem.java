@@ -10,12 +10,24 @@ public class PlanningProblem {
   ArrayList<Action> actions;
 	int nodes_dfs = 0;
 
+
+  /**
+    * Constructeur de la classe PlanningProblem.
+    * @param init , qui est un State.
+    * @param goals , qui est une ArrayList de State.
+    * @param actions , qui est une ArrayList d'Action.
+    */
   public PlanningProblem(State init, ArrayList<State> goals, ArrayList<Action> actions) {
     this.init = init;
     this.goals = goals;
     this.actions = actions;
   }
 
+  /**
+    * @param state , qui est un State.
+    * @return tmp , qui est faux si l'état ne contient pas
+    *
+    */
   public boolean satisfies(State state) {
     boolean tmp = true;
     for (State s : goals) {
@@ -30,6 +42,16 @@ public class PlanningProblem {
     return tmp;
   }
 
+  /**
+    * Méthode pour la recherche par Deep First Search.
+    * Recherche en profondeur.
+    * @param state , qui est un State.
+    * @param plan , qui est un Stack d'Action.
+    * @param closed , qui est une ArrayList de State.
+    * @param profondeur , qui est un int.
+    * @return plan , qui est un Stack d'Action , si l'algorithme a trouvé un plan.
+    * @return null , si il ne trouve rien.
+    */
   public Stack<Action> dfs(State state, Stack<Action> plan, ArrayList<State> closed, int profondeur) {
 		this.nodes_dfs++;
     if (profondeur == 0) {
@@ -66,6 +88,15 @@ public class PlanningProblem {
     }
   }
 
+  /**
+    * Méthode Deep First Search Itératif
+    * Même méthode que dfs, mais écrite de manière itérative.
+    * @param state , qui est un State.
+    * @param plan , qui est un Stack d'Action.
+    * @param closed , qui est un ArrayList de State.
+    * @return res_dfs , qui est un Stack d'Action.
+    *
+    */
   public Stack<Action> dfsIteratif(State state, Stack<Action> plan, ArrayList<State> closed) {
     int profondeur = 1;
     Stack<Action> res_dfs = new Stack<Action>();
@@ -75,6 +106,14 @@ public class PlanningProblem {
     return res_dfs;
   }
 
+  /**
+    * Méthode Breadth  first Search
+    * Méthode de parcours en largeur.
+    * @return getBFSPlan , qui est une Queue d'Action.
+    * @return null , si il ne trouve rien.
+    * L'algorithme peut ne pas toujours trouver un chemin, mais dès qu'il en trouve un,
+    * il est plus rapide que dfs.
+    */
   public Queue<Action> bfs() {
     Map<State,State> father = new HashMap<>();
     Map<State,Action> plan = new HashMap<>();
@@ -105,6 +144,13 @@ public class PlanningProblem {
 		return null;
   }
 
+  /**
+    * Méthode permettant d'obtenir le plan de recherche pour le BFS.
+    * @param father , qui est un Map de State de State.
+    * @param actions , qui est un Map de State et d'Action.
+    * @param goal , qui est un State.
+    * @return plan , qui est une Queue d'Action.
+    */
   public Queue<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {
     Queue<Action> plan = new LinkedList<>();
     while (goal != null) {
