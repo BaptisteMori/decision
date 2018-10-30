@@ -170,10 +170,19 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 			this.PAINT_RIGHT.add(new Action(conditions_right, outcome_right));
 		}
 	}
-
+/**
+	* @return this.initial_state , retourne l'état initial.
+	* Qui sera un State.
+	*/
 	public State getInitialState() {
 		return this.initial_state;
 	}
+
+/**
+	* @return result , retourne result, qui est une ArrayList d'Action.
+	* Retourne une "voiture" avec les installations basiques.
+	*
+	*/
 
 	public ArrayList<Action> getBasicInstallActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
@@ -186,6 +195,11 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		return result;
 	}
 
+/**
+	* @return result ,  retourne un result de type ArrayList d'Action.
+	* Retourne une "voiture" avec l'installation des roues.
+	*/
+
 	public ArrayList<Action> getParallelWheelInstallActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
 		result.add(this.INSTALL_REAR_WHEELS);
@@ -194,6 +208,11 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		result.add(this.INSTALL_RIGHT_WHEELS);
 		return result;
 	}
+
+/**
+	* @return result , de type ArrayList d'Action .
+	* Retourne une "voiture" painte en précision.
+	*/
 
 	public ArrayList<Action> getPrecisePaintActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
@@ -209,6 +228,11 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		return result;
 	}
 
+/**
+	* @return result , qui est de type ArrayList d'Action.
+	* Retourne une "voiture" painte de façon plus large/
+	*/
+
 	public ArrayList<Action> getLargePaintActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
 		result.addAll(this.PAINT_REAR);
@@ -218,6 +242,12 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		return result;
 	}
 
+
+/**
+	* @return result , qui est de type ArrayList d'Action.
+	* Retourne une "voiture" avec toutes les actions précédentes.
+	*
+	*/
 	public ArrayList<Action> getAllActions() {
 		ArrayList<Action> result = new ArrayList<Action>(this.getBasicInstallActions());
 		result.addAll(this.getParallelWheelInstallActions());
@@ -225,6 +255,12 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		result.addAll(this.getLargePaintActions());
 		return result;
 	}
+
+/**
+	*
+	*
+	*
+	*/
 
 	public State generateGoalState() {
 		String[] gettable_array = this.all_colors.toArray(new String[this.all_colors.size()]);//passage du set en array pour pouvoir récupérer une couleur

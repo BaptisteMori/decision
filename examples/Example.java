@@ -15,16 +15,16 @@ public class Example {
 	private HashSet<String> domaine_boolean;
 	private HashSet<String> domaine_couleur2;
 
-	/*
-		Déclaration des Varaibles.
-		- ct pour couleur toit.
-		- cc pour couleur capot.
-		- ch pour couleur hayon.
-		- cg pour couleur de la porte gauche.
-		- cd pour la couleur de la porte droite.
-		- sono pour la sono.
-		- to pour le toit ouvrant.
-	*/
+	/**
+	 *	Déclaration des Varaibles.
+	 *	- ct pour couleur toit.
+	 *	- cc pour couleur capot.
+	 *	- ch pour couleur hayon.
+	 *	- cg pour couleur de la porte gauche.
+	 *	- cd pour la couleur de la porte droite.
+	 *	- sono pour la sono.
+	 *	- to pour le toit ouvrant.
+	 */
 
 	private Variable ct;
 	private Variable cc;
