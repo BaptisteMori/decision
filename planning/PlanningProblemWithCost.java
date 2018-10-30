@@ -9,6 +9,13 @@ public class PlanningProblemWithCost extends PlanningProblem {
 	private ArrayList<Action> cost2;
 	private Heuristic h;
 
+/**
+	* Constructeur de la classe.
+	* @param init , qui est un State.
+	* @param goals , qui est une ArrayList de State.
+	* @param actions , qui est une ArrayList d'Action.
+	*
+	*/
 	public PlanningProblemWithCost(State init, ArrayList<State> goals, ArrayList<Action> actions) {
 		super(init,goals,actions);
 		AssemblyLine al = new AssemblyLine();
@@ -19,6 +26,11 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		this.h = new SimpleHeuristic();
 	}
 
+	/**
+		* Méthode qui calcule les coût.
+		* @param a , qui est une Action.
+		* @return 2 , si l'Action est contenue dans this.cost2, sinon renvoie 1.
+		*/
 	public double cost(Action a) {
 		if (this.cost2.contains(a)) {
 			return 2.;
@@ -29,14 +41,32 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		throw new IllegalArgumentException("Action non comprise dans l'exemple");
 	}
 
+	/**
+		* Méthode qui donne une heuristic.
+		* @param s , qui est un State.
+		* @param goal , qui est un State.
+		* @return h.heuristic(s,goal) , retourne un double qui sera une nouvelle heuristic.
+		*/
 	public double heuristic(State s, State goal) {
 		return h.heuristic(s, goal);
 	}
 
+	/**
+		* Méthode qiui permet de mettre à jour une heuristic.
+		* @param new_h , qui est de type Heuristic.
+		*
+		*/
 	public void setHeuristic(Heuristic new_h) {
 		this.h=new_h;
 	}
 
+
+	/**
+		* Méthode qui permet de trouver le coût minimum.
+		* @param states  , qui est une ArrayList de State
+		* @param distance_map , qui est un Map de State et de double..
+		* @return min_state , qui est un State.
+		*/
 	public State minimumCost(ArrayList<State> states, Map<State,Double> distance_map) {
 		Double min=Double.POSITIVE_INFINITY;
 		State min_state=new State();
@@ -49,6 +79,13 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return min_state;
 	}
 
+
+
+	/**
+		* Algorithe de recherche Dijkstra.
+		* C'est une recherche non informée.
+		* @return getDijkstraPlan(father, plan, goals, distance)
+		*/
 	public Stack<Action> dijkstra() {
 		Map<State,Double> distance = new HashMap<>();
 		Map<State,State> father = new HashMap<>();
@@ -87,6 +124,14 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return getDijkstraPlan(father,plan,goals,distance);
 	}
 
+
+	/**
+		* Méthode permettant d'obtenir le plan pour Dijkstra.
+		* @param father , qui est un Map de Sate et de State.
+		* @param actions , qui est un Map de State et d'Action.
+		* @param goals , qui est une ArrayList de State.
+		* @param distance , qui est un Map de State et de double.
+		*/
 	public Stack<Action> getDijkstraPlan(Map<State,State> father, Map<State,Action> actions, ArrayList<State> goals, Map<State,Double> distance) {
 		Stack<Action> plan = new Stack<>();
 		State goal = this.minimumCost(goals, distance);
@@ -98,6 +143,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return plan;
 	}
 
+
+	/**
+		* Méthode permettant de trouver le meilleur but.
+		* @param s , qui est un State.
+		* @return min_state , qui est un State du chemin pour le but minimum.
+		*/
 	public State bestGoal(State s) {
 		double min = Double.POSITIVE_INFINITY;
 		State min_state = new State();
@@ -111,6 +162,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return min_state;
 	}
 
+	/**
+		* Algorithme de recherhce A*.
+		* algorithme de recherche informé.
+		* @param k , qui est un int.
+		* @return null , si jamais rien n'est trouvé.
+		*/
 	public Queue<Action> aStar(int k) {
 		Map<State,Double> distance = new HashMap<>();
 		Map<State,Double> value = new HashMap<>();
@@ -171,6 +228,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		return null;
 	}
 
+
+	/**
+		* Méthode de recherche Beam Search de façon itérative.
+		* @param step , qui est un int.
+		* @return res_astar , retourne une Queue d'Action qui est le resultat d'une recherche a*.
+		*/
 	public Queue<Action> iterativeBeamSearch(int step) {
 		int k = 10-step;
 		Queue<Action> res_astar = new LinkedList<>();
