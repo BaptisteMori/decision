@@ -5,8 +5,10 @@ import representations.*;
 
 public class Example {
 
-	/*
-		Déclaration des HashSet de types Sring  pour les domaines.
+	/**
+		*
+		* Déclaration des HashSet de types String  pour les domaines.
+		*
 	*/
 
 	private HashSet<String> domaine_couleur;
