@@ -11,6 +11,12 @@ public class GenerateAndTest {
   private Map<Variable,String> test = new HashMap<Variable,String>();
   boolean res = false;
 
+
+  /**
+		* Constructeur de la classe GenerateAndTest
+		* @param variables , qui est un tableau de Variable.
+		* @param constraints , qui est un tableau de Constraint.
+		*/
   public GenerateAndTest(Variable[] variables, Constraint[] constraints) {
     this.variables = variables;
     this.constraints = constraints;
@@ -18,15 +24,15 @@ public class GenerateAndTest {
     while (!res) {
       this.generate();
       this.testConstraints();
-      //System.out.println("res a false");
     }
   }
 
-  /*
-    Méthode permettant de générer toutes les configurations
-    de voitures possible.
-  */
 
+  /**
+		* Méthode permettant de génêrer toutes les configurations de voitures possible.
+		*
+		*
+		*/
   public void generate() {
     for (Variable v : variables) {
       Set<String> d = v.getDomaine();
@@ -37,13 +43,12 @@ public class GenerateAndTest {
     }
   }
 
-    /*
-      Méthode qui teste sur les voitures, toutes
-      les contraintes et permet de retourner les
-      voitures ayant accomplies les différentes
-      contraintes.
-    */
 
+    /**
+  		* Méthode qui teste sur les voitures, toutes les contraintes et permet,
+  		* de retourner les voitures ayant accomplies les différentes contraintes.
+  		* @return this.res , qui est un boolean.
+  		*/
   public boolean testConstraints() {
     Example ex = new Example();
 
