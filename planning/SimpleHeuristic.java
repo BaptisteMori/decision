@@ -5,6 +5,13 @@ import examples.AssemblyLine;
 
 public class SimpleHeuristic implements Heuristic {
 
+	/**
+		* Surcharge du constructeur d'Heuristic.
+		* @param s , qui est un State.
+		* @param goal , qui est un State.
+		* @return heuristic_value , qui est un double.
+		* Implémente une heuristic pls simple.
+		*/
 	@Override
 	public double heuristic(State s, State goal) {
 		double heuristic_value = 0.;
