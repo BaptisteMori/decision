@@ -24,8 +24,5 @@ public class Main {
 		for (Map<Variable,String> voiture : list) {
 			System.out.println("v " + voiture);
 		}
-		//b.heuristic();
-		//b.heuristicDomaine();
-		//System.out.println(b.allConstraintsSatisfiedBy(test));
 	}
 }
