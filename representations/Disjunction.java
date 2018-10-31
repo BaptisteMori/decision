@@ -5,9 +5,9 @@ import java.util.*;
 public class Disjunction extends Rule {
 
   /**
-    *
-    *
-    *
+    * Constructeur de la classe Disjunction.
+    * @param premisse , qui est un Map de Variable et de String.
+    * @param conclusion , qui est un Map de Variable et de String.
     */
   public Disjunction(Map<Variable,String> premisse, Map<Variable,String> conclusion) {
 		super(premisse,conclusion);
@@ -15,9 +15,9 @@ public class Disjunction extends Rule {
 
 
   /**
-    *
-    *
-    *
+    * Surcharge de la méthode premisse qui permet de vérifier l'état d'une premisse.
+    * @param test , qui est un Map de Variable et de String.
+    * @return true
     */
   @Override
   public boolean premisse(Map<Variable,String> test) {
@@ -33,9 +33,9 @@ public class Disjunction extends Rule {
   }
 
   /**
-    *
-    *
-    *
+    * Surcharge de la méthode isSatisfiedBy() , qui regarde si une premisse et une conclusion sont satisfaites.
+    * @param test , qui est un Map de Variable et de String.
+    * @return boolean.
     */
 	@Override
 	public boolean isSatisfiedBy(Map<Variable,String> test) {
@@ -45,8 +45,8 @@ public class Disjunction extends Rule {
   }
 
   /**
-    *
-    *
+    * Surcharge de la méthode toString().
+    * @return String.
     *
     */
   @Override
