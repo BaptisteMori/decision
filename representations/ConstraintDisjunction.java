@@ -8,8 +8,8 @@ public class ConstraintDisjunction implements Constraint {
   private Set<Variable> scope = new HashSet<Variable>();
 
   /**
-    *
-    *
+    * Constructeur de la classe ConstraintDisjunction.
+    * @param constraints , qui est un tableau de Constraint.
     *
     */
   public ConstraintDisjunction(Constraint[] constraints) {
@@ -17,9 +17,9 @@ public class ConstraintDisjunction implements Constraint {
   }
 
   /**
-    *
-    *
-    *
+    * Méthode qui verifie si une contrainte est satisfaite.
+    * @param voiture , qui est un Map de Variable et de String.
+    * @return union_result , qui est un boolean.
     */
 	public boolean isSatisfiedBy(Map<Variable,String> voiture) {
 		boolean union_result = false;
@@ -30,8 +30,8 @@ public class ConstraintDisjunction implements Constraint {
 	}
 
   /**
-    *
-    *
+    * Surcharge de la méthode getScope(), qui retourne le scope.
+    * @return this.scope , qui est un Set de Variable.
     *
     */
   @Override
@@ -61,8 +61,8 @@ public class ConstraintDisjunction implements Constraint {
   }
 
   /**
-    *
-    *
+    * Surcharge de la méthode toString(), qui permet d'afficher.
+    * @return ch , qui est un String.
     *
     */
   @Override
