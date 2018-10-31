@@ -4,10 +4,21 @@ import java.util.*;
 
 public class IncompatibilityConstraint extends Rule {
 
+
+  /**
+    *
+    *
+    *
+    */
   public IncompatibilityConstraint(Map<Variable,String> premisse) {
 		super(premisse,null);
   }
 
+  /**
+    *
+    *
+    *
+    */
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
 		for (Variable v : this.premisse.keySet()) {
@@ -18,6 +29,11 @@ public class IncompatibilityConstraint extends Rule {
 		return false;
   }
 
+  /**
+    *
+    *
+    *
+    */
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable,Set<String>> domaines) {
     return false;/*
@@ -35,6 +51,11 @@ public class IncompatibilityConstraint extends Rule {
     return tmp;*/
   }
 
+  /**
+    *
+    *
+    *
+    */
   @Override
   public String toString(){
     return premisse + "\n IncompatibilityConstraint";

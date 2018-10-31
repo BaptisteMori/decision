@@ -7,10 +7,20 @@ public class ConstraintDisjunction implements Constraint {
   private Constraint[] constraints;
   private Set<Variable> scope = new HashSet<Variable>();
 
+  /**
+    *
+    *
+    *
+    */
   public ConstraintDisjunction(Constraint[] constraints) {
 		this.constraints=constraints;
   }
 
+  /**
+    *
+    *
+    *
+    */
 	public boolean isSatisfiedBy(Map<Variable,String> voiture) {
 		boolean union_result = false;
 		for (int i=0; i<this.constraints.length; i++) {
@@ -19,6 +29,11 @@ public class ConstraintDisjunction implements Constraint {
 		return union_result;
 	}
 
+  /**
+    *
+    *
+    *
+    */
   @Override
   public Set<Variable> getScope() {
     for (int i = 0; i < this.constraints.length; i++) {
@@ -27,6 +42,11 @@ public class ConstraintDisjunction implements Constraint {
     return this.scope;
   }
 
+  /**
+    *
+    *
+    *
+    */
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
     return false;/*
@@ -40,6 +60,11 @@ public class ConstraintDisjunction implements Constraint {
     return false;*/
   }
 
+  /**
+    *
+    *
+    *
+    */
   @Override
   public String toString(){
     String ch = "";
