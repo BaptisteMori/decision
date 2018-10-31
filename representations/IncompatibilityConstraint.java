@@ -6,8 +6,8 @@ public class IncompatibilityConstraint extends Rule {
 
 
   /**
-    *
-    *
+    * Constructeur de la classe IncompatibilityConstraint.
+    * @param premisse , qui est un Map de Variable et de String.
     *
     */
   public IncompatibilityConstraint(Map<Variable,String> premisse) {
@@ -15,9 +15,9 @@ public class IncompatibilityConstraint extends Rule {
   }
 
   /**
-    *
-    *
-    *
+    * Surcharge de la méthode isSatisfiedBy().
+    * @param test , qui est un Map de Variable et de String.
+    * @return true , si c'est satisfait. Sinon retourne false.
     */
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
@@ -52,8 +52,8 @@ public class IncompatibilityConstraint extends Rule {
   }
 
   /**
-    *
-    *
+    * Surcharge de la méthode toString().
+    * @return String , qui sera la premisse plus une phrase.
     *
     */
   @Override
