@@ -12,15 +12,23 @@ public class Backtracking {
   private ArrayList<Map<Variable,String>> list = new ArrayList<>();
   private Map<Variable,Set<String>> unassigned_domains = new HashMap<>();
 
+
+  /**
+		* Constructeur de la classe Backtracking
+		* @param variables , qui est un tableaux de Variable.
+		* @param constraint , qui est un tableauc de Constraint.
+		*/
   public Backtracking(Variable[] variables, Constraint[] constraints) {
     this.variables = variables;
     this.constraints = constraints;
   }
 
-/*
-  La méthode backtrack, utilise l'algorithme de Backtracking.
-*/
 
+/**
+  * La méthode backtrack utilise l'algorithme de Backtracking.
+  * @param map , qui est un Map de Variable et de String.
+  * @param i , qui est un int.
+  */
   public void backtrack(Map<Variable,String> map, int i) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
     // application de tous les filtres pour réduire les domaines des variables contenue dans unassigned_domains
     applyAllFilters(map, this.unassigned_domains);
@@ -76,6 +84,13 @@ public class Backtracking {
     }
   }
 
+
+  /**
+		* Méthode permettant d'appliquer les filtres afin de réduire le champ de recherche.
+		* @param voiture , qui est un Map de Variable et de String.
+		* @param unassigned_domains , qui est un Map de Variable et de Set de String.
+    * @return restart , qui est un boolean vrai.
+		*/
   public boolean applyAllFilters(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
     boolean restart = false;
     // on boucle sur la liste des contraintes
@@ -96,6 +111,12 @@ public class Backtracking {
     return restart;
   }
 
+
+  /**
+		* Méthode permettant de vérifier si toutes les contraintes sont vérifiées sur une "voiture"
+		* @param voiture , qui est un map de Variable et de String.
+		* @return true , si les contraintes sont respectées, sinon retourne false.
+		*/
 	public boolean allConstraintsSatisfiedBy(Map<Variable,String> voiture) {
 		for (int i = 0; i< this.constraints.length; i++) {
 			if(!(this.constraints[i].isSatisfiedBy(voiture))) {
@@ -105,6 +126,12 @@ public class Backtracking {
 		return true;
 	}
 
+
+  /**
+		* Méthode permettant de générer un nouveau Map.
+		* @return map , qui est un Map de Variable et de String.
+		*
+		*/
   public Map<Variable,String> generateMap() {
     Map<Variable,String> map = new HashMap<Variable,String>();
     for (int i = 0; i < this.variables.length; i++) {
@@ -113,14 +140,31 @@ public class Backtracking {
     return map;
   }
 
+  /**
+		* Méthode retournant un tableau de Variable.
+		* @return this.variables , qui est un tableau de Variable.
+		*
+		*/
 	public Variable[] getVariables() {
 		return this.variables;
 	}
 
+
+  /**
+		* Méthode retournant un tableau de Constraint.
+		* @return this.constraint , qui est un tableau de Constraint.
+		*
+		*/
 	public Constraint[] getConstraints() {
 		return this.constraints;
 	}
 
+
+  /**
+		* Méthode retournant une list.
+		* @return this.list , qui est une ArrayList de Map de Variable et de String.
+		*
+		*/
   public ArrayList<Map<Variable,String>> getList() {
     return this.list;
   }
@@ -129,6 +173,10 @@ public class Backtracking {
   //                 HEURISTIC
   // ********************************************
 
+
+  /**
+		* Méthode permettant de générer l'heuristic.
+		*/
   public void heuristic() {
     //SUPPRIMER DANS LA LISTE DES VARIABLES DES CONTRAINTES CELLES DEJA ASSIGNEES
     Variable[] scopeTMP;
@@ -154,6 +202,12 @@ public class Backtracking {
     }
   }
 
+
+  /**
+		* Méthode de créer l'heuristic sur les domaines.
+		*
+		* @return vMinDom , qui est de type Variable.
+		*/
   public Variable heuristicDomaine() {
     ArrayList<Variable> vDom = new ArrayList<>();
     int tmp = 0;
