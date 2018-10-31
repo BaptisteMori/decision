@@ -6,11 +6,23 @@ public class AllEqualConstraint implements Constraint {
 
   private Set<Variable> scope;
 
+
+  /**
+    * Constructeur de la classe AllEqualConstraint
+    * @param scope , qui est un Set de Variable.
+    *
+    */
   public AllEqualConstraint(Set<Variable> scope) {
     this.scope = scope;
   }
 
-  /*test si la constrainte est respectée (toutes les variables égales entre elles)*/
+
+  /**
+    * Surcharge de la méthode isSatisfiedBy() qui teste si
+    * la contrainte est respectée ( si toutes es variables sont égales entres elles.)
+    * @param voiture , qui est un Map de Variable et de String.
+    * @return true , si la contrainte est satisfaite sinon retourne false.
+    */
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> voiture) {
 		Object[] scope_array = this.scope.toArray();
@@ -26,22 +38,25 @@ public class AllEqualConstraint implements Constraint {
 		return true;
   }
 
-  /*
-    Méthode Override qui retourne toutes les
-    variables de la prémice ou de la conclusion.
-  */
 
+  /**
+    * Override de la méthode getScope(), qui retourne toutes
+    * les variables de la premisse ou de la conclusion.
+    * @return this.scope , qui est un Set de Variable.
+    */
   @Override
   public Set<Variable> getScope() {
 		return this.scope;
   }
 
-  /*
-    Méthode qui Override la méthode filter et qui
-    permet de réduire le domaine des variables non
-    assignées en enlevant les valeurs non viables.
-  */
 
+  /**
+    * Méthode qui Override la méthode filter et qui permet de réduire
+    * le domaine des variables non assignées en enlevant les valeurs non viables.
+    * @param voiture , qui est un Map de Variable et de String.
+    * @param domaines , qui est un Map de Variable et de Set de String.
+    * @return tmp , un boolean
+    */
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
     //return false;/*
@@ -68,6 +83,12 @@ public class AllEqualConstraint implements Constraint {
     return tmp;
   }
 
+
+  /**
+    * Surcharge de la méthode toString()
+    * @return String .
+    *
+    */
   @Override
   public String toString(){
     return "AllEqualConstraint";
