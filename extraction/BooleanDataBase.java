@@ -12,4 +12,13 @@ public class BooleanDataBase {
     this.variables_list = variables_list;
     this.transactions = transactions;
   }
+
+  public ArrayList<String> getVariablesList() {
+    return this.variables_list;
+  }
+
+  public ArrayList<Map<String,String>> getTransactions() {
+    return this.transactions;
+  }
+  
 }
