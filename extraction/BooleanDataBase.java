@@ -5,11 +5,11 @@ import representations.*;
 
 public class BooleanDataBase {
 
-  private ArrayList<Variable> variables_list;
-  private ArrayList<Map<Variable,String>> transactions;
+  private ArrayList<String> variables_list;
+  private ArrayList<Map<String,String>> transactions;
 
-  public BooleanDataBase() {
-    this.variables_list = new ArrayList<Variable>();
-    this.transactions = new ArrayList<Map<Variable,String>>();
+  public BooleanDataBase(ArrayList<String> variables_list, ArrayList<Map<String,String>> transactions) {
+    this.variables_list = variables_list;
+    this.transactions = transactions;
   }
 }
