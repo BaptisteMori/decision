@@ -1,16 +1,17 @@
 package extraction;
 
 import representations.*;
+import java.util.*;
 
-public class FrequentItemsetMiner {
+public class FrequentItemSetMiner {
 
   private BooleanDataBase boolean_database;
 
-  public FrequentItemSetMiner(BooleanDataBase boolean_database) {
-    this.boolean_database = boolean_database;
+  public FrequentItemSetMiner(BooleanDataBase db) {
+		this.boolean_database=db;
   }
 
-  public Map<Set<String>,Integer> frequentItemSets (Integer minimal_support) {
+  public Map<Set<Variable>,Integer> frequentItemSets (int minimal_support) {
     return null;
   }
 }

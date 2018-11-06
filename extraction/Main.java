@@ -59,6 +59,6 @@ public class Main {
 		transactions.add(transaction6);
 
 		BooleanDataBase data = new BooleanDataBase(variables,transactions);
-		FrequentItemsetMiner naive_miner = new FrequentItemsetMiner(data);
+		FrequentItemSetMiner naive_miner = new FrequentItemSetMiner(data);
 	}
 }
