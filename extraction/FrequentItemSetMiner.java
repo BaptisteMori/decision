@@ -6,15 +6,34 @@ import java.util.*;
 public class FrequentItemSetMiner {
 
   private BooleanDataBase boolean_database;
-  private Map<String,String> map_variables; //SERT A RIEN
+  private Map<Set<String>, Integer> frequentItemSets;
 
   public FrequentItemSetMiner(BooleanDataBase db) {
 		this.boolean_database=db;
-    //this.map_variables = new HashMap<String,String>();
-    //this.map_variables.put(this.boolean_database.getVariablesList().get(0),"1");
+    this.frequentItemSets = new HashMap<Set<String>, Integer>();
   }
 
-  public Map<Set<String>,Integer> frequentItemSets (int minimal_support) {
+	public Map<Set<String>, Integer> getItemSets() {
+		return this.frequentItemSets;
+	}
+
+	public void bfMiner(int minimal_support, Set<String> combi) {
+		System.out.println(combi);
+		int f = frequencyCalcul(combi);
+		if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
+			this.frequentItemSets.put(combi,f);
+		}
+		ArrayList<String> var_list = this.boolean_database.getVariablesList();
+		for (String variable : var_list) {
+			if (combi.size() < var_list.size() && !(combi.contains(variable))) {
+				Set<String> new_combi = new HashSet<String>(combi);
+				new_combi.add(variable);
+				bfMiner(minimal_support, new_combi);
+			}
+		}
+	}
+
+  public Map<Set<String>,Integer> frequentItemSets (int minimal_support, Set<String> prev) {
     Set<String> item_set = new HashSet<String>();
     if (frequencyCalcul(item_set) >= minimal_support) {
       item_set.add(this.boolean_database.getVariablesList().get(0));
