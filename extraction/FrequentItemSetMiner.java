@@ -18,7 +18,6 @@ public class FrequentItemSetMiner {
 	}
 
 	public void bfMiner(int minimal_support, Set<String> combi) {
-		System.out.println(combi);
 		int f = frequencyCalcul(combi);
 		if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
 			this.frequentItemSets.put(combi,f);
