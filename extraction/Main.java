@@ -60,5 +60,7 @@ public class Main {
 
 		BooleanDataBase data = new BooleanDataBase(variables,transactions);
 		FrequentItemSetMiner naive_miner = new FrequentItemSetMiner(data);
+
+		naive_miner.frequentItemSets(2);
 	}
 }
