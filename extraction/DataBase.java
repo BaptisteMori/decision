@@ -21,6 +21,16 @@ public class DataBase {
     return this.transactions;
   }
 
-
+	public BooleanDataBase propositionalisation() {
+		Set<String> bool_domain = new HashSet<>();
+		bool_domain.add("0");
+		bool_domain.add("1");
+		ArrayList<Variable> booleans_list = new ArrayList<Variable>();
+		for (Variable v : this.variables_list) {
+			for (String s : v.getDomaine()) {
+				booleans_list.add(new Variable(v.getNom(),bool_domain));
+			}
+		}
+	}
 
 }
