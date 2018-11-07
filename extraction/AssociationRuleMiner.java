@@ -1,6 +1,7 @@
 package extraction;
 
 import java.util.*;
+import representations.*;
 
 public class AssociationRuleMiner {
 
@@ -14,4 +15,8 @@ public class AssociationRuleMiner {
 
     return 0;
   }
+
+	public double confidence(Set<String> item_set, Set<String> premisse) {
+		return FrequentItemSetMiner.frequencyCalcul(item_set)/FrequentItemSetMiner.frequencyCalcul(premisse);
+	}
 }
