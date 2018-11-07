@@ -20,15 +20,16 @@ public class FrequentItemSetMiner {
     return null;
   }
 
-  public int frequencyCalcul() {
+  public int frequencyCalcul(Set<String> combi) {
+		int freq=0;
     for (Map<String,String> transaction : this.boolean_database.getTransactions()) {
-      for (String variable : this.map_variables.keySet()) {
-        if (this.map_variables.get(variable).equals("1")){
-          if (!(transaction.contains(variable))){
+      for (String variable : combi) {
+        if (transaction.get(variable).equals("0"))) {
             break;
-          }
         }
+				freq++;
       }
     }
+		return freq;
   }
 }
