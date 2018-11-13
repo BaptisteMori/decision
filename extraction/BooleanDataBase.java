@@ -5,20 +5,20 @@ import representations.*;
 
 public class BooleanDataBase {
 
-  private ArrayList<String> variables_list;
-  private ArrayList<Map<String,String>> transactions;
+  private ArrayList<Variable> variables_list;
+  private ArrayList<Map<Variable,String>> transactions;
 
-  public BooleanDataBase(ArrayList<String> variables_list, ArrayList<Map<String,String>> transactions) {
+  public BooleanDataBase(ArrayList<Variable> variables_list, ArrayList<Map<Variable,String>> transactions) {
     this.variables_list = variables_list;
     this.transactions = transactions;
   }
 
-  public ArrayList<String> getVariablesList() {
+  public ArrayList<Variable> getVariablesList() {
     return this.variables_list;
   }
 
-  public ArrayList<Map<String,String>> getTransactions() {
+  public ArrayList<Map<Variable,String>> getTransactions() {
     return this.transactions;
   }
-  
+
 }
