@@ -15,11 +15,29 @@ public class Diagnoser {
     this.current_instance = new HashMap<Variable,String>();
   }
 
-  public boolean isIncompatible(Map<Variable,String> incomplete_instance, Variable variable, String value) {
+  public boolean isExplication(Map<Variable,String> incomplete_instance, Variable variable, String value) {
+
     return true;
   }
 
-  public Map<Variable,String> getDiagnostic(Variable variable, String value) {
-    return null;
+  public Map<Variable,String> getDiagnostic(Map<Variable,String> instance, Variable variable, String value) {
+    Map<Variable,String> f = new HashMap<Variable,String>();
+    f.putAll(this.current_instance);
+    Map<Variable,String> f_bis = new HashMap<Variable,String>();
+    f_bis.putAll(f);
+    Map<Variable,String> current_copy = new HashMap<Variable,String>();
+    current_copy.putAll(this.current_instance);
+    Map<Variable,String> instance_bis = new HashMap<Variable,String>();
+    while (!(f_bis.isEmpty())){
+      for (Variable var : f.keySet()) {
+        instance_bis.putAll(current_copy);
+        instance_bis.remove(var);
+        if(this.isExplication(instance_bis,variable,value)){
+          current_copy = instance_bis;
+        }
+        f_bis.remove(var);
+      }
+    }
+    return instance_bis;
   }
 }
