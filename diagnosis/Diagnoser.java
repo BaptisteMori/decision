@@ -15,12 +15,12 @@ public class Diagnoser {
     this.current_instance = new HashMap<Variable,String>();
   }
 
-  public boolean isExplication(Map<Variable,String> incomplete_instance, Variable variable, String value) {
+  public boolean isExplication(Map<Variable,String> instance, Variable variable, String value) {
 
     return true;
   }
 
-  public Map<Variable,String> getDiagnostic(Map<Variable,String> instance, Variable variable, String value) {
+  public Map<Variable,String> getDiagnosic(Map<Variable,String> instance, Variable variable, String value) {
     Map<Variable,String> f = new HashMap<Variable,String>();
     f.putAll(this.current_instance);
     Map<Variable,String> f_bis = new HashMap<Variable,String>();
@@ -38,6 +38,6 @@ public class Diagnoser {
         f_bis.remove(var);
       }
     }
-    return instance_bis;
+    return current_copy;
   }
 }
