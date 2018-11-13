@@ -2,6 +2,7 @@ package diagnosis;
 
 import representations.*;
 import java.util.*;
+import ppc.*;
 
 public class Diagnoser {
 
@@ -16,8 +17,14 @@ public class Diagnoser {
   }
 
   public boolean isExplication(Map<Variable,String> instance, Variable variable, String value) {
-
-    return true;
+    ArrayList<Variable> variables_bis = new ArrayList<Variable>();
+    variables_bis.addAll(this.variables);
+    for (Variable var : variables_bis) {
+      var.setDomaine(new HashSet<String>(Arrays.asList(new String[] {value})));
+    }
+    variable.setDomaine(new HashSet<String>(Arrays.asList(new String[] {value})));
+    Backtracking backtracking = new Backtracking(variables_bis.toArray(new Variable[variables_bis.size()]),contraintes.toArray(new Constraint[contraintes.size()]));
+    return !(backtracking.backtrack(instance,0));
   }
 
   public Map<Variable,String> getDiagnosic(Map<Variable,String> instance, Variable variable, String value) {
