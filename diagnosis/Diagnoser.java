@@ -28,7 +28,7 @@ public class Diagnoser {
     return backtracking.getList().isEmpty();
   }
 
-  public Map<Variable,String> getDiagnosic(Map<Variable,String> instance, Variable variable, String value) {
+  public Map<Variable,String> getDiagnosis(Map<Variable,String> instance, Variable variable, String value) {
     Map<Variable,String> f = new HashMap<Variable,String>();
     f.putAll(this.current_instance);
     Map<Variable,String> f_bis = new HashMap<Variable,String>();
