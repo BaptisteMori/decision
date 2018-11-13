@@ -68,5 +68,7 @@ public class Main {
 		DBReader csv_reader = new DBReader(new HashSet<Variable>(Arrays.asList(ex.getVariables())));
 		DataBase db = csv_reader.importDB("resources/example_db.csv");
 		System.out.println(db.getVariablesList());
+		db.propositionalisation();
+
 	}
 }
