@@ -60,26 +60,35 @@ public class AllEqualConstraint implements Constraint {
   @Override
   public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> domaines){
     //return false;/*
+
+    // variable pour savoir si on a modifié quelque le domaine
     boolean tmp = false;
+    // variable qui est le domaine que l'on expecte
     Variable expected = new Variable();
+    // on cherche parmis les variables affecté par les contraintes
     for (Variable v : this.scope) {
+      // la première variable qui est affecté( etant donné que c'est AllEqualConstraint)
       if (voiture.get(v)!="") {
         expected = v;
         break;
       }
     }
-    System.out.println("You sck2 " + this.scope);
+
     for (Variable v2 : this.scope) {
+      // si la variable attendu est differente de v2
+      // unassigned_domains contient v2
+      // et que dans le domaine du unassigned_domains de la variable v2 il y ait au moins 2 valeurs
       if (!(expected.equals(v2)) && domaines.containsKey(v2) && domaines.get(v2).size()!=1) {
+        //on modifie le domaine
         tmp=true;
+        // on créé un domaine temporaire
         Set<String> tmp_dom = new HashSet(v2.getDomaine());
         Variable tmp_var = new Variable(v2.getNom(), tmp_dom);
         domaines.get(tmp_var).clear();
-        System.out.println("OKOK"+v2.getDomaine());
         domaines.get(tmp_var).add(voiture.get(expected));
-        System.out.println("OKO"+v2.getDomaine());
       }
     }
+    System.out.println("all AllEqualConstraint "+domaines);
     return tmp;
   }
 

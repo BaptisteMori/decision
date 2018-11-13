@@ -35,12 +35,23 @@ public class Backtracking {
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         String[] domaine = variables[i].getDomaine().toArray(new String[variables[i].getDomaine().size()]);
         //String[] domaine = this.unassigned_domains.get(this.variables[i]).toArray(new String[this.unassigned_domains.get(this.variables[i]).size()]);
+
+
+        // on parcour le domaine des variable non modifié
+        // et non les domaines de unassigned_domains
+
+
+
         // tout ce qui compte c'est les valeurs
         for (String valeur : domaine){
-          System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
           // on assigne une des valeurs du domaine de la variable i
           map.put(variables[i],valeur);
-
+          System.out.println("\n");
+          System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
+          System.out.println("-----------------------");
+          for (Variable v : map.keySet()){
+            System.out.println(v +" : "+map.get(v)+" ; " + v.getDomaine() + " ; "+((unassigned_domains.containsKey(v))? unassigned_domains.get(v) : "_"));
+          }
 
           // création du unassigned_domains
           // suppression de tous les éléments de unassigned_domains
@@ -52,8 +63,6 @@ public class Backtracking {
               // récupérer le domaine de cette variable
               Set<String> tmp_dom = new HashSet<>(v.getDomaine());
               tmp_dom.remove(1);
-              System.out.println("tmp_dom "+tmp_dom);
-              System.out.println("variable: "+v.getDomaine());
               // assigné ce domaine à la variable dans le unassigned_domains
               this.unassigned_domains.put(v, tmp_dom);
             }
@@ -61,12 +70,8 @@ public class Backtracking {
           unassigned_domains.remove(variables[i]);
 
 
-          for (Variable v : map.keySet()){
-            System.out.println(v +" : "+map.get(v)+" ; " + v.getDomaine() + " ; "+((unassigned_domains.containsKey(v))? unassigned_domains.get(v) : " "));
-          }
 
 
-          System.out.println("---------\n");
           // si la map est complète et satisfait toutes les contraintes alors on l'ajoute
           if (!(map.containsValue("")) && this.allConstraintsSatisfiedBy(map)) {
             // pour reussir, faire une fonction qui copie map (pour pas l'écraser a chaque fois)
@@ -74,12 +79,20 @@ public class Backtracking {
             tmp.putAll(map);
             this.list.add(tmp);
             System.out.println("ajouté: " + tmp +"\n");
+
           } else {
+
             if (this.allConstraintsSatisfiedBy(map)){
+              // recommence une récursion
               backtrack(map,i+1);
             }
+
           }
+
+
+
         }
+        // backtrack
         map.put(variables[i],"");
     }
   }
@@ -97,8 +110,6 @@ public class Backtracking {
     for (int i = 0; i< this.constraints.length; i++) {
       // application du filtre i et vérification si il a modifié le domaine
       boolean b = this.constraints[i].filter(voiture, unassigned_domains);
-      System.out.println(this.constraints[i]+ " : " + b);
-      System.out.println("\n");
       // si il y a eu une modification on passe restart à true
       if(b){
         restart = true;

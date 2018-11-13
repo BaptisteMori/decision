@@ -102,7 +102,6 @@ public class Rule implements Constraint {
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
     //return false;
-    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		boolean tmp = false;
     // si la premisse est satisfaite,
     // la premisse est différente de null,
