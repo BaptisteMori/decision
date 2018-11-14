@@ -67,12 +67,14 @@ public class DataBase {
         if (couple.length>1) {
           for (Variable key : m.keySet()) {
             System.out.print("key " + key);
-            if (couple[1].equals(m.get(key))) {
-              System.out.println(" 1");
-              bool_map.put(bool, "1");
-            } else {
-              System.out.println(" 0");
-              bool_map.put(bool, "0");
+            if (couple[0].equals(key.getNom())) {
+              if (couple[1].equals(m.get(key))) {
+                System.out.println(" 1");
+                bool_map.put(bool, "1");
+              } else {
+                System.out.println(" 0");
+                bool_map.put(bool, "0");
+              }
             }
           }
         } else {
