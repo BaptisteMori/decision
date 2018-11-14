@@ -70,13 +70,14 @@ public class Main {
 		BooleanDataBase data = new BooleanDataBase(variables,transactions);
 		FrequentItemSetMiner naive_miner = new FrequentItemSetMiner(data);
 		naive_miner.bfMiner(2, new HashSet<Variable>());
-		System.out.println(naive_miner.getItemSets());
 
 		Example ex = new Example();
 		DBReader csv_reader = new DBReader(new HashSet<Variable>(Arrays.asList(ex.getVariables())));
-		DataBase db = csv_reader.importDB("resources/example_db.csv");
-		System.out.println(db.getVariablesList());
-		db.propositionalisation();
+		DataBase db = csv_reader.importDB("resources/test_db.csv");
+		BooleanDataBase bool_db = db.propositionalisation();
+    for (Map<Variable,String> m : bool_db.getTransactions()) {
+      System.out.println(m + "\n");
+    };
 
 	}
 }

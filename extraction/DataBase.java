@@ -29,7 +29,7 @@ public class DataBase {
 		for (Variable v : this.variables_list) {
 			if (v.getDomaine().size()>2) {
 				for (String s : v.getDomaine()) {
-					booleans_list.add(new Variable(v.getNom()+"_"+s, bool_domain));
+					booleans_list.add(new Variable(v.getNom()+":"+s, bool_domain));
 				}
 			} else {
 				booleans_list.add(new Variable(v.getNom(), bool_domain));
@@ -37,25 +37,27 @@ public class DataBase {
 		}
 		ArrayList<Map<Variable,String>> boolean_transactions = new ArrayList<>();
 		for (Map<Variable,String> m : this.transactions) {
-			Map<Variable,String> t = new HashMap<>();
-			for (Variable v2 : m.keySet()) {
-				for (String s : v2.getDomaine()) {
-					if (v2.getDomaine().size()>2) {
-						if (s.equals(t.get(v2))) {
-							t.put(booleans_list.get(booleans_list.indexOf(new Variable(v2.getNom()+"_"+s, bool_domain))), "1");
-						} else {
-							t.put(booleans_list.get(booleans_list.indexOf(new Variable(v2.getNom()+"_"+s, bool_domain))), "0");
-						}
-					} else {
-						t.put(booleans_list.get(booleans_list.indexOf(new Variable(v2.getNom(), bool_domain))), t.get(v2));
-					}
-				}
-			}
-			boolean_transactions.add(t);
+			Map<Variable,String> bool_map = new HashMap<>();
+      for (Variable bool : booleans_list) {
+        System.out.println("bool " + bool);
+        String[] couple = bool.getNom().split(":");
+        if (couple.length>1) {
+          for (Variable key : m.keySet()) {
+            System.out.print("key " + key);
+            if (couple[1].equals(m.get(key))) {
+              System.out.println(" 1");
+              bool_map.put(bool, "1");
+            } else {
+              System.out.println(" 0");
+              bool_map.put(bool, "0");
+            }
+          }
+        } else {
+          bool_map.put(bool,m.get(bool));
+        }
+      }
+			boolean_transactions.add(bool_map);
 		}
-		System.out.println(booleans_list);
-		System.out.println(boolean_transactions);
-		return null;
+		return new BooleanDataBase(booleans_list, boolean_transactions);
 	}
-
 }
