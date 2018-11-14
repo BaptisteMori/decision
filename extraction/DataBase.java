@@ -62,17 +62,13 @@ public class DataBase {
 		for (Map<Variable,String> m : this.transactions) {
 			Map<Variable,String> bool_map = new HashMap<>();
       for (Variable bool : booleans_list) {
-        System.out.println("bool " + bool);
         String[] couple = bool.getNom().split(":");
         if (couple.length>1) {
           for (Variable key : m.keySet()) {
-            System.out.print("key " + key);
             if (couple[0].equals(key.getNom())) {
               if (couple[1].equals(m.get(key))) {
-                System.out.println(" 1");
                 bool_map.put(bool, "1");
               } else {
-                System.out.println(" 0");
                 bool_map.put(bool, "0");
               }
             }
