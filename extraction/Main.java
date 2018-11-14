@@ -73,7 +73,7 @@ public class Main {
 
 		Example ex = new Example();
 		DBReader csv_reader = new DBReader(new HashSet<Variable>(Arrays.asList(ex.getVariables())));
-		DataBase db = csv_reader.importDB("resources/test_db.csv");
+		DataBase db = csv_reader.importDB("resources/example_db.csv");
 		BooleanDataBase bool_db = db.propositionalisation();
     for (Map<Variable,String> m : bool_db.getTransactions()) {
       System.out.println(m + "\n");
