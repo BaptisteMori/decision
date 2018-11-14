@@ -8,19 +8,42 @@ public class DataBase {
   private List<Variable> variables_list;
   private List<Map<Variable,String>> transactions;
 
+  /**
+    * Constructeur de la classe.
+    * @param variables_list , qui est une List de Variable.
+    * @param transactions , qui est une List de Map de Variable et un String.
+    *
+    */
   public DataBase(List<Variable> variables_list, List<Map<Variable,String>> transactions) {
     this.variables_list = variables_list;
     this.transactions = transactions;
   }
 
+
+  /**
+    * Méthode retournant la liste des Variable.
+    * @return this.variables_list , qui est une List de Variable.
+    *
+    */
   public List<Variable> getVariablesList() {
     return this.variables_list;
   }
 
+  /**
+    * Méthode retournant une liste de transactions.
+    * @return this.transactions qui est une List de Map de Variable et de String.
+    *
+    */
   public List<Map<Variable,String>> getTransactions() {
     return this.transactions;
   }
 
+
+  /**
+    *
+    *
+    *
+    */
 	public BooleanDataBase propositionalisation() {
 		Set<String> bool_domain = new HashSet<>();
 		bool_domain.add("0");
