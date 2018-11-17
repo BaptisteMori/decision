@@ -4,5 +4,6 @@
 if sh compile-all.sh
 then
   cd ../
-java diagnosis.Main 
+java diagnosis.Main
+sleep 10m
 fi

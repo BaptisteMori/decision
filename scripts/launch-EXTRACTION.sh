@@ -4,5 +4,6 @@
 if sh compile-all.sh
 then
   cd ../
-java extraction.Main 
+java extraction.Main
+sleep 10m
 fi

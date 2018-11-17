@@ -4,5 +4,6 @@
 if sh compile-all.sh
 then
   cd ../
-java ppc.Main 
+java ppc.Main
+sleep 10m
 fi
