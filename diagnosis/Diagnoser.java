@@ -26,7 +26,6 @@ public class Diagnoser {
   public boolean isExplanation(Map<Variable,String> instance, Variable variable, String value) {
     Map<Variable,String> instance_bis;
     instance_bis = new HashMap<>(instance);
-    System.out.println("instance: "+instance_bis);
     for (Variable var : instance_bis.keySet()) {
       var.setDomaine(new HashSet<String>(Arrays.asList(instance_bis.get(var))));
     }
@@ -34,7 +33,6 @@ public class Diagnoser {
 
     instance_bis.put(variable,value);
     this.bt.backtrack(instance_bis,0);
-    System.out.println("isExplanation  "+this.bt.getList().isEmpty());
     return this.bt.getList().isEmpty();
   }
 
@@ -49,9 +47,6 @@ public class Diagnoser {
       res_bis = new HashMap<>(res);
       if (res_bis.size() > 1) {
         res_bis.remove(var);
-        System.out.println("\n\nvar = "+var);
-        System.out.println("e = "+res);
-        System.out.println("ePrime = "+res_bis);
         if (this.isExplanation(res_bis,variable,value)) {
           res = new HashMap<>(res_bis);
         }
