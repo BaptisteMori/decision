@@ -27,10 +27,10 @@ Ensuite pour pouvoir générer la Javadoc de notre projet. Il suffit de se rendr
 
     - generateJavadoc.sh
 
-Un nouveau dossier sera apparut parmis les packages avec pour nom : Javadoc
+Un nouveau dossier sera apparu parmi les packages avec pour nom : Javadoc
 
 
-Pour pouvoir supprimer tous les .class il suffit de lancer le script :
+Pour pouvoir supprimer tous les .class, il suffit de lancer le script :
 
   - clean-all.sh
 
@@ -38,5 +38,3 @@ Pour pouvoir supprimer le dossier contenant la Javadoc, il suffit de lancer le
 script suivant :
 
   - clean-javadoc.sh
-
-  
