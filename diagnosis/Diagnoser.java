@@ -45,7 +45,7 @@ public class Diagnoser {
     Map<Variable,String> res_bis;
 
     for (Variable var : choices.keySet()) {
-      res_bis = new HashMap(res);
+      res_bis = new HashMap<>(res);
       res_bis.remove(var);
       System.out.println("\n\nvar = "+var);
       System.out.println("e = "+res);
