@@ -13,34 +13,34 @@ public class Main {
 		domaine.add("true");
 		domaine.add("false");
 		//domaine.add("blanc");
-		Variable toit = new Variable("x1",new HashSet<String>(domaine));
-		Variable capot = new Variable("x2",new HashSet<String>(domaine));
-		Variable droite = new Variable("x3",new HashSet<String>(domaine));
-		Variable gauche = new Variable("x4",new HashSet<String>(domaine));
+		Variable x1 = new Variable("x1",new HashSet<String>(domaine));
+		Variable x2 = new Variable("x2",new HashSet<String>(domaine));
+		Variable x3 = new Variable("x3",new HashSet<String>(domaine));
+		Variable x4 = new Variable("x4",new HashSet<String>(domaine));
 
 		Map<Variable,String> incomp = new HashMap<Variable,String>();
-		incomp.put(droite,"false");
-		incomp.put(gauche,"false");
+		incomp.put(x3,"false");
+		incomp.put(x4,"false");
 		ArrayList<Constraint> constraints = new ArrayList<Constraint>();
 		Constraint c1 = new IncompatibilityConstraint(incomp);
 		constraints.add(c1);
 
 		Set<Variable> allequal_set = new HashSet<Variable>();
-		allequal_set.add(toit);
-		allequal_set.add(capot);
-		allequal_set.add(gauche);
+		allequal_set.add(x1);
+		allequal_set.add(x2);
+		allequal_set.add(x3);
 		Constraint c2 = new AllEqualConstraint(allequal_set);
 		constraints.add(c2);
 
-		vars.add(toit);
-		vars.add(capot);
-		vars.add(droite);
-		vars.add(gauche);
+		vars.add(x1);
+		vars.add(x2);
+		vars.add(x3);
+		vars.add(x4);
 		Diagnoser diag = new Diagnoser(vars, constraints);
 
-		diag.add(toit,"true");
-		diag.add(capot,"true");
-		diag.add(droite,"false");
-		System.out.println(diag.getDiagnosis(gauche, "false"));
+		diag.add(x1,"true");
+		diag.add(x2,"true");
+		diag.add(x4,"false");
+		System.out.println(diag.getDiagnosis(x4, "false"));
 	}
 }
