@@ -141,15 +141,14 @@ public class Rule implements Constraint {
         }
       }
       if (tmp){
-        // on supprime la valeur attendu
-        unassigned_domains.get(unassigned_variable).remove(expected);
-        return true;
+        return false;
       }else{
         // on supprime toutes les valeurs
         unassigned_domains.get(unassigned_variable).clear();
         // et on y ajoute celle attendue
         unassigned_domains.get(unassigned_variable).add(expected);
         return true;
+        //return false;
       }
 		}else{
       return false;
