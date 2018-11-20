@@ -101,13 +101,13 @@ public class Rule implements Constraint {
 
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
-    //return false;
+    //return false;/*
 		boolean tmp = false;
     // si la premisse est satisfaite,
     // la premisse est différente de null,
     // et la taille du unassigned_domains est supérieur à 0
     // on continue
-		if (this.premisse(voiture) && this.premisse != null && unassigned_domains.size() > 0 ) {
+		if (this.premisse(voiture) && this.premisse != null) {
 
       Variable unassigned_variable = null;
       int cpt = 0;
@@ -115,22 +115,25 @@ public class Rule implements Constraint {
       // cheker si unassigned_domains contient une seul variable du scope de conclusion
       // et la sauvegarde
       for (Variable v : this.conclusion.keySet()) {
-        if (unassigned_domains.keySet().contains(v) && voiture.get(v)!="") {
+        if (unassigned_domains.keySet().contains(v) && voiture.get(v).equals("")) {
           // on stock la variable
           unassigned_variable=v;
           cpt++;
         }
-        // si le compteur est supérieur à 1 ça signifie qu'il reste plus d'un domaine
-        if (cpt>1){
-          return false;
-        }
       }
-
+      // si le compteur est supérieur à 1 ça signifie qu'il reste plus d'une valeur dans le domaine
+      if (cpt!=1){return false;}
+      // verification de si il a trouvé une variable non assigné
       if (unassigned_variable==null){return false;}
+
+
       // on recupère la valeur attendu par la conclusion
       String expected = this.conclusion.get(unassigned_variable);
+      // verification de si la variable non assigné ne contien pas la valeur attendue
+      if (unassigned_domains.get(unassigned_variable).size()<2){return false;}
       if (!(unassigned_domains.get(unassigned_variable).contains(expected))){return false;}
-      // on cherche toues les variables ayant la valeur attendu
+
+      // on cherche une des variables possede la valeur attendu
       for (Variable va : this.conclusion.keySet()){
         if (this.conclusion.get(va)==expected && !(va.equals(unassigned_variable)) && voiture.get(va)==expected ){
           // une variables du scope de la conlusion est deja affecté
@@ -139,12 +142,14 @@ public class Rule implements Constraint {
       }
       if (tmp){
         // on supprime la valeur attendu
-        return unassigned_domains.get(unassigned_variable).remove(expected);
+        unassigned_domains.get(unassigned_variable).remove(expected);
+        return true;
       }else{
         // on supprime toutes les valeurs
         unassigned_domains.get(unassigned_variable).clear();
         // et on y ajoute celle attendue
-        return unassigned_domains.get(unassigned_variable).add(expected);
+        unassigned_domains.get(unassigned_variable).add(expected);
+        return true;
       }
 		}else{
       return false;

@@ -18,7 +18,7 @@ public class Main {
 		Backtracking b = new Backtracking(data.getVariables(), data.getConstraints());
 		Map<Variable,String> map = b.generateMap();
 
-		b.backtrack(map,0);
+		b.backtrack(map,0,b.getUnassignedDomains());
 		ArrayList<Map<Variable,String>> list = b.getList();
 		System.out.println(list.size());
 		for (Map<Variable,String> voiture : list) {

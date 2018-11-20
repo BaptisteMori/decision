@@ -28,7 +28,7 @@ public class AllEqualConstraint implements Constraint {
 		Object[] scope_array = this.scope.toArray();
 		String test_value = voiture.get(scope_array[0]);
 		for (int i = 0; i <= this.scope.size() -1 ; i++) {
-			if (!(voiture.containsKey(scope_array[i])) || voiture.get(scope_array[i]).equals("")) {
+			if (voiture.get(scope_array[i]).equals("")) {
 				return true;
 			}
 			if(!(voiture.get(scope_array[i]).equals(test_value))) {
@@ -64,30 +64,35 @@ public class AllEqualConstraint implements Constraint {
     // variable pour savoir si on a modifié quelque le domaine
     boolean tmp = false;
     // variable qui est le domaine que l'on expecte
-    Variable expected = new Variable();
+    String expected = null;
     // on cherche parmis les variables affecté par les contraintes
     for (Variable v : this.scope) {
       // la première variable qui est affecté( etant donné que c'est AllEqualConstraint)
       if (voiture.get(v)!="") {
-        expected = v;
+        expected = voiture.get(v);
         break;
       }
     }
 
-    for (Variable v2 : this.scope) {
-      // si la variable attendu est differente de v2
-      // unassigned_domains contient v2
-      // et que dans le domaine du unassigned_domains de la variable v2 il y ait au moins 2 valeurs
-      if (!(expected.equals(v2)) && domaines.containsKey(v2) && domaines.get(v2).size()!=1) {
-        //on modifie le domaine
-        tmp=true;
-        // on créé un domaine temporaire
-        Set<String> tmp_dom = new HashSet(v2.getDomaine());
-        Variable tmp_var = new Variable(v2.getNom(), tmp_dom);
-        domaines.get(tmp_var).clear();
-        domaines.get(tmp_var).add(voiture.get(expected));
+    if (expected!=null){
+      for (Variable v2 : this.scope) {
+        // si la variable attendu est differente de v2
+        // unassigned_domains contient v2
+        // et que dans le domaine du unassigned_domains de la variable v2 il y ait au moins 2 valeurs
+        System.out.println(domaines.get(v2).size()!=1);
+        if (domaines.get(v2).size()!=1) {
+          //on modifie le domaine
+          tmp=true;
+          // on créé un domaine temporaire
+          //Set<String> tmp_dom = new HashSet(voiture.get(expected));
+          //Variable tmp_var = new Variable(v2.getNom(), tmp_dom);
+          domaines.get(v2).clear();
+          domaines.get(v2).add(expected);
+        }
+        System.out.println(domaines.get(v2).size()!=1);
       }
     }
+    System.out.println("tmp : "+tmp);
     System.out.println("all AllEqualConstraint "+domaines);
     return tmp;
   }
