@@ -15,18 +15,24 @@ public class DBReader {
 
     protected Set<Variable> variables;
 
+/**
+  * Constructeur de la classe
+  * @param variables , qui est de type Set de Variable.
+  *
+  */
+
     public DBReader(Set<Variable> variables) {
         this.variables = variables;
     }
 
-    /**
-     * Reads a database, that is, a list of instantiations, from a CSV
-     * file.
-     * <p>
-     * The expected format is the ';'-separated list of variable names
-     * as the first line, then one ';'-separated list of values per instance
-     * each on its own line
-     */
+
+
+     /**
+        *  Méhode perettant de importer la base de donnée.
+        * @param filename , qui est un String.
+        * @return res , qui est une base de donnée.
+        *
+        */
     public DataBase importDB (String filename) {
         try (BufferedReader reader = new BufferedReader (new FileReader (filename))) {
             DataBase res = this.readDB(reader);
@@ -37,6 +43,12 @@ public class DBReader {
 					return null;
         }
     }
+
+    /**
+    * Méthode perettant de lire la base de donnée.
+    *
+    *
+    */
 
     public DataBase readDB(BufferedReader in) throws IOException {
         // Reading variables
