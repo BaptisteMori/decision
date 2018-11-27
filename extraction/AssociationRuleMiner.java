@@ -31,7 +31,9 @@ public class AssociationRuleMiner {
           if (confiance >= minconf) {
             Set<Variable> variable_set = new HashSet<Variable>();
             variable_set.add(variable);
-            association_map.put(variable_set,item_set);
+            Set<Variable> new_item_set = new HashSet<Variable>(item_set);
+            new_item_set.remove(variable);
+            association_map.put(variable_set,new_item_set);
           }
         }
       }
