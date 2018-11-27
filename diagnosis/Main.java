@@ -41,6 +41,6 @@ public class Main {
 		diag.add(x1,"true");
 		diag.add(x2,"true");
 		diag.add(x4,"false");
-		System.out.println(diag.getDiagnosis(x4, "false"));
+		System.out.println(diag.getDiagnosis(x3, "false"));
 	}
 }
