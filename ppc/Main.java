@@ -15,9 +15,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		Example data = new Example();
-		Backtracking b = new Backtracking(data.getVariables(), data.getConstraints());
+		Heuristic heuristic = new MinDomaine();
+		Backtracking b = new Backtracking(data.getVariables(), data.getConstraints(),heuristic);
 		Map<Variable,String> map = b.generateMap();
-
 		b.backtrack(map,0,b.getUnassignedDomains());
 		ArrayList<Map<Variable,String>> list = b.getList();
 		System.out.println(list.size());

@@ -11,19 +11,24 @@ public class Backtracking {
   private Map<Variable,Integer> cpt = new HashMap<Variable,Integer>();
   private ArrayList<Map<Variable,String>> list = new ArrayList<>();
   private Map<Variable,Set<String>> unassigned_domains = new HashMap<>();
-
+  private Heuristic heuristic;
 
   /**
 		* Constructeur de la classe Backtracking
 		* @param variables , qui est un tableaux de Variable.
 		* @param constraint , qui est un tableaux de Constraint.
 		*/
-  public Backtracking(Variable[] variables, Constraint[] constraints) {
+  public Backtracking(Variable[] variables, Constraint[] constraints,Heuristic heuristic) {
     this.variables = variables;
     this.constraints = constraints;
+    this.heuristic = heuristic;
     for (Variable v : variables){
       this.unassigned_domains.put(v,new HashSet<String>(v.getDomaine()));
     }
+  }
+
+  public Backtracking(Variable[] variables, Constraint[] constraints){
+    this(variables,constraints,null);
   }
 
 
@@ -33,6 +38,9 @@ public class Backtracking {
   * @param i , qui est un int.
   */
   public void backtrack(Map<Variable,String> map, int i) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
+    if (this.heuristic!=null){
+      this.variables=this.heuristic.execute(this.variables,i);
+    }
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         Set<String> domaine = variables[i].getDomaine();
         // tout ce qui compte c'est les valeurs
@@ -45,8 +53,6 @@ public class Backtracking {
             Map<Variable,String> tmp = new HashMap<Variable,String>();
             tmp.putAll(map);
             this.list.add(tmp);
-            System.out.println("ajouté: " + tmp +"\n");
-
           } else {
             if (this.allConstraintsSatisfiedBy(map)){
               // recommence une récursion
@@ -68,6 +74,9 @@ public class Backtracking {
       if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
 
           boolean b = applyAllFilters(map,unassigned_domains_cop);
+          if (this.heuristic!=null){
+            this.variables=this.heuristic.execute(this.variables,i,unassigned_domains_cop);
+          }
           Set<String> domaine = new HashSet<String>(unassigned_domains_cop.get(variables[i]));
 
           // tout ce qui compte c'est les valeurs
@@ -75,7 +84,7 @@ public class Backtracking {
             System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
             map.put(variables[i],valeur);
             System.out.println("-----------------------");
-            for (Variable v : map.keySet()){
+            for (Variable v : this.variables){
               System.out.println(v +" : "+map.get(v)+" ; " + v.getDomaine() + " ; "+((unassigned_domains_cop.containsKey(v))? unassigned_domains_cop.get(v) : "_"));
             }
             System.out.println("-----------------------");
@@ -105,7 +114,6 @@ public class Backtracking {
       }
     }
 
-
   /**
 		* Méthode permettant d'appliquer les filtres afin de réduire le champ de recherche.
 		* @param voiture , qui est un Map de Variable et de String.
@@ -134,7 +142,6 @@ public class Backtracking {
     return restart;
   }
 
-
   /**
 		* Méthode permettant de vérifier si toutes les contraintes sont vérifiées sur une "voiture"
 		* @param voiture , qui est un map de Variable et de String.
@@ -148,7 +155,6 @@ public class Backtracking {
 		}
 		return true;
 	}
-
 
   /**
 		* Méthode permettant de générer un nouveau Map.
@@ -172,7 +178,6 @@ public class Backtracking {
 		return this.variables;
 	}
 
-
   /**
 		* Méthode retournant un tableau de Constraint.
 		* @return this.constraint , qui est un tableau de Constraint.
@@ -186,80 +191,12 @@ public class Backtracking {
     return this.unassigned_domains;
   }
 
-
   /**
-		* Méthode retournant une list.
+		* Méthode retournant la liste des résultats du bactrack.
 		* @return this.list , qui est une ArrayList de Map de Variable et de String.
 		*
 		*/
   public ArrayList<Map<Variable,String>> getList() {
     return this.list;
   }
-
-  // ********************************************
-  //                 HEURISTIC
-  // ********************************************
-
-
-  /**
-		* Méthode permettant de générer l'heuristic.
-		*/
-  public void heuristic() {
-    //SUPPRIMER DANS LA LISTE DES VARIABLES DES CONTRAINTES CELLES DEJA ASSIGNEES
-    Variable[] scopeTMP;
-    ArrayList<Variable> scope = new ArrayList<>();
-    for (Constraint c : constraints) {
-      scopeTMP = c.getScope().toArray(new Variable[c.getScope().size()]);
-      for (Variable v : scopeTMP) {
-        scope.add(v);
-      }
-    }
-    for (int i = 0; i< scope.size(); i++) {
-      int ncpt = 1;
-      for(int j = 0; j< scope.size(); j++) {
-        if (i != j) {
-          if (scope.get(i).equals(scope.get(j))) {
-            ncpt += 1;
-          }
-        }
-      }
-      if(!(this.cpt.containsKey(scope.get(i)))) {
-        this.cpt.put(scope.get(i),ncpt);
-      }
-    }
-  }
-
-
-  /**
-		* Méthode de créer l'heuristic sur les domaines.
-		*
-		* @return vMinDom , qui est de type Variable.
-		*/
-  public Variable heuristicDomaine() {
-    ArrayList<Variable> vDom = new ArrayList<>();
-    int tmp = 0;
-    for (int v : this.cpt.values()) {
-      if (v > tmp) {
-        tmp = v;
-      }
-    }
-
-    for (Variable v : this.cpt.keySet().toArray(new Variable[this.cpt.size()])) {
-      if (this.cpt.get(v) == tmp) {
-        vDom.add(v);
-      }
-    }
-
-    tmp = 100;
-    Variable vMinDom = null;
-    for(Variable v : vDom) {
-      if (v.getDomaine().size() < tmp) {
-        tmp = v.getDomaine().size();
-        vMinDom = v;
-      }
-    }
-    return vMinDom;
-  }
-
-
 }
