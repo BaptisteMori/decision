@@ -23,15 +23,12 @@ public class AssociationRuleMiner {
   public Map<Set<Variable>,Set<Variable>> frequentValidAssociation(double minconf) {
     Map<Set<Variable>,Set<Variable>> association_map = new HashMap<Set<Variable>,Set<Variable>>();
     for (Set<Variable> item_set : this.frequent_item_sets.keySet()) {
-      System.out.println(item_set);
       if (item_set.size() > 1) {
-        System.out.println("item_set > 1");
         for (Variable variable : item_set) {
           Set<Variable> var_set = new HashSet<Variable>();
           var_set.add(variable);
-          double confiance = this.frequent_item_sets.get(item_set)/this.frequent_item_sets.get(var_set);
+          double confiance = ((double)this.frequent_item_sets.get(item_set))/((double)this.frequent_item_sets.get(var_set));
           if (confiance >= minconf) {
-            System.out.println("conf > minconf");
             Set<Variable> variable_set = new HashSet<Variable>();
             variable_set.add(variable);
             association_map.put(variable_set,item_set);
