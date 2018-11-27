@@ -7,7 +7,7 @@ public class FrequentItemSetMiner {
 
   private BooleanDataBase boolean_database;
   private Map<Set<Variable>, Integer> frequentItemSets;
-  private List<Set<Variable>> full_combi_list;
+  private ArrayList<Variable> singletons;
 /**
   * Constructeur de la Classe.
   * @param db , qui est de type BooleanDataBase.
@@ -16,7 +16,7 @@ public class FrequentItemSetMiner {
   public FrequentItemSetMiner(BooleanDataBase db) {
     this.boolean_database=db;
     this.frequentItemSets = new HashMap<Set<Variable>, Integer>();
-    this.full_combi_list = new ArrayList<Set<Variable>>();
+    this.singletons= new ArrayList<Variable>();
   }
 
 /**
@@ -28,35 +28,35 @@ public class FrequentItemSetMiner {
     return this.frequentItemSets;
   }
 
+  public Map<Set<Variable>, Integer> generateSingletons(int minimal_support) {
+    Map<Set<Variable>, Integer> res = new HashMap<Set<Variable>, Integer>();
+    int i=0;
+    for (Variable v : this.boolean_database.getVariablesList()) {
+      Set<Variable> s = new HashSet<Variable>();
+      s.add(v);
+      int f = frequencyCalcul(s);
+      if (f >= minimal_support) {
+        this.singletons.add(v);
+        res.put(s,f);
+      }
+      i++;
+    }
+    this.frequentItemSets.putAll(res);
+    return res;
+  }
 
 /**
   *
   * @param minimal_support , qui est de type int.
   * @param combi , qui est de type Set de Variable.
   */
-
-  public void bfMiner(int minimal_support, Set<Variable> combi) {
-    int f = frequencyCalcul(combi);
-    if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
-      this.frequentItemSets.put(combi,f);
-    }
-    if (combi.size()>0) {
-      full_combi_list.add(combi);
-    }
-    ArrayList<Variable> var_list = this.boolean_database.getVariablesList();
-    for (Variable variable : var_list) {
-      if (!(combi.contains(variable))) {
-        Set<Variable> new_combi = new HashSet<Variable>(combi);
-        new_combi.add(variable);
-        boolean test =true;
-        for (Set<Variable> s : full_combi_list) {
-          if (new_combi.size()==s.size() && new_combi.containsAll(s)) {
-            test=false;
-          }
-        }
-        if (test) {
-          bfMiner(minimal_support, new_combi);
-        }
+  public void bfMiner(int i, int minimal_support, Set<Variable> combi) {
+    for (int j=i ; i<singletons.size() ; j++) {
+      combi.add(singletons.get(i));
+      int f = frequencyCalcul(combi);
+      if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
+        this.frequentItemSets.put(combi,f);
+        bfMiner(i++, minimal_support, combi);
       }
     }
   }
