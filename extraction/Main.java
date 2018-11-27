@@ -10,10 +10,10 @@ public class Main {
 
 		Example ex = new Example();
 		DBReader csv_reader = new DBReader(new HashSet<Variable>(Arrays.asList(ex.getVariables())));
-		DataBase db = csv_reader.importDB("resources/example_db.csv");
+		DataBase db = csv_reader.importDB("resources/test.csv");
 		BooleanDataBase bool_db = db.propositionalisation();
     FrequentItemSetMiner miner = new FrequentItemSetMiner(bool_db);
-    miner.bfMiner(2, new HashSet<Variable>());
+    miner.bfMiner(1, new HashSet<Variable>());
     System.out.println(miner.getItemSets());
 	}
 }

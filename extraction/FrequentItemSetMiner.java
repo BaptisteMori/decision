@@ -7,17 +7,16 @@ public class FrequentItemSetMiner {
 
   private BooleanDataBase boolean_database;
   private Map<Set<Variable>, Integer> frequentItemSets;
-
-
+  private List<Set<Variable>> full_combi_list;
 /**
   * Constructeur de la Classe.
   * @param db , qui est de type BooleanDataBase.
-  *
   */
 
   public FrequentItemSetMiner(BooleanDataBase db) {
-		this.boolean_database=db;
+    this.boolean_database=db;
     this.frequentItemSets = new HashMap<Set<Variable>, Integer>();
+    this.full_combi_list = new ArrayList<Set<Variable>>();
   }
 
 /**
@@ -25,9 +24,9 @@ public class FrequentItemSetMiner {
   * @return this.frequentItemSets , retournant un Map de Set de Variable et un integer.
   *
   */
-	public Map<Set<Variable>, Integer> getItemSets() {
-		return this.frequentItemSets;
-	}
+  public Map<Set<Variable>, Integer> getItemSets() {
+    return this.frequentItemSets;
+  }
 
 
 /**
@@ -36,21 +35,31 @@ public class FrequentItemSetMiner {
   * @param combi , qui est de type Set de Variable.
   */
 
-	public void bfMiner(int minimal_support, Set<Variable> combi) {
-		int f = frequencyCalcul(combi);
-		if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
-			this.frequentItemSets.put(combi,f);
-		}
-		ArrayList<Variable> var_list = this.boolean_database.getVariablesList();
-		for (Variable variable : var_list) {
-			if (combi.size() < var_list.size() && !(combi.contains(variable))) {
-				Set<Variable> new_combi = new HashSet<Variable>(combi);
-				new_combi.add(variable);
-				bfMiner(minimal_support, new_combi);
-			}
-		}
-	}
-
+  public void bfMiner(int minimal_support, Set<Variable> combi) {
+    int f = frequencyCalcul(combi);
+    if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
+      this.frequentItemSets.put(combi,f);
+    }
+    if (combi.size()>0) {
+      full_combi_list.add(combi);
+    }
+    ArrayList<Variable> var_list = this.boolean_database.getVariablesList();
+    for (Variable variable : var_list) {
+      if (!(combi.contains(variable))) {
+        Set<Variable> new_combi = new HashSet<Variable>(combi);
+        new_combi.add(variable);
+        boolean test =true;
+        for (Set<Variable> s : full_combi_list) {
+          if (new_combi.size()==s.size() && new_combi.containsAll(s)) {
+            test=false;
+          }
+        }
+        if (test) {
+          bfMiner(minimal_support, new_combi);
+        }
+      }
+    }
+  }
 
   /**
     * Méthode permettant d'afficher les Set d'item fréquent.
@@ -76,7 +85,7 @@ public class FrequentItemSetMiner {
     if (combi.size() == 0) {
       return this.boolean_database.getTransactions().size();
     }
-		int freq=0;
+    int freq=0;
     for (Map<Variable,String> transaction : this.boolean_database.getTransactions()) {
       int cpt = 0;
       for (Variable variable : combi) {
@@ -89,6 +98,6 @@ public class FrequentItemSetMiner {
         freq++;
       }
     }
-		return freq;
+  return freq;
   }
 }
