@@ -8,15 +8,18 @@ public class FrequentItemSetMiner {
   private BooleanDataBase boolean_database;
   private Map<Set<Variable>, Integer> frequentItemSets;
   private ArrayList<Variable> singletons;
+  private int minimal_support;
+
 /**
   * Constructeur de la Classe.
   * @param db , qui est de type BooleanDataBase.
   */
 
-  public FrequentItemSetMiner(BooleanDataBase db) {
+  public FrequentItemSetMiner(BooleanDataBase db, int minimal_support ) {
     this.boolean_database=db;
     this.frequentItemSets = new HashMap<Set<Variable>, Integer>();
     this.singletons= new ArrayList<Variable>();
+    this.minimal_support = minimal_support;
   }
 
 /**
@@ -28,21 +31,27 @@ public class FrequentItemSetMiner {
     return this.frequentItemSets;
   }
 
-  public Map<Set<Variable>, Integer> generateSingletons(int minimal_support) {
+  public void frequentItemSets(){
+    generateSingletons();
+    Set<Variable> combi=new HashSet<Variable>();
+    bfMiner(0,combi);
+  }
+
+  public void generateSingletons() {
     Map<Set<Variable>, Integer> res = new HashMap<Set<Variable>, Integer>();
     int i=0;
     for (Variable v : this.boolean_database.getVariablesList()) {
       Set<Variable> s = new HashSet<Variable>();
       s.add(v);
       int f = frequencyCalcul(s);
-      if (f >= minimal_support) {
+      if (f >= this.minimal_support) {
         this.singletons.add(v);
         res.put(s,f);
       }
       i++;
     }
     this.frequentItemSets.putAll(res);
-    return res;
+
   }
 
 /**
@@ -50,13 +59,15 @@ public class FrequentItemSetMiner {
   * @param minimal_support , qui est de type int.
   * @param combi , qui est de type Set de Variable.
   */
-  public void bfMiner(int i, int minimal_support, Set<Variable> combi) {
-    for (int j=i ; i<singletons.size() ; j++) {
-      combi.add(singletons.get(i));
+  public void bfMiner(int i, Set<Variable> combi) {
+    for (int j=i+1 ; i<singletons.size()-1 ; j++) {
+      System.out.println("singletons "+singletons.get(j));
+      combi.add(singletons.get(j));
+      System.out.println(combi);
       int f = frequencyCalcul(combi);
-      if (f >= minimal_support && !(frequentItemSets.containsKey(combi))) {
+      if (f >= this.minimal_support /*&& !(frequentItemSets.containsKey(combi))*/) {
         this.frequentItemSets.put(combi,f);
-        bfMiner(i++, minimal_support, combi);
+        bfMiner(i++, combi);
       }
     }
   }
@@ -65,15 +76,9 @@ public class FrequentItemSetMiner {
     * Méthode permettant d'afficher les Set d'item fréquent.
     * @param minimal_support , qui est un int.
     * @param prev , qui est un Set de Variable.
-    */
-  public Map<Set<Variable>,Integer> frequentItemSets (int minimal_support, Set<Variable> prev) {
     Set<Variable> item_set = new HashSet<Variable>();
-    if (frequencyCalcul(item_set) >= minimal_support) {
-      item_set.add(this.boolean_database.getVariablesList().get(0));
-    }
-    System.out.println(frequencyCalcul(item_set));
-    return null;
-  }
+    */
+
 
 
   /**
