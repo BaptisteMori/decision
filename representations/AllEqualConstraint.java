@@ -79,7 +79,6 @@ public class AllEqualConstraint implements Constraint {
         // si la variable attendu est differente de v2
         // unassigned_domains contient v2
         // et que dans le domaine du unassigned_domains de la variable v2 il y ait au moins 2 valeurs
-        System.out.println(domaines.get(v2).size()!=1);
         if (domaines.get(v2).size()!=1) {
           //on modifie le domaine
           tmp=true;
@@ -89,11 +88,8 @@ public class AllEqualConstraint implements Constraint {
           domaines.get(v2).clear();
           domaines.get(v2).add(expected);
         }
-        System.out.println(domaines.get(v2).size()!=1);
       }
     }
-    System.out.println("tmp : "+tmp);
-    System.out.println("all AllEqualConstraint "+domaines);
     return tmp;
   }
 
