@@ -60,14 +60,19 @@ public class FrequentItemSetMiner {
   * @param combi , qui est de type Set de Variable.
   */
   public void bfMiner(int i, Set<Variable> combi) {
-    for (int j=i+1 ; i<singletons.size()-1 ; j++) {
-      System.out.println("singletons "+singletons.get(j));
-      combi.add(singletons.get(j));
-      System.out.println(combi);
-      int f = frequencyCalcul(combi);
-      if (f >= this.minimal_support /*&& !(frequentItemSets.containsKey(combi))*/) {
-        this.frequentItemSets.put(combi,f);
-        bfMiner(i++, combi);
+    if (i<singletons.size()){
+      for (int j=i ; j<singletons.size() ; j++) {
+        Set<Variable> combis = new HashSet<Variable>(combi);
+        System.out.println("singletons "+singletons.get(j));
+        System.out.println("i "+i);
+        combis.add(singletons.get(j));
+        int f = frequencyCalcul(combis);
+
+        if (f >= this.minimal_support /*&& !(frequentItemSets.containsKey(combi))*/) {
+          System.out.println("combi "+combis +"f "+f);
+          this.frequentItemSets.put(combis,f);
+          bfMiner(i+1, combis);
+        }
       }
     }
   }
