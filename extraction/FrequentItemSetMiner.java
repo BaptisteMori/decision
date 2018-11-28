@@ -6,7 +6,7 @@ import java.util.*;
 public class FrequentItemSetMiner {
 
   private BooleanDataBase boolean_database;
-  private Map<Set<Variable>, Integer> frequentItemSets;
+  private Map<Set<Variable>, Integer> frequentItemSetsList;
   private ArrayList<Variable> singletons;
   private int minimal_support;
 
@@ -17,7 +17,7 @@ public class FrequentItemSetMiner {
 
   public FrequentItemSetMiner(BooleanDataBase db, int minimal_support ) {
     this.boolean_database=db;
-    this.frequentItemSets = new HashMap<Set<Variable>, Integer>();
+    this.frequentItemSetsList = new HashMap<Set<Variable>, Integer>();
     this.singletons= new ArrayList<Variable>();
     this.minimal_support = minimal_support;
   }
@@ -28,7 +28,7 @@ public class FrequentItemSetMiner {
   *
   */
   public Map<Set<Variable>, Integer> getItemSets() {
-    return this.frequentItemSets;
+    return this.frequentItemSetsList;
   }
 
   public void frequentItemSets(){
@@ -50,7 +50,25 @@ public class FrequentItemSetMiner {
       }
       i++;
     }
-    this.frequentItemSets.putAll(res);
+    this.frequentItemSetsList.putAll(res);
+    Collections.sort(this.singletons,new Comparator<Variable>() {
+                                              @Override
+                                              public int compare(Variable first, Variable second) {
+                                                Set<Variable> vf = new HashSet<>();
+                                                vf.add(first);
+                                                Set<Variable> vs = new HashSet<>();
+                                                vs.add(second);
+                                                int value_first = frequentItemSetsList.get(vf);
+                                                int value_second = frequentItemSetsList.get(vs);
+                                                if (value_first < value_second) {
+                                                  return -1;
+                                                } else if (value_first == value_second) {
+                                                  return 0;
+                                                } else {
+                                                  return 1;
+                                                }
+                                              }
+                                            });
 
   }
 
@@ -70,7 +88,7 @@ public class FrequentItemSetMiner {
 
         if (f >= this.minimal_support /*&& !(frequentItemSets.containsKey(combi))*/) {
           System.out.println("combi "+combis +"f "+f);
-          this.frequentItemSets.put(combis,f);
+          this.frequentItemSetsList.put(combis,f);
           bfMiner(i+1, combis);
         }
       }
@@ -110,4 +128,9 @@ public class FrequentItemSetMiner {
     }
   return freq;
   }
+
+  public ArrayList<Variable> getSingletons(){
+    return this.singletons;
+  }
+
 }
