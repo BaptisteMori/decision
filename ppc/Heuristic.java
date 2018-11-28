@@ -4,7 +4,7 @@ import java.util.*;
 
 public interface Heuristic{
 
-  public Variable[] execute(Variable[] variables, int i);
+  public void execute(Variable[] variables, int i, Constraint[] constraints);
 
-  public Variable[] execute(Variable[] variables, int i,Map<Variable,Set<String>> unassigned_domains_cop);
+  public void execute(Variable[] variables, int i,Map<Variable,Set<String>> unassigned_domains_cop, Constraint[] constraints);
 }

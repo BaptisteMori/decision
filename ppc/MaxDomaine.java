@@ -3,8 +3,8 @@ import representations.*;
 import java.util.*;
 
 public class MaxDomaine implements Heuristic{
-
-  public Variable[] execute(Variable[] variables, int i){
+  @Override
+  public void execute(Variable[] variables, int i, Constraint[] constraints){
     Arrays.sort(variables,i,variables.length,new Comparator<Variable>() {
                                               @Override
                                               public int compare(Variable first, Variable second) {
@@ -19,10 +19,10 @@ public class MaxDomaine implements Heuristic{
                                                 }
                                               }
                                             });
-    return variables;
   }
-
-  public Variable[] execute(Variable[] variables, int i,Map<Variable,Set<String>> unassigned_domains){
+  
+  @Override
+  public void execute(Variable[] variables, int i,Map<Variable,Set<String>> unassigned_domains, Constraint[] constraints){
     Arrays.sort(variables,i,variables.length,new Comparator<Variable>() {
                                               @Override
                                               public int compare(Variable first, Variable second) {
@@ -37,7 +37,6 @@ public class MaxDomaine implements Heuristic{
                                                 }
                                               }
                                             });
-    return variables;
   }
 
 }

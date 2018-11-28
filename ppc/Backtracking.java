@@ -39,7 +39,7 @@ public class Backtracking {
   */
   public void backtrack(Map<Variable,String> map, int i) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
     if (this.heuristic!=null){
-      this.variables=this.heuristic.execute(this.variables,i);
+      this.heuristic.execute(this.variables,i,this.constraints);
     }
     if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
         Set<String> domaine = variables[i].getDomaine();
@@ -75,14 +75,14 @@ public class Backtracking {
 
           boolean b = applyAllFilters(map,unassigned_domains_cop);
           if (this.heuristic!=null){
-            this.variables=this.heuristic.execute(this.variables,i,unassigned_domains_cop);
+            this.heuristic.execute(this.variables,i,unassigned_domains_cop,this.constraints);
           }
           Set<String> domaine = new HashSet<String>(unassigned_domains_cop.get(variables[i]));
 
           // tout ce qui compte c'est les valeurs
           for (String valeur : domaine){
-            System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
-            map.put(variables[i],valeur);
+            //System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
+            map.put(this.variables[i],valeur);
             System.out.println("-----------------------");
             for (Variable v : this.variables){
               System.out.println(v +" : "+map.get(v)+" ; " + v.getDomaine() + " ; "+((unassigned_domains_cop.containsKey(v))? unassigned_domains_cop.get(v) : "_"));
@@ -128,14 +128,12 @@ public class Backtracking {
       // application du filtre i et vérification si il a modifié le domaine
       boolean b = this.constraints[i].filter(voiture, unassigned_domains);
       // si il y a eu une modification on passe restart à true
-      System.out.println("applyAllFilters de : "+this.constraints[i] + " " +b);
       if(b){
         restart = true;
       }
     }
     // si restart est à true on réaplique de façon récursive les filters
 
-    System.out.println("restart ? " + restart);
     if (restart) {
       applyAllFilters(voiture, unassigned_domains);
     }
