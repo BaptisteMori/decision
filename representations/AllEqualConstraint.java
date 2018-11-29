@@ -2,6 +2,7 @@ package representations;
 
 import java.util.*;
 
+/** Contraite d'égalité entre toutes les valeurs d'un certain nombre de variables.*/
 public class AllEqualConstraint implements Constraint {
 
   private Set<Variable> scope;
@@ -19,8 +20,9 @@ public class AllEqualConstraint implements Constraint {
 
   /**
     * Surcharge de la méthode isSatisfiedBy() qui teste si
-    * la contrainte est respectée ( si toutes es variables sont égales entres elles.)
-    * @param voiture , qui est un Map de Variable et de String.
+    * la contrainte est respectée ( si toutes les variables sont égales entres elles.)
+    * @param voiture
+    * La voiture à tester.
     * @return true , si la contrainte est satisfaite sinon retourne false.
     */
   @Override

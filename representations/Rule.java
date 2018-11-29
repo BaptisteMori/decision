@@ -2,6 +2,7 @@ package representations;
 
 import java.util.*;
 
+/** Contrainte de type prémisse -> conclusion, la prémisse et la conclusion étant des ensembles d'affectations de variables.*/
 public class Rule implements Constraint {
 
   private Set<Variable> scope = new HashSet<Variable>();
@@ -14,7 +15,6 @@ public class Rule implements Constraint {
 	  * @param conclusion , qui est un Map de Variable et de String.
 	  *
 	  */
-
   public Rule(Map<Variable,String> premisse, Map<Variable,String> conclusion) {
     this.premisse = premisse;
     this.conclusion = conclusion;
@@ -27,7 +27,6 @@ public class Rule implements Constraint {
 	  * et les conclusions.
 	  *
 	  */
-
 	@Override
   public Set<Variable> getScope() {
     if (this.premisse != null) {
@@ -46,7 +45,6 @@ public class Rule implements Constraint {
 	  * @return false , si la premisse n'est pas vide et qu'elle est égale à une autre premisse.
 	  * @return true , dans les autres cas.
 	  */
-
   public boolean premisse(Map<Variable,String> test){
     if (!(this.premisse == null)) {
       for (Variable v : this.premisse.keySet()) {
@@ -66,7 +64,6 @@ public class Rule implements Constraint {
 	  * @return true , si la conclusion est présente ou si il n'y a rien d'autre.
 	  * @return false , dans les autres cas.
 	  */
-
   public boolean conclusion(Map<Variable,String> test){
     for (Variable v: this.conclusion.keySet()) {
       if (test.get(v).equals(conclusion.get(v)) || test.get(v).equals("")) {
@@ -82,7 +79,6 @@ public class Rule implements Constraint {
 	  * @return (!p || c) , qui est la table de vérité
 	  *
 	  */
-
   @Override
   public boolean isSatisfiedBy(Map<Variable,String> test) {
     boolean p = premisse(test);
@@ -97,8 +93,6 @@ public class Rule implements Constraint {
 	  * @param unassigned_domains , qui est une Map de Variable ainsi qu'un Set de String.
 	  * @return false , si elle n'a pas filtrer les Variables.
 	  */
-
-
 	@Override
 	public boolean filter(Map<Variable,String> voiture, Map<Variable, Set<String>> unassigned_domains) {
     //return false;/*

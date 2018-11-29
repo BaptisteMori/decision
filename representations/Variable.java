@@ -2,6 +2,7 @@ package representations;
 
 import java.util.Set;
 
+/** Représentation d'un attribut de l'objet à étudier, avec son domaine de valeurs possibles.*/
 public class Variable {
 
   private String nom;

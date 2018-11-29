@@ -2,6 +2,7 @@ package representations;
 
 import java.util.*;
 
+/** Classe fille de Rule où une seule affectation de la conclusion est suffisante pour satisfaire la contrainte.*/
 public class Disjunction extends Rule {
 
   /**

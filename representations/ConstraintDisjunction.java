@@ -2,6 +2,7 @@ package representations;
 
 import java.util.*;
 
+/** Union de plusieurs contraintes de disjonction.*/
 public class ConstraintDisjunction implements Constraint {
 
   private Constraint[] constraints;
@@ -18,13 +19,14 @@ public class ConstraintDisjunction implements Constraint {
 
   /**
     * Méthode qui verifie si une contrainte est satisfaite.
-    * @param voiture , qui est un Map de Variable et de String.
-    * @return union_result , qui est un boolean.
+    * @param voiture
+    * La voiture à tester.
+    * @return Le résultat du test.
     */
 	public boolean isSatisfiedBy(Map<Variable,String> voiture) {
 		boolean union_result = false;
 		for (int i=0; i<this.constraints.length; i++) {
-			union_result = union_result || this.constraints[i].isSatisfiedBy(voiture);
+			union_result = union_result || this.constraints[i].isSatisfiedBy(voiture);//si une seule constraite est bonne, le booléen passe à true et le reste
 		}
 		return union_result;
 	}
@@ -63,7 +65,6 @@ public class ConstraintDisjunction implements Constraint {
   /**
     * Surcharge de la méthode toString(), qui permet d'afficher.
     * @return ch , qui est un String.
-    *
     */
   @Override
   public String toString(){

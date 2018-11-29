@@ -2,8 +2,8 @@ package representations;
 
 import java.util.*;
 
+/** Contrainte d'incompatibilité entre différentes affectations de variables.*/
 public class IncompatibilityConstraint extends Rule {
-
 
   /**
     * Constructeur de la classe IncompatibilityConstraint.
@@ -16,7 +16,8 @@ public class IncompatibilityConstraint extends Rule {
 
   /**
     * Surcharge de la méthode isSatisfiedBy().
-    * @param test , qui est un Map de Variable et de String.
+    * @param test
+    * La voiture à tester.
     * @return true , si c'est satisfait. Sinon retourne false.
     */
   @Override
