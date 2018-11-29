@@ -152,6 +152,7 @@ public class PlanningProblem {
     */
   public Queue<Action> getBFSPlan(Map<State,State> father, Map<State,Action> actions, State goal) {
     Queue<Action> plan = new LinkedList<>();
+    System.out.println("Goal : " + goal);
     while (goal != null) {
       plan.add(actions.get(goal));
       goal = father.get(goal);

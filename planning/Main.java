@@ -24,9 +24,11 @@ public class Main {
 		System.out.println("\nBFS: "+actions_bfs);
 		Stack<Action> actions_dijkstra = pb.dijkstra();
 		System.out.println("\nDijkstra: "+actions_dijkstra);*/
+    System.out.println("Heuristique simple");
 		Queue<Action> actions_astar_simple = pb.aStar(10);
 		System.out.println("\nA*: "+actions_astar_simple);
 		pb.setHeuristic(new InformedHeuristic());
+    System.out.println("Heuristique informée");
 		Queue<Action> actions_astar_informed = pb.aStar(10);
 		System.out.println("\nA*: "+actions_astar_informed);
 		//Queue<Action> actions_beam = pb.iterativeBeamSearch(3);
