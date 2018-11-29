@@ -16,7 +16,8 @@ public class Backtracking {
   /**
 		* Constructeur de la classe Backtracking
 		* @param variables , qui est un tableaux de Variable.
-		* @param constraint , qui est un tableaux de Constraint.
+		* @param constraints , qui est un tableaux de Constraint.
+    * @param heuristic , qui est un objet Heuristic
 		*/
   public Backtracking(Variable[] variables, Constraint[] constraints,Heuristic heuristic) {
     this.variables = variables;
@@ -69,6 +70,7 @@ public class Backtracking {
     * La méthode backtrack utilise l'algorithme de Backtracking.
     * @param map , qui est un Map de Variable et de String.
     * @param i , qui est un int.
+    * @param unassigned_domains_cop ; qui est un Map des variables non assignées et de leur domaine
     */
     public void backtrack(Map<Variable,String> map, int i,Map<Variable,Set<String>> unassigned_domains_cop) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
       if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {

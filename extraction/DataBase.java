@@ -41,7 +41,7 @@ public class DataBase {
 
   /**
     *
-    *
+    * @return un objet de type BooleanDataBase
     *
     */
 	public BooleanDataBase propositionalisation() {

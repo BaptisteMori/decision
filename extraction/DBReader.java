@@ -31,7 +31,6 @@ public class DBReader {
         *  Méhode perettant de importer la base de donnée.
         * @param filename , qui est un String.
         * @return res , qui est une base de donnée.
-        *
         */
     public DataBase importDB (String filename) {
         try (BufferedReader reader = new BufferedReader (new FileReader (filename))) {
@@ -45,11 +44,11 @@ public class DBReader {
     }
 
     /**
-    * Méthode perettant de lire la base de donnée.
-    *
-    *
-    */
-
+      * Méthode perettant de lire la base de donnée.
+      * @param in un objet BufferedReader
+      * @return un objet DataBase
+      * @throws java.io.IOException
+      */
     public DataBase readDB(BufferedReader in) throws IOException {
         // Reading variables
         List<Variable> orderedVariables = new ArrayList<>();

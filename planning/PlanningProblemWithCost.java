@@ -131,6 +131,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
 		* @param actions , qui est un Map de State et d'Action.
 		* @param goals , qui est une ArrayList de State.
 		* @param distance , qui est un Map de State et de double.
+		* @return une pile d'objet Action
 		*/
 	public Stack<Action> getDijkstraPlan(Map<State,State> father, Map<State,Action> actions, ArrayList<State> goals, Map<State,Double> distance) {
 		Stack<Action> plan = new Stack<>();

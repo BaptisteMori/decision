@@ -9,7 +9,7 @@ public class AssociationRuleMiner {
 
 /**
   * Le constructeur de la classe
-  *@param frequent_item_set un Map des sets d'item fréquents
+  *@param frequent_item_sets un Map des sets d'item fréquents
   */
   public AssociationRuleMiner(Map<Set<Variable>,Integer> frequent_item_sets) {
     this.frequent_item_sets = frequent_item_sets;
@@ -18,7 +18,7 @@ public class AssociationRuleMiner {
 /**
   * Méthode qui détermine si des associations sont valides et fréquentes et en retourne la liste
   *@param minconf le seuil de confiance minimum
-  *@return un Map<Set<Variable>,Set<Variable>> correspondant aux associations
+  *@return un Map(Set(Variable),Set(Variable)) correspondant aux associations
   */
   public Map<Set<Variable>,Set<Variable>> frequentValidAssociation(double minconf) {
     Map<Set<Variable>,Set<Variable>> association_map = new HashMap<Set<Variable>,Set<Variable>>();

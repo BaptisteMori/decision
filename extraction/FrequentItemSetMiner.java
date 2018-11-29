@@ -13,6 +13,7 @@ public class FrequentItemSetMiner {
 /**
   * Constructeur de la Classe.
   * @param db , qui est de type BooleanDataBase.
+  * @param minimal_support , qui est de type int
   */
 
   public FrequentItemSetMiner(BooleanDataBase db, int minimal_support ) {
@@ -74,7 +75,7 @@ public class FrequentItemSetMiner {
 
 /**
   *
-  * @param minimal_support , qui est de type int.
+  * @param i , qui est de type int.
   * @param combi , qui est de type Set de Variable.
   */
   public void bfMiner(int i, Set<Variable> combi) {
