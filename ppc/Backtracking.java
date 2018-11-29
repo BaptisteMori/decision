@@ -187,6 +187,10 @@ public class Backtracking {
 		return this.constraints;
 	}
 
+/**
+  * Méthode retournant un Map d'objet Variable et de leur domaine
+  * @return this.unassigned_domains
+  */
   public Map<Variable,Set<String>> getUnassignedDomains(){
     return this.unassigned_domains;
   }
