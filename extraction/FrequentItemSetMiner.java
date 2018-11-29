@@ -82,14 +82,14 @@ public class FrequentItemSetMiner {
     if (i<singletons.size()){
       for (int j=i ; j<singletons.size() ; j++) {
         Set<Variable> combis = new HashSet<Variable>(combi);
-        System.out.println("singletons "+singletons.get(j));
+        //System.out.println("singletons "+singletons.get(j));
         // Taille de la combinaison que l'on est entrain de faire.
-        System.out.println("i "+i);
+        //System.out.println("i "+i);
         combis.add(singletons.get(j));
         int f = frequencyCalcul(combis);
 
         if (f >= this.minimal_support /*&& !(frequentItemSets.containsKey(combi))*/) {
-          System.out.println("combi "+combis +"f "+f);
+          //System.out.println("combi "+combis +"f "+f);
           this.frequentItemSetsList.put(combis,f);
           bfMiner(i+1, combis);
         }

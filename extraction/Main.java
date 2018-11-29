@@ -12,10 +12,11 @@ public class Main {
 		DBReader csv_reader = new DBReader(new HashSet<Variable>(Arrays.asList(ex.getVariables())));
 		DataBase db = csv_reader.importDB("resources/example_db.csv");
 		BooleanDataBase bool_db = db.propositionalisation();
-    FrequentItemSetMiner miner = new FrequentItemSetMiner(bool_db,3500);
+    int min_sup=3500;
+    FrequentItemSetMiner miner = new FrequentItemSetMiner(bool_db,min_sup);
     miner.frequentItemSets();
-    System.out.println(miner.getItemSets());
+    System.out.println("Combinaisons fréquentes (>" + min_sup + ") : " + miner.getItemSets());
 		AssociationRuleMiner rule_miner = new AssociationRuleMiner(miner.getItemSets());
-		System.out.println(rule_miner.frequentValidAssociation(0.4f));
+		System.out.println("Règles : " + rule_miner.frequentValidAssociation(0.4));
 	}
 }
