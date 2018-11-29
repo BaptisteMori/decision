@@ -52,6 +52,6 @@ public class Disjunction extends Rule {
     */
   @Override
   public String toString(){
-    return "disjunction\n";
+    return " Disjunction : " + premisse + " " + conclusion;
   }
 }

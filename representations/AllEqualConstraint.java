@@ -103,6 +103,6 @@ public class AllEqualConstraint implements Constraint {
     */
   @Override
   public String toString(){
-    return "AllEqualConstraint";
+    return "AllEqualConstraint : " + scope;
   }
 }

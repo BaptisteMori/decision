@@ -60,6 +60,6 @@ public class IncompatibilityConstraint extends Rule {
     */
   @Override
   public String toString(){
-    return premisse + "\n IncompatibilityConstraint";
+    return "IncompatibilityConstraint : " + premisse;
   }
 }
