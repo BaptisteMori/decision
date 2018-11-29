@@ -14,9 +14,13 @@ public class Main {
 		domaine.add("false");
 		//domaine.add("blanc");
 		Variable x1 = new Variable("x1",new HashSet<String>(domaine));
+    System.out.println(x1 + " " + x1.getDomaine());
 		Variable x2 = new Variable("x2",new HashSet<String>(domaine));
+    System.out.println(x2 + " " + x2.getDomaine());
 		Variable x3 = new Variable("x3",new HashSet<String>(domaine));
+    System.out.println(x3 + " " + x3.getDomaine());
 		Variable x4 = new Variable("x4",new HashSet<String>(domaine));
+    System.out.println(x4 + " " + x4.getDomaine());
 
 		Map<Variable,String> incomp = new HashMap<Variable,String>();
 		incomp.put(x3,"false");
@@ -24,6 +28,7 @@ public class Main {
 		ArrayList<Constraint> constraints = new ArrayList<Constraint>();
 		Constraint c1 = new IncompatibilityConstraint(incomp);
 		constraints.add(c1);
+    System.out.println(c1);
 
 		Set<Variable> allequal_set = new HashSet<Variable>();
 		allequal_set.add(x1);
@@ -31,6 +36,7 @@ public class Main {
 		allequal_set.add(x3);
 		Constraint c2 = new AllEqualConstraint(allequal_set);
 		constraints.add(c2);
+    System.out.println(c2);
 
 		vars.add(x1);
 		vars.add(x2);
@@ -41,6 +47,6 @@ public class Main {
 		diag.add(x1,"true");
 		diag.add(x2,"true");
 		diag.add(x4,"false");
-		System.out.println(diag.getDiagnosis(x3, "false"));
+		System.out.println("Explication : " + diag.getDiagnosis(x3, "false"));
 	}
 }
