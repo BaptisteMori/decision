@@ -20,7 +20,7 @@ public class MaxDomaine implements Heuristic{
                                               }
                                             });
   }
-  
+
   @Override
   public void execute(Variable[] variables, int i,Map<Variable,Set<String>> unassigned_domains, Constraint[] constraints){
     Arrays.sort(variables,i,variables.length,new Comparator<Variable>() {
@@ -39,4 +39,8 @@ public class MaxDomaine implements Heuristic{
                                             });
   }
 
+  @Override
+  public String toString() {
+    return "MaxDomaine";
+  }
 }

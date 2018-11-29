@@ -40,4 +40,8 @@ public class MinDomaine implements Heuristic{
                                             });
   }
 
+  @Override
+  public String toString() {
+    return "MinDomaine";
+  }
 }

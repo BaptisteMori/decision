@@ -12,6 +12,7 @@ public class Backtracking {
   private ArrayList<Map<Variable,String>> list = new ArrayList<>();
   private Map<Variable,Set<String>> unassigned_domains = new HashMap<>();
   private Heuristic heuristic;
+  private int counter;
 
   /**
 		* Constructeur de la classe Backtracking
@@ -23,6 +24,7 @@ public class Backtracking {
     this.variables = variables;
     this.constraints = constraints;
     this.heuristic = heuristic;
+    this.counter = 0;
     for (Variable v : variables){
       this.unassigned_domains.put(v,new HashSet<String>(v.getDomaine()));
     }
@@ -39,6 +41,7 @@ public class Backtracking {
   * @param i , qui est un int.
   */
   public void backtrack(Map<Variable,String> map, int i) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
+    this.counter++;
     if (this.heuristic!=null){
       this.heuristic.execute(this.variables,i,this.constraints);
     }
@@ -73,6 +76,7 @@ public class Backtracking {
     * @param unassigned_domains_cop ; qui est un Map des variables non assignées et de leur domaine
     */
     public void backtrack(Map<Variable,String> map, int i,Map<Variable,Set<String>> unassigned_domains_cop) { // dans map voiture que les variables deja attribuée et dans l'autre map les variables qui n'ont pas encore de valeurs.
+      this.counter++;
       if (this.allConstraintsSatisfiedBy(map) && map.containsValue("")) {
 
           boolean b = applyAllFilters(map,unassigned_domains_cop);
@@ -85,11 +89,11 @@ public class Backtracking {
           for (String valeur : domaine){
             //System.out.println(i+" Variable : "+variables[i]+" Domaine : "+variables[i].getDomaine() + " valaeur : "+valeur);
             map.put(this.variables[i],valeur);
-            System.out.println("-----------------------");
+            /*System.out.println("-----------------------");
             for (Variable v : this.variables){
               System.out.println(v +" : "+map.get(v)+" ; " + v.getDomaine() + " ; "+((unassigned_domains_cop.containsKey(v))? unassigned_domains_cop.get(v) : "_"));
             }
-            System.out.println("-----------------------");
+            System.out.println("-----------------------");*/
             // on assigne une des valeurs du domaine de la variable i
             // si la map est complète et satisfait toutes les contraintes alors on l'ajoute
             if (!(map.containsValue("")) && this.allConstraintsSatisfiedBy(map)) {
@@ -97,7 +101,7 @@ public class Backtracking {
               Map<Variable,String> tmp = new HashMap<Variable,String>();
               tmp.putAll(map);
               this.list.add(tmp);
-              System.out.println("ajouté: " + tmp +"\n");
+              //System.out.println("ajouté: " + tmp +"\n");
 
             } else {
               if (this.allConstraintsSatisfiedBy(map)){
@@ -169,6 +173,17 @@ public class Backtracking {
     return map;
   }
 
+  public void setHeuristic(Heuristic heuristic){
+    this.heuristic=heuristic;
+  }
+
+  public void setList(ArrayList<Map<Variable,String>> list) {
+    this.list = list;
+  }
+
+  public void setCounter(int counter) {
+    this.counter = counter;
+  }
   /**
 		* Méthode retournant un tableau de Variable.
 		* @return this.variables , qui est un tableau de Variable.
@@ -202,5 +217,9 @@ public class Backtracking {
 		*/
   public ArrayList<Map<Variable,String>> getList() {
     return this.list;
+  }
+
+  public int getCounter() {
+    return this.counter;
   }
 }

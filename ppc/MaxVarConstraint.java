@@ -26,4 +26,8 @@ public class MaxVarConstraint extends VarConstraint implements Heuristic{
                                             });
   }
 
+  @Override
+  public String toString() {
+    return "MaxVarConstraint";
+  }
 }

@@ -26,4 +26,9 @@ public class MinVarConstraint extends VarConstraint implements Heuristic{
                                             });
   }
 
+
+  @Override
+  public String toString() {
+    return "MinVarConstraint";
+  }
 }
