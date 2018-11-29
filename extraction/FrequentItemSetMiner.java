@@ -83,6 +83,7 @@ public class FrequentItemSetMiner {
       for (int j=i ; j<singletons.size() ; j++) {
         Set<Variable> combis = new HashSet<Variable>(combi);
         System.out.println("singletons "+singletons.get(j));
+        // Taille de la combinaison que l'on est entrain de faire.
         System.out.println("i "+i);
         combis.add(singletons.get(j));
         int f = frequencyCalcul(combis);
