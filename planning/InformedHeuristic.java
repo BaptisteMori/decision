@@ -2,6 +2,7 @@ package planning;
 
 import representations.*;
 
+/** Heuristique par distance de Hamming prenant en compte toutes les variables.*/
 public class InformedHeuristic implements Heuristic {
 
 

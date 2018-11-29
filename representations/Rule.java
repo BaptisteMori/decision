@@ -2,7 +2,7 @@ package representations;
 
 import java.util.*;
 
-/** Contrainte de type prémisse -> conclusion, la prémisse et la conclusion étant des ensembles d'affectations de variables.*/
+/** Contrainte de type prémisse → conclusion, la prémisse et la conclusion étant des ensembles d'affectations de variables.*/
 public class Rule implements Constraint {
 
   private Set<Variable> scope = new HashSet<Variable>();

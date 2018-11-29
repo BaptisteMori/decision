@@ -3,6 +3,7 @@ package planning;
 import representations.*;
 import examples.AssemblyLine;
 
+/** Heuristique par distance de Hamming simple : on compare les couleurs des pièces de la voiture et on compte les différences par rapport à l'état but.*/
 public class SimpleHeuristic implements Heuristic {
 
 	/**

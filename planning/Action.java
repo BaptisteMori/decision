@@ -3,6 +3,7 @@ package planning;
 import representations.*;
 import java.util.*;
 
+/** Représente une transition entre deux états, c'est-à-dire l'ajout d'une nouvelle affectation de variable.*/
 public class Action {
 
   private Map<Variable,String> premisse;

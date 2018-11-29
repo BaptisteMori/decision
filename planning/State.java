@@ -3,6 +3,7 @@ package planning;
 import representations.*;
 import java.util.*;
 
+
 public class State {
 
   private Map<Variable,String> state;
