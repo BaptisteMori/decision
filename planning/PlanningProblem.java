@@ -24,9 +24,9 @@ public class PlanningProblem {
   }
 
   /**
+    * Méthode qui dit si un état est satisfait
     * @param state , qui est un State.
     * @return tmp , qui est faux si l'état ne contient pas
-    *
     */
   public boolean satisfies(State state) {
     boolean tmp = true;
@@ -95,7 +95,6 @@ public class PlanningProblem {
     * @param plan , qui est un Stack d'Action.
     * @param closed , qui est un ArrayList de State.
     * @return res_dfs , qui est un Stack d'Action.
-    *
     */
   public Stack<Action> dfsIteratif(State state, Stack<Action> plan, ArrayList<State> closed) {
     int profondeur = 1;

@@ -10,7 +10,6 @@ public class State {
   /**
 		* Constructeur de la classe State.
 		* @param state , qui est un Map de Varaible et de String.
-		*
 		*/
   public State(Map<Variable,String> state) {
     this.state = state;
@@ -24,7 +23,6 @@ public class State {
   /**
 		* Surcharge de la méthode hashCode().
 		* @return code , qui est un int et qui contiendra le hash.
-		*
 		*/
   @Override
 	public int hashCode() {
@@ -58,7 +56,6 @@ public class State {
   /**
 		* Méthode permettant de retourner le State.
 		* @return this.state , qui est un Map de Variable et de String.
-		*
 		*/
   public Map<Variable,String> getState() {
     return this.state;
@@ -68,7 +65,6 @@ public class State {
   /**
 		* Méthode permettant de mettre à jour un State.
 		* @param state , qui est un Map de Variable et de String.
-		*
 		*/
   public void setState(Map<Variable,String> state) {
     this.state = state;
@@ -78,7 +74,6 @@ public class State {
   /**
 		* Méthode permettant d'afficher le State.
 		* @return this.state.toString() , qui sera de type String.
-		*
 		*/
 	public String toString() {
 		return this.state.toString();

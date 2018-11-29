@@ -44,6 +44,9 @@ public class AssemblyLine {
 
 public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new String[] {"GRAY", "BLACK"/*, "WHITE"/*, "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"*/}));
 
+/**
+	* Le constructeur de la classe
+	*/
 	public AssemblyLine() {
 		//Création de l'état initial
 		HashMap<Variable,String> starting_car = new HashMap<Variable,String>();
@@ -171,19 +174,17 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 		}
 	}
 /**
-	* @return this.initial_state , retourne l'état initial.
 	* Qui sera un State.
+	* @return this.initial_state , retourne l'état initial.
 	*/
 	public State getInitialState() {
 		return this.initial_state;
 	}
 
 /**
-	* @return result , retourne result, qui est une ArrayList d'Action.
 	* Retourne une "voiture" avec les installations basiques.
-	*
+	* @return result , retourne result, qui est une ArrayList d'Action.
 	*/
-
 	public ArrayList<Action> getBasicInstallActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
 		result.add(this.INSTALL_CHASSIS);
@@ -196,10 +197,9 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 /**
-	* @return result ,  retourne un result de type ArrayList d'Action.
 	* Retourne une "voiture" avec l'installation des roues.
+	* @return result ,  retourne un result de type ArrayList d'Action.
 	*/
-
 	public ArrayList<Action> getParallelWheelInstallActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
 		result.add(this.INSTALL_REAR_WHEELS);
@@ -210,10 +210,9 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 /**
-	* @return result , de type ArrayList d'Action .
 	* Retourne une "voiture" painte en précision.
+	* @return result , de type ArrayList d'Action .
 	*/
-
 	public ArrayList<Action> getPrecisePaintActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
 		result.addAll(this.PAINT_ROOF);
@@ -229,10 +228,9 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 /**
-	* @return result , qui est de type ArrayList d'Action.
 	* Retourne une "voiture" painte de façon plus large/
+	* @return result , qui est de type ArrayList d'Action.
 	*/
-
 	public ArrayList<Action> getLargePaintActions() {
 		ArrayList<Action> result = new ArrayList<Action>();
 		result.addAll(this.PAINT_REAR);
@@ -244,9 +242,8 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 
 
 /**
-	* @return result , qui est de type ArrayList d'Action.
 	* Retourne une "voiture" avec toutes les actions précédentes.
-	*
+	* @return result , qui est de type ArrayList d'Action.
 	*/
 	public ArrayList<Action> getAllActions() {
 		ArrayList<Action> result = new ArrayList<Action>(this.getBasicInstallActions());
@@ -257,11 +254,9 @@ public static Set<String> all_colors = new HashSet<String>(Arrays.asList(new Str
 	}
 
 /**
-	* @return random_goal , C'est un State avec un but précis.
 	* Retourne un but précis pour une voiture.
-	*
+	* @return random_goal , C'est un State avec un but précis.
 	*/
-
 	public State generateGoalState() {
 		String[] gettable_array = this.all_colors.toArray(new String[this.all_colors.size()]);//passage du set en array pour pouvoir récupérer une couleur
 		HashMap<Variable,String> random_car = new HashMap<Variable,String>();

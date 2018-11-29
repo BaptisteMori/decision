@@ -14,7 +14,6 @@ public class PlanningProblemWithCost extends PlanningProblem {
 	* @param init , qui est un State.
 	* @param goals , qui est une ArrayList de State.
 	* @param actions , qui est une ArrayList d'Action.
-	*
 	*/
 	public PlanningProblemWithCost(State init, ArrayList<State> goals, ArrayList<Action> actions) {
 		super(init,goals,actions);
@@ -54,7 +53,6 @@ public class PlanningProblemWithCost extends PlanningProblem {
 	/**
 		* Méthode qiui permet de mettre à jour une heuristic.
 		* @param new_h , qui est de type Heuristic.
-		*
 		*/
 	public void setHeuristic(Heuristic new_h) {
 		this.h=new_h;
